@@ -7,7 +7,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.learning.channel-app</groupId>
+    <groupId>org.learning.channelapp</groupId>
     <artifactId>channel-app</artifactId>
     <packaging>jar</packaging>
 

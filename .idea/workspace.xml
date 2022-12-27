@@ -5,36 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/assure.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/ControllerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/DbConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/SpringConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/WebInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinSkuPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelListingPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/InventoryPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/InvoiceType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderItemPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ProductPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/UserPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/UserType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/AppTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/channel-app/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/channel-app/src/main/java/org/learning/channel-app/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/channel-app/src/test/java/org/learning/channel-app/AppTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/learning/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/learning/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/channel/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/channel-app/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/channel-app/src/main/java/org/learning/channel-app/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/channel-app/src/test/java/org/learning/channel-app/AppTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,13 +48,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "jdk.selected.JAVA_MODULE": "1.8"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.learning.assure.pojo" />
@@ -107,6 +84,26 @@
       <option name="presentableId" value="Default" />
       <updated>1672118683610</updated>
     </task>
+    <task id="LOCAL-00001" summary="Basic Configs and Pojos created.">
+      <created>1672130430364</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672130430364</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Channel module refactored">
+      <created>1672130735441</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672130735441</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Basic Configs and Pojos created." />
+    <MESSAGE value="Channel module refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="Channel module refactored" />
   </component>
 </project>

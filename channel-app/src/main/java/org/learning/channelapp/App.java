@@ -1,4 +1,4 @@
-package org.learning.channel-app;
+package org.learning.channelapp;
 
 /**
  * Hello world!

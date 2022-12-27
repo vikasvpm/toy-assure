@@ -1,4 +1,4 @@
-package org.learning.channel-app;
+package org.learning.channelapp;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
