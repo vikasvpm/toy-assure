@@ -3,9 +3,7 @@ package org.learning.assure.pojo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,6 +11,7 @@ import javax.persistence.Id;
 public class ProductPojo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long globalSkuId;
     private String clientSkuId;
     private Long clientId;

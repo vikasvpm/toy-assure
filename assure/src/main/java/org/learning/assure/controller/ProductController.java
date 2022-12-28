@@ -3,6 +3,7 @@ package org.learning.assure.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.learning.assure.api.ProductApi;
+import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ public class ProductController {
 
     @PostMapping(path = "/product")
     @ApiOperation(value = "Create a product")
-    public void addProduct(@RequestBody ProductPojo productPojo) {
+    public void addProduct(@RequestBody ProductForm productForm) {
+        ProductPojo productPojo = convert(productForm);
         productApi.addProduct(productPojo);
     }
 
@@ -29,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/product")
-    @ApiOperation(value = "Get all Prducts")
+    @ApiOperation(value = "Get all Products")
     public List<ProductPojo> getAllProducts() {
         return productApi.getAllProducts();
     }
@@ -38,6 +40,16 @@ public class ProductController {
     @ApiOperation(value = "Delete product by Global SKU ID")
     public void deleteProductByGlobalSkuId(@PathVariable Long id) {
         productApi.deleteProduct(id);
+    }
+
+    private ProductPojo convert(ProductForm productForm) {
+        ProductPojo productPojo = new ProductPojo();
+        productPojo.setName(productForm.getName());
+        productPojo.setDescription(productForm.getDescription());
+        productPojo.setClientId(productForm.getClientId());
+        productPojo.setClientSkuId(productForm.getClientSkuId());
+        productPojo.setBrandId(productForm.getBrandId());
+        return productPojo;
     }
 
 }

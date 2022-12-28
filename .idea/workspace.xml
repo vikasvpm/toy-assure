@@ -5,29 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="Channel module replaces with channel app">
-      <change afterPath="$PROJECT_DIR$/assure/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ProductApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ProductDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/data/ProductData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/data/UserData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ProductForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/UserForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/assure.properties" beforeDir="false" afterPath="$PROJECT_DIR$/assure/assure.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/assure/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/ControllerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/ControllerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinSkuPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinSkuPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelListingPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelListingPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/InventoryPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/InventoryPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderItemPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderItemPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ProductPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ProductPojo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/UserPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/UserPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/channel-app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/channel-app/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,21 +175,5 @@
     <MESSAGE value="Channel module refactored" />
     <MESSAGE value="Channel module replaces with channel app" />
     <option name="LAST_COMMIT_MESSAGE" value="Channel module replaces with channel app" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/ControllerConfig.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
