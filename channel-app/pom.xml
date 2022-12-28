@@ -9,7 +9,7 @@
 
     <groupId>org.learning.channelapp</groupId>
     <artifactId>channel-app</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>channel-app</name>
     <url>http://maven.apache.org</url>

@@ -2,16 +2,17 @@ package org.learning.assure.pojo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class InventoryPojo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long inventoryId;
 
     private Long globalSkuId;

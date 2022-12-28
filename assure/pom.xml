@@ -9,13 +9,20 @@
 
     <groupId>org.learning.assure</groupId>
     <artifactId>assure</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>assure</name>
     <url>http://maven.apache.org</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <maven.compiler.source>8</maven.compiler.source>
+            <maven.compiler.target>8</maven.compiler.target>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+            <jetty.http.port>8008</jetty.http.port>
+            <jetty.context>/assure/api</jetty.context>
+            <jetty.version>9.4.21.v20190926</jetty.version>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
 
     <dependencies>
