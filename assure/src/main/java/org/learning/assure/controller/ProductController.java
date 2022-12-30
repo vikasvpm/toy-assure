@@ -3,6 +3,8 @@ package org.learning.assure.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.learning.assure.api.ProductApi;
+import org.learning.assure.dto.ProductDto;
+import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,13 @@ public class ProductController {
     @Autowired
     private ProductApi productApi;
 
-    @PostMapping(path = "/product")
+    @Autowired
+    private ProductDto productDto;
+
+    @PostMapping(path = "/product/{clientId}")
     @ApiOperation(value = "Create a product")
-    public void addProduct(@RequestBody ProductForm productForm) {
-        ProductPojo productPojo = convert(productForm);
-        productApi.addProduct(productPojo);
+    public void addProducts(@RequestBody List<ProductForm> productFormList, @PathVariable Long clientId) throws ApiException {
+        productDto.addProducts(productFormList, clientId);
     }
 
     @GetMapping(path = "/product/{id}")
@@ -33,23 +37,14 @@ public class ProductController {
     @GetMapping(path = "/product")
     @ApiOperation(value = "Get all Products")
     public List<ProductPojo> getAllProducts() {
-        return productApi.getAllProducts();
+        return productDto.getAllProducts();
     }
 
     @DeleteMapping(path = "/product/{id}")
     @ApiOperation(value = "Delete product by Global SKU ID")
     public void deleteProductByGlobalSkuId(@PathVariable Long id) {
-        productApi.deleteProduct(id);
+        productDto.deleteProduct(id);
     }
 
-    private ProductPojo convert(ProductForm productForm) {
-        ProductPojo productPojo = new ProductPojo();
-        productPojo.setName(productForm.getName());
-        productPojo.setDescription(productForm.getDescription());
-        productPojo.setClientId(productForm.getClientId());
-        productPojo.setClientSkuId(productForm.getClientSkuId());
-        productPojo.setBrandId(productForm.getBrandId());
-        return productPojo;
-    }
 
 }

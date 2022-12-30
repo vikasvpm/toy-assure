@@ -1,7 +1,9 @@
 package org.learning.assure.api;
 
 import org.learning.assure.dao.UserDao;
+import org.learning.assure.exception.ApiException;
 import org.learning.assure.pojo.UserPojo;
+import org.learning.assure.pojo.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,13 @@ public class UserApi {
     @Transactional
     public void deleteUser(Long userId) {
         userDao.deleteUserByUserId(userId);
+    }
+
+    public void invalidClientCheck(Long userId) throws ApiException {
+        UserPojo userPojo = userDao.getUserByUserId(userId);
+        if(userPojo == null || !userPojo.getUserType().equals(UserType.CLIENT)) {
+            throw new ApiException("No client exists with client Id = " + userId);
+        }
     }
     
 }
