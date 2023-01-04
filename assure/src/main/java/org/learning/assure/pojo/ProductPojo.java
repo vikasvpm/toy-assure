@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class ProductPojo {
+public class ProductPojo extends AbstractPojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

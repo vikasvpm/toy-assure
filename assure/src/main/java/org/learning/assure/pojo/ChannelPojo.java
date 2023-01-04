@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @NoArgsConstructor
-public class ChannelPojo {
+public class ChannelPojo extends AbstractPojo {
 
     @Id
     private Long channelId;

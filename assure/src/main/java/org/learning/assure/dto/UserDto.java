@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class UserDto {
 
     @Autowired
@@ -26,6 +25,7 @@ public class UserDto {
         userPojo.setName(userForm.getName());
         return userPojo;
     }
+    // TODO TO MOVE CONVERT LOGICS TO HELPER
 
     public UserPojo getUserByUserId(Long id) {
         return userApi.getUserByUserId(id);

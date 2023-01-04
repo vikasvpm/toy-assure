@@ -31,7 +31,7 @@ public class UserDao {
     public UserPojo getUserByUserId(Long userId) {
         TypedQuery<UserPojo> query = entityManager.createQuery(SELECT_BY_USERID, UserPojo.class);
         query.setParameter("userId", userId);
-        return query.getSingleResult();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 
     public void addUser(UserPojo userPojo) {

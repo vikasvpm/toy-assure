@@ -16,7 +16,7 @@ public class BinDao {
     EntityManager entityManager;
 
     public static final String SELECT_ALL = "select b from BinPojo b";
-    public static final String SELECT_BY_BINID = "select B from BinPojo b where binId=:binId";
+    public static final String SELECT_BY_BINID = "select b from BinPojo b where binId=:binId";
 
     public List<BinPojo> getAllBins() {
         Query query = entityManager.createQuery(SELECT_ALL);
@@ -27,5 +27,9 @@ public class BinDao {
         TypedQuery<BinPojo> query = entityManager.createQuery(SELECT_BY_BINID, BinPojo.class);
         query.setParameter("binId", id);
         return query.getSingleResult();
+    }
+
+    public void addBin(BinPojo binPojo) {
+        entityManager.persist(binPojo);
     }
 }

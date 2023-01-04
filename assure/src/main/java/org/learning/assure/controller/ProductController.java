@@ -27,6 +27,7 @@ public class ProductController {
     public void addProducts(@RequestBody List<ProductForm> productFormList, @PathVariable Long clientId) throws ApiException {
         productDto.addProducts(productFormList, clientId);
     }
+    // TODO HANDLE DUPLICACY VALIDATION
 
     @GetMapping(path = "/product/{id}")
     @ApiOperation(value = "Get Product by Global SKU ID")

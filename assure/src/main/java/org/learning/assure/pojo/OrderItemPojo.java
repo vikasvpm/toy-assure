@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @NoArgsConstructor
-public class OrderItemPojo {
+public class OrderItemPojo extends AbstractPojo {
 
     @Id
     private Long orderItemId;

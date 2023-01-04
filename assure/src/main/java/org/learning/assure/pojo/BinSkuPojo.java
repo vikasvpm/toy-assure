@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 @Data
 @NoArgsConstructor
-public class BinSkuPojo {
+public class BinSkuPojo extends AbstractPojo{
 
     @Id
     private Long binSkuId;

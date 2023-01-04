@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class InventoryPojo {
+public class InventoryPojo extends AbstractPojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
