@@ -1,6 +1,7 @@
 package org.learning.assure.api;
 
 import org.learning.assure.dao.ProductDao;
+import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,13 @@ public class ProductApi {
         for(ProductPojo productPojo : productPojoList) {
             productDao.addProduct(productPojo);
         }
+    }
+
+    public void updateProduct(ProductForm productForm, Long clientId) {
+            productDao.updateProduct(productForm, clientId);
+    }
+
+    public ProductPojo getProductByClientIdAndClientSkuId(Long clientId, String clientSkuId) {
+            return productDao.getProductByClientIdAndClientSkuId(clientId, clientSkuId);
     }
 }
