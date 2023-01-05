@@ -27,6 +27,12 @@ public class ProductController {
     public void addProducts(@RequestBody List<ProductForm> productFormList, @PathVariable Long clientId) throws ApiException {
         productDto.addProducts(productFormList, clientId);
     }
+
+    @PutMapping(path = "/product/{clientId}")
+    @ApiOperation(value = "Create products in batch")
+    public void updateProduct(@RequestBody ProductForm productForm, @PathVariable Long clientId) throws ApiException {
+        productDto.updateProduct(productForm, clientId);
+    }
     // TODO HANDLE DUPLICACY VALIDATION
 
     @GetMapping(path = "/product/{id}")
