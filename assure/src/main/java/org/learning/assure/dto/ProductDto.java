@@ -41,6 +41,12 @@ public class ProductDto {
         productApi.addProducts(productPojoList);
     }
 
+    public void updateProduct(ProductForm productForm, Long clientId) throws ApiException {
+        validateForClientId(clientId);
+        productApi.updateProduct(productForm, clientId);
+
+    }
+
     private void validateForDuplicate(List<ProductForm> productFormList, Long clientId) {
         Set<String> clientSkuIdSet = new HashSet<>();
         productFormList.stream().map(ProductForm :: getClientSkuId)
@@ -68,9 +74,4 @@ public class ProductDto {
         userApi.invalidClientCheck(clientId);
     }
 
-    public void updateProduct(ProductForm productForm, Long clientId) throws ApiException {
-        validateForClientId(clientId);
-        productApi.updateProduct(productForm, clientId);
-
-    }
 }

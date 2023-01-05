@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class OrderPojo extends AbstractPojo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     private Long clientId;
     private Long customerId;

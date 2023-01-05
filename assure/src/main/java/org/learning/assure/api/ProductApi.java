@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductApi {
 
     @Autowired
@@ -35,16 +36,19 @@ public class ProductApi {
         productDao.deleteProductByGlobalSkuId(globalSkuId);
     }
 
+    @Transactional
     public void addProducts(List<ProductPojo> productPojoList) {
         for(ProductPojo productPojo : productPojoList) {
             productDao.addProduct(productPojo);
         }
     }
 
+    @Transactional
     public void updateProduct(ProductForm productForm, Long clientId) {
             productDao.updateProduct(productForm, clientId);
     }
 
+    @Transactional
     public ProductPojo getProductByClientIdAndClientSkuId(Long clientId, String clientSkuId) {
             return productDao.getProductByClientIdAndClientSkuId(clientId, clientSkuId);
     }

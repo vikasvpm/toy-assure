@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class InventoryPojo extends AbstractPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryId;
 
     private Long globalSkuId;

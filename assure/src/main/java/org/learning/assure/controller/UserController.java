@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/user/{id}")
-    @ApiOperation(value = "Delete user by UserU ID")
+    @ApiOperation(value = "Delete user by User ID")
     public void deleteUserByUserId(@PathVariable Long id) {
         userDto.deleteUser(id);
     }

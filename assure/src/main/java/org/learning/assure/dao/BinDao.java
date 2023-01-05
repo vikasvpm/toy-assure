@@ -26,7 +26,7 @@ public class BinDao {
     public BinPojo getBinById(Long id) {
         TypedQuery<BinPojo> query = entityManager.createQuery(SELECT_BY_BINID, BinPojo.class);
         query.setParameter("binId", id);
-        return query.getSingleResult();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 
     public void addBin(BinPojo binPojo) {

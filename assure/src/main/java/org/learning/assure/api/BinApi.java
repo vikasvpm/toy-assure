@@ -17,4 +17,10 @@ public class BinApi {
         binDao.addBin(binPojo);
         return binPojo;
     }
+
+    @Transactional
+    public BinPojo getBinByBinId(Long binId) {
+        return binDao.getBinById(binId);
+    }
+
 }

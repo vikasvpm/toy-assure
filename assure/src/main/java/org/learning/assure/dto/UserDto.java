@@ -1,6 +1,7 @@
 package org.learning.assure.dto;
 
 import org.learning.assure.api.UserApi;
+import org.learning.assure.dto.helper.UserHelper;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,9 @@ public class UserDto {
     @Autowired
     private UserApi userApi;
     public void addUser(UserForm userForm) {
-        UserPojo userPojo = convert(userForm);
+        UserPojo userPojo = UserHelper.convert(userForm);
         userApi.addUser(userPojo);
     }
-    private UserPojo convert(UserForm userForm) {
-        UserPojo userPojo = new UserPojo();
-        userPojo.setUserType(userForm.getUserType());
-        userPojo.setName(userForm.getName());
-        return userPojo;
-    }
-    // TODO TO MOVE CONVERT LOGICS TO HELPER
 
     public UserPojo getUserByUserId(Long id) {
         return userApi.getUserByUserId(id);

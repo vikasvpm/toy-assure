@@ -33,7 +33,7 @@ public class ProductController {
     public void updateProduct(@RequestBody ProductForm productForm, @PathVariable Long clientId) throws ApiException {
         productDto.updateProduct(productForm, clientId);
     }
-    // TODO HANDLE DUPLICACY VALIDATION
+    // TODO : Get Product data instead of pojo
 
     @GetMapping(path = "/product/{id}")
     @ApiOperation(value = "Get Product by Global SKU ID")
