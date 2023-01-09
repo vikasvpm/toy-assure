@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.learning.assure.dto.BinSkuDto;
 import org.learning.assure.model.form.BinSkuForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,4 +22,12 @@ public class BinSkuController {
     public void addBinSkus(@RequestBody List<BinSkuForm> binSkuFormList, @PathVariable Long clientId) {
         binSkuDto.addBinSkus(binSkuFormList, clientId);
     }
+
+//    @PutMapping(path = "/binsku/{clientId}")
+//    @ApiOperation(value = "Update Bin SKU quantity")
+//    public void updateQuantity(@RequestBody BinSkuForm binSkuForm, @PathVariable Long clientId) {
+//        binSkuDto.updateQuantity(binSkuForm, clientId);
+//    }
+
+    // TODO : Implement Binsku quantity update
 }

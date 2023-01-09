@@ -20,7 +20,6 @@ public class UserDao {
 
     public static final String SELECT_ALL = "select u from UserPojo u";
     public static final String SELECT_BY_USERID = "select u from UserPojo u where userID=:userId";
-
     private static final String DELETE_BY_USERID = "delete from UserPojo u where userId=:userId";
 
     public List<UserPojo> getAllUsers() {

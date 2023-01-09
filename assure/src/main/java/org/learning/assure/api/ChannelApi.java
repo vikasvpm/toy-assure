@@ -22,6 +22,10 @@ public class ChannelApi {
         return channelDao.getChannelByName(name);
     }
 
+    public ChannelPojo getChannelById(Long channelId) {
+        return channelDao.getChannelById(channelId);
+    }
+
     public ChannelPojo getDefault() {
         return channelDao.getDefault();
     }

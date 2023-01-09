@@ -15,7 +15,7 @@ public class BinSkuHelper {
 
     @Autowired
     private ProductApi productApi;
-
+    // TODO : refactor to only have static functions and no autowiring
     public List<BinSkuPojo> convertBinSkuFormListToBinSkuPojoList(List<BinSkuForm> binSkuFormList, Long clientId) {
         List<BinSkuPojo> binSkuPojoList = new ArrayList<>();
         for(BinSkuForm binSkuForm : binSkuFormList) {

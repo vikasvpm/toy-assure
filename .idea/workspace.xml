@@ -5,14 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/ChannelHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelListingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelListingDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/ChannelListingHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelListingForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/assure.properties" beforeDir="false" afterPath="$PROJECT_DIR$/assure/assure.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/SpringConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/BinSkuHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/BinSkuHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672915670232</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Channel Flow Added">
+      <created>1672919385592</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1672919385592</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -224,7 +239,8 @@
     <MESSAGE value="Duplicate clientSku validation and product update added" />
     <MESSAGE value="Update product and duplicate validation" />
     <MESSAGE value="BinSku getting added with validations" />
-    <option name="LAST_COMMIT_MESSAGE" value="BinSku getting added with validations" />
+    <MESSAGE value="Channel Flow Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Channel Flow Added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

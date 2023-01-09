@@ -45,5 +45,4 @@ public class UserApi {
             throw new ApiException("User with Id = " + userId + " is not a client");
         }
     }
-    
 }

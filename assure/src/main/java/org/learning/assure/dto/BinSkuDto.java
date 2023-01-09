@@ -35,6 +35,7 @@ public class BinSkuDto {
 
     }
 
+
     private void validateForBinId(List<BinSkuForm> binSkuFormList) {
         Set<Long> binIdSet = new HashSet<>();
         binSkuFormList.stream().map(BinSkuForm::getBinId)
@@ -71,4 +72,6 @@ public class BinSkuDto {
                     
                 });
     }
+
+
 }
