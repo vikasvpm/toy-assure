@@ -23,6 +23,8 @@ public class ProductDao {
 
     private static final String DELETE_BY_GLOBALSKUID = "delete from ProductPojo p where globalSkuId=:globalSkuId";
 
+    private static final String SELECT_GLOBALSKUID = "select p.globalSkuId from ProductPojo p where clientId=:clientId and clientSkuId=:clientSkuId";
+
 
     public List<ProductPojo> getAllProducts() {
         Query query = entityManager.createQuery(SELECT_ALL);

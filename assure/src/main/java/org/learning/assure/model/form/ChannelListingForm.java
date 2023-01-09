@@ -6,5 +6,6 @@ import lombok.Data;
 public class ChannelListingForm {
 
     private Long globalSkuId;
+    // TODO : Take clientSkuId here and then fetch globalSkuId from that
     private String channelSkuId;
 }

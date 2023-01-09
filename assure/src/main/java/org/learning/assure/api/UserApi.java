@@ -45,4 +45,14 @@ public class UserApi {
             throw new ApiException("User with Id = " + userId + " is not a client");
         }
     }
+
+    public void invalidCustomerCheck(Long customerId) throws ApiException {
+        UserPojo userPojo = userDao.getUserByUserId(customerId);
+        if(userPojo == null) {
+            throw new ApiException("No customer exists with ID = " + customerId);
+        }
+        else if(!userPojo.getUserType().equals(UserType.CUSTOMER)){
+            throw new ApiException("User with Id = " + customerId + " is not a customer");
+        }
+    }
 }
