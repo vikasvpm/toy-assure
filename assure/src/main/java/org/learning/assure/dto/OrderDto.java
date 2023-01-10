@@ -32,7 +32,7 @@ public class OrderDto {
         validateClient(clientId);
         validateCustomer(customerId);
         validateClientSkus(internalOrderFormList, clientId);
-        validateChannelOrderId(channelOrderId);
+        validateChannelOrderId(channelOrderId, 1l);
         OrderPojo orderPojo = OrderHelper.convertToInternalOrder(channelOrderId, clientId, customerId);
         OrderPojo createdOrder = orderApi.createOrder(orderPojo);
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
@@ -51,8 +51,12 @@ public class OrderDto {
         return map;
     }
 
-    private void validateChannelOrderId(String channelOrderId) {
-        // TODO : Add this validation
+    private void validateChannelOrderId(String channelOrderId, Long channelId) throws ApiException {
+        OrderPojo orderPojo = orderApi.getOrderByChannelOrder(channelOrderId, channelId);
+        if(orderPojo != null) {
+            throw new ApiException("ChannelOrderId " + channelOrderId + " already exists for the Channel " + channelId );
+        }
+
     }
 
     private void validateCustomer(Long customerId) throws ApiException {
@@ -90,10 +94,10 @@ public class OrderDto {
     public void createChannelOrder(List<ChannelOrderForm> channelOrderFormList, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException {
         validateClient(clientId);
         validateCustomer(customerId);
-        validateChannelOrderId(channelOrderId);
         validateChannelName(channelName);
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
         validateChannelSkuIds(channelOrderFormList, clientId, channelPojo.getChannelId());
+        validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
         OrderPojo orderPojo = OrderHelper.createChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
         OrderPojo createdOrder = orderApi.createOrder(orderPojo);
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
@@ -125,7 +129,13 @@ public class OrderDto {
         return map;
     }
 
-    private void validateChannelName(String channelName) {
-        // TODO: Add this validation
+    private void validateChannelName(String channelName) throws ApiException {
+        if(channelName.equals("INTERNAL")) {
+            throw new ApiException("Channel name can not be 'INTERNAL' for channel orders");
+        }
+        ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
+        if(channelPojo == null) {
+            throw new ApiException("No Channel exists with Channel Name " + channelName);
+        }
     }
 }
