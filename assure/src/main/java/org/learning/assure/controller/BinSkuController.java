@@ -21,13 +21,6 @@ public class BinSkuController {
     @ApiOperation(value = "Add Bin SKUs")
     public void addBinSkus(@RequestBody List<BinSkuForm> binSkuFormList, @PathVariable Long clientId) {
         binSkuDto.addBinSkus(binSkuFormList, clientId);
+
     }
-
-//    @PutMapping(path = "/binsku/{clientId}")
-//    @ApiOperation(value = "Update Bin SKU quantity")
-//    public void updateQuantity(@RequestBody BinSkuForm binSkuForm, @PathVariable Long clientId) {
-//        binSkuDto.updateQuantity(binSkuForm, clientId);
-//    }
-
-    // TODO : Implement Binsku quantity update
 }

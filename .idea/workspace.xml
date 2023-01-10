@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InventoryApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/InventoryDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/InventoryHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/OrderApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/OrderApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/BinSkuHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/BinSkuHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +211,21 @@
       <option name="project" value="LOCAL" />
       <updated>1673328940575</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added more order validations">
+      <created>1673340287809</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1673340287809</updated>
+    </task>
+    <task id="LOCAL-00015" summary=" added validations in creating  orders">
+      <created>1673340330959</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1673340330959</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -253,7 +270,9 @@
     <MESSAGE value="Channel Listing flow added" />
     <MESSAGE value="Internal Order creation added" />
     <MESSAGE value="Channel Order creation added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Channel Order creation added" />
+    <MESSAGE value="Added more order validations" />
+    <MESSAGE value=" added validations in creating  orders" />
+    <option name="LAST_COMMIT_MESSAGE" value=" added validations in creating  orders" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -262,16 +281,6 @@
           <properties class="org.springframework.web.util.NestedServletException" package="org.springframework.web.util" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java</url>
-          <line>99</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
