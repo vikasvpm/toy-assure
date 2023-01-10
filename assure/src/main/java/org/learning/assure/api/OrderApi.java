@@ -15,12 +15,12 @@ public class OrderApi {
 
     @Autowired
     private OrderDao orderDao;
-    public OrderPojo createInternalOrder(OrderPojo orderPojo) {
+    public OrderPojo createOrder(OrderPojo orderPojo) {
         OrderPojo createdOrderPojo = orderDao.createInternalOrder(orderPojo);
         return createdOrderPojo;
     }
 
-    public void createInternalOrderItem(List<OrderItemPojo> orderItemPojoList) {
+    public void createOrderItem(List<OrderItemPojo> orderItemPojoList) {
         for(OrderItemPojo orderItemPojo : orderItemPojoList) {
             orderDao.createInternalOrderItem(orderItemPojo);
         }
