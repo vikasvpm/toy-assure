@@ -5,8 +5,7 @@ import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -48,7 +47,7 @@ public class ProductApi {
             productDao.updateProduct(productForm, clientId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductPojo getProductByClientIdAndClientSkuId(Long clientId, String clientSkuId) {
             return productDao.getProductByClientIdAndClientSkuId(clientId, clientSkuId);
     }
