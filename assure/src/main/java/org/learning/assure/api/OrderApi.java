@@ -25,4 +25,9 @@ public class OrderApi {
             orderDao.createInternalOrderItem(orderItemPojo);
         }
     }
+
+    public OrderPojo getOrderByChannelOrder(String channelOrderId, Long channelId) {
+        return orderDao.getOrderByChannelOrder(channelOrderId, channelId);
+
+    }
 }
