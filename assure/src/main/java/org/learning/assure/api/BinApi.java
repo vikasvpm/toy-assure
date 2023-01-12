@@ -5,20 +5,20 @@ import org.learning.assure.pojo.BinPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class BinApi {
     @Autowired
     private BinDao binDao;
 
-    @Transactional
     public BinPojo addBin(BinPojo binPojo) {
         binDao.addBin(binPojo);
         return binPojo;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BinPojo getBinByBinId(Long binId) {
         return binDao.getBinById(binId);
     }

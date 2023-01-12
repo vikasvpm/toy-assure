@@ -14,6 +14,7 @@ public class ProductHelper {
         productPojo.setClientId(clientId);
         productPojo.setClientSkuId(productForm.getClientSkuId());
         productPojo.setBrandId(productForm.getBrandId());
+        productPojo.setMrp(productForm.getMrp());
         return productPojo;
     }
 

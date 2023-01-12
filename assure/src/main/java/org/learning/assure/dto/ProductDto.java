@@ -34,17 +34,10 @@ public class ProductDto {
     }
 
     public void addProducts(List<ProductForm> productFormList, Long clientId) throws ApiException {
-
         validateForClientId(clientId);
         validateForDuplicate(productFormList, clientId);
         List<ProductPojo> productPojoList = ProductHelper.convertListOfProductFormToListOfProductPojo(productFormList, clientId);
         productApi.addProducts(productPojoList);
-    }
-
-    public void updateProduct(ProductForm productForm, Long clientId) throws ApiException {
-        validateForClientId(clientId);
-        productApi.updateProduct(productForm, clientId);
-
     }
 
     private void validateForDuplicate(List<ProductForm> productFormList, Long clientId) {
@@ -53,19 +46,19 @@ public class ProductDto {
                 .forEach(clientSkuId -> {
                     if(clientSkuIdSet.contains(clientSkuId)) {
                         try {
-                            throw new ApiException("Duplicate Client SKUs in the upload");
+                            throw new ApiException("Duplicate Client SKU " + clientSkuId + " in the upload");
                         } catch (ApiException e) {
                             throw new RuntimeException(e);
                         }
                     }
                     clientSkuIdSet.add(clientSkuId);
-                    if(productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId) != null) {
-                        try {
-                            throw new ApiException("This record already exists in System");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+//                    if(productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId) != null) {
+//                        try {
+//                            throw new ApiException("This record already exists in System");
+//                        } catch (ApiException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
                 });
 
     }

@@ -1,7 +1,6 @@
 package org.learning.assure.api;
 
 import org.learning.assure.dao.ProductDao;
-import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,16 @@ public class ProductApi {
 
     @Transactional
     public void addProduct(ProductPojo productPojo) {
-        productDao.addProduct(productPojo);
+        ProductPojo exists = productDao.getProductByClientIdAndClientSkuId(productPojo.getClientId(),productPojo.getClientSkuId());
+        if(exists == null) {
+            productDao.addProduct(productPojo);
+        }
+        else {
+            exists.setMrp(productPojo.getMrp());
+            exists.setName(productPojo.getName());
+            exists.setBrandId(productPojo.getBrandId());
+            exists.setDescription(productPojo.getDescription());
+        }
     }
 
     @Transactional
@@ -38,13 +46,8 @@ public class ProductApi {
     @Transactional
     public void addProducts(List<ProductPojo> productPojoList) {
         for(ProductPojo productPojo : productPojoList) {
-            productDao.addProduct(productPojo);
+            addProduct(productPojo);
         }
-    }
-
-    @Transactional
-    public void updateProduct(ProductForm productForm, Long clientId) {
-            productDao.updateProduct(productForm, clientId);
     }
 
     @Transactional(readOnly = true)

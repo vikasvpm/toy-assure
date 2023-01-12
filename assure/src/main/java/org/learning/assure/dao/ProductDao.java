@@ -49,14 +49,6 @@ public class ProductDao {
     }
 
 
-    public void updateProduct(ProductForm productForm, Long clientId) {
-        ProductPojo productPojo = getProductByClientIdAndClientSkuId(clientId, productForm.getClientSkuId());
-        productPojo.setBrandId(productForm.getBrandId());
-        productPojo.setName(productForm.getName());
-        productPojo.setDescription(productForm.getDescription());
-        productPojo.setMrp(productForm.getMrp());
-    }
-
     public ProductPojo getProductByClientIdAndClientSkuId(Long clientId, String clientSkuId) {
         TypedQuery<ProductPojo> query = entityManager.createQuery(SELECT_BY_CLIENTID_AND_CLIENTSKUID, ProductPojo.class);
         query.setParameter("clientId", clientId);

@@ -28,14 +28,6 @@ public class ProductController {
         productDto.addProducts(productFormList, clientId);
     }
 
-    @PutMapping(path = "/product/{clientId}")
-    @ApiOperation(value = "Create products in batch")
-    public void updateProduct(@RequestBody ProductForm productForm, @PathVariable Long clientId) throws ApiException {
-        productDto.updateProduct(productForm, clientId);
-    }
-    // TODO : Get Product data instead of pojo
-    // TODO : Add updation logic in the CSV upload only
-
     @GetMapping(path = "/product/{id}")
     @ApiOperation(value = "Get Product by Global SKU ID")
     public ProductPojo getProductByGlobalSkuId(@PathVariable Long id) {

@@ -5,7 +5,7 @@ import org.learning.assure.pojo.BinSkuPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -17,7 +17,7 @@ public class BinSkuApi {
 
     public void addBinSkus(List<BinSkuPojo> binSkuPojoList) {
         for(BinSkuPojo binSkuPojo : binSkuPojoList) {
-            BinSkuPojo exists = checkIfExists(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
+            BinSkuPojo exists = getByBinIdAndBinSkuId(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
             if(exists == null) {
                 binSkuDao.addBinSku(binSkuPojo);
             }
@@ -27,14 +27,14 @@ public class BinSkuApi {
         }
     }
 
-    private BinSkuPojo checkIfExists(Long binId, Long globalSkuId) {
+    @Transactional(readOnly = true)
+    private BinSkuPojo getByBinIdAndBinSkuId(Long binId, Long globalSkuId) {
         return binSkuDao.getByBinIdAndGlobalSkuId(binId, globalSkuId);
     }
-
+    @Transactional(readOnly = true)
     public List<BinSkuPojo> getListByGlobalSkuId(Long globalSkuId) {
         return binSkuDao.getListByGlobalSkuId(globalSkuId);
     }
-
     public void deleteByBinSkuId(Long binSkuId) {
         binSkuDao.deleteByBinSkuId(binSkuId);
     }

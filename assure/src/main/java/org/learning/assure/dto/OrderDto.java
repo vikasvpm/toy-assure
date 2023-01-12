@@ -80,7 +80,7 @@ public class OrderDto {
                 .forEach(clientSkuId -> {
                     if(clientSkuIdSet.contains(clientSkuId)) {
                         try {
-                            throw new ApiException("Duplicate Client SKU ID is present");
+                            throw new ApiException("Duplicate Client SKU ID " + clientSkuId + " is present in the upload");
                         } catch (ApiException e) {
                             throw new RuntimeException(e);
                         }
@@ -154,7 +154,7 @@ public class OrderDto {
                 if(orderItemPojo.getOrderedQuantity() > orderItemPojo.getAllocatedQuantity()) {
                     InventoryPojo inventoryPojo = inventoryApi.getByGlobalSkuId(orderItemPojo.getGlobalSkuId());
                     Long allocated;
-                    if(inventoryPojo.getAvailableQuantity() > orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity()) {
+                    if(inventoryPojo.getAvailableQuantity() >= orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity()) {
                         allocated = orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity();
                     }
                     else {

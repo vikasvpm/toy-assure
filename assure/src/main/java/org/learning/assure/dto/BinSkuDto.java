@@ -4,6 +4,7 @@ import org.learning.assure.api.BinApi;
 import org.learning.assure.api.BinSkuApi;
 import org.learning.assure.api.InventoryApi;
 import org.learning.assure.api.ProductApi;
+import org.learning.assure.api.flow.BinWiseInventoryApi;
 import org.learning.assure.dto.helper.BinSkuHelper;
 import org.learning.assure.dto.helper.InventoryHelper;
 import org.learning.assure.exception.ApiException;
@@ -30,14 +31,16 @@ public class BinSkuDto {
     @Autowired
     private InventoryApi inventoryApi;
 
+    @Autowired
+    private BinWiseInventoryApi binWiseInventoryApi;
+
     public void addBinSkus(List<BinSkuForm> binSkuFormList, Long clientId) {
         validateForClientSkuId(binSkuFormList, clientId);
         validateForBinId(binSkuFormList);
         Map<String, Long> map = mapToGlobalSkuId(binSkuFormList, clientId);
         List<BinSkuPojo> binSkuPojoList = BinSkuHelper.convertBinSkuFormListToBinSkuPojoList(binSkuFormList, clientId, map);
-        binSkuApi.addBinSkus(binSkuPojoList);
         List<InventoryPojo> inventoryPojoList = InventoryHelper.convertToInventoryPojoList(binSkuFormList, map);
-        inventoryApi.addInventory(inventoryPojoList);
+        binWiseInventoryApi.addBinWiseInventory(binSkuPojoList, inventoryPojoList);
 
     }
 
@@ -71,14 +74,14 @@ public class BinSkuDto {
                 .forEach(clientSkuId -> {
                     if(productApi.getProductByClientIdAndClientSkuId(clientId,clientSkuId) == null) {
                         try {
-                            throw new ApiException("Client SKU ID does not exist in the system");
+                            throw new ApiException("Client SKU ID " + clientSkuId + " does not exist in the system");
                         } catch (ApiException e) {
                             throw new RuntimeException(e);
                         }
                     }
                     if(clientSkuIdSet.contains(clientSkuId)) {
                         try {
-                            throw new ApiException("Duplicate Client SKU ID");
+                            throw new ApiException("Duplicate Client SKU ID " + clientSkuId + " present in the upload");
                         } catch (ApiException e) {
                             throw new RuntimeException(e);
                         }
