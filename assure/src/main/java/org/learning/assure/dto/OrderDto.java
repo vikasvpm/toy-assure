@@ -9,8 +9,6 @@ import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.*;
 
 @Service
@@ -143,8 +141,6 @@ public class OrderDto {
             throw new ApiException("No Channel exists with Channel Name " + channelName);
         }
     }
-
-    @Transactional
     public void allocateOrder() {
         List<OrderPojo> createdOrders = orderApi.getOrdersByStatus(OrderStatus.CREATED);
         for(OrderPojo orderPojo : createdOrders) {

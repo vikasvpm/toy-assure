@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class ChannelListingForm {
 
-    private Long globalSkuId;
-    // TODO : Take clientSkuId here and then fetch globalSkuId from that
+    private String clientSkuId;
     private String channelSkuId;
 }

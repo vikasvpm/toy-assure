@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class ProductPojo extends AbstractPojo {
+ public class ProductPojo extends AbstractPojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
