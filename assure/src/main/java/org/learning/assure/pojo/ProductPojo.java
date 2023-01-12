@@ -1,13 +1,14 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class ProductPojo extends AbstractPojo {
 
     @Id

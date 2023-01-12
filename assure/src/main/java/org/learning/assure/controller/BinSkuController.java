@@ -17,9 +17,9 @@ public class BinSkuController {
     private BinSkuDto binSkuDto;
 
 
-    @PostMapping(path = "/binsku/{clientId}")
+    @PostMapping(path = "/binsku")
     @ApiOperation(value = "Add Bin SKUs")
-    public void addBinSkus(@RequestBody List<BinSkuForm> binSkuFormList, @PathVariable Long clientId) {
+    public void addBinSkus(@RequestBody List<BinSkuForm> binSkuFormList, @RequestParam Long clientId) {
         binSkuDto.addBinSkus(binSkuFormList, clientId);
 
     }

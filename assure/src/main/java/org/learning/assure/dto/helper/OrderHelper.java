@@ -1,6 +1,7 @@
 package org.learning.assure.dto.helper;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.OrderItemPojo;
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 public class OrderHelper {
 
     public static OrderPojo convertToInternalOrder(String channelOrderId, Long clientId, Long customerId) {

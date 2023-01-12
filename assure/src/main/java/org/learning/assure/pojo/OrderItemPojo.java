@@ -1,6 +1,7 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -8,9 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
+@Getter
+@Setter
 @Entity
-@NoArgsConstructor
 public class OrderItemPojo extends AbstractPojo {
 
     @Id

@@ -1,8 +1,10 @@
 package org.learning.assure.model.form;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ChannelListingForm {
 
     private Long globalSkuId;

@@ -27,7 +27,7 @@ public class InventoryApi {
         }
     }
 
-    private InventoryPojo getByGlobalSkuId(Long globalSkuId) {
+    public InventoryPojo getByGlobalSkuId(Long globalSkuId) {
         return inventoryDao.getByGlobalSkuId(globalSkuId);
     }
 }

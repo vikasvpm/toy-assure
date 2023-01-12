@@ -1,15 +1,16 @@
 package org.learning.assure.pojo;
 
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.learning.assure.model.enums.UserType;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class UserPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

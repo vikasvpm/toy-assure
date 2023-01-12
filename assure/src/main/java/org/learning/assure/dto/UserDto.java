@@ -2,6 +2,7 @@ package org.learning.assure.dto;
 
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.UserHelper;
+import org.learning.assure.model.data.UserData;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ public class UserDto {
         userApi.addUser(userPojo);
     }
 
-    public UserPojo getUserByUserId(Long id) {
-        return userApi.getUserByUserId(id);
+    public UserData getUserByUserId(Long id) {
+        UserPojo userPojo = userApi.getUserByUserId(id);
+        return UserHelper.convertToUserData(userPojo);
     }
 
     public List<UserPojo> getAllUsers() {

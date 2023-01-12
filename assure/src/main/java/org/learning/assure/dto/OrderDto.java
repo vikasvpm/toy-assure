@@ -3,11 +3,13 @@ package org.learning.assure.dto;
 import org.learning.assure.api.*;
 import org.learning.assure.dto.helper.OrderHelper;
 import org.learning.assure.exception.ApiException;
+import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -16,6 +18,8 @@ public class OrderDto {
 
     @Autowired
     private ProductApi productApi;
+    @Autowired
+    private InventoryApi inventoryApi;
 
     @Autowired
     private UserApi userApi;
@@ -25,6 +29,9 @@ public class OrderDto {
 
     @Autowired
     private ChannelApi channelApi;
+
+    @Autowired
+    private BinSkuApi binSkuApi;
 
     @Autowired
     private ChannelListingApi channelListingApi;
@@ -118,8 +125,6 @@ public class OrderDto {
                     }
                 });
     }
-
-
     private Map<String, Long> mapChannelSkuIdToGlobalSkuId(List<ChannelOrderForm> channelOrderFormList, Long channelId, Long clientId) {
         Map<String, Long> map = new HashMap<>();
         for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
@@ -136,6 +141,47 @@ public class OrderDto {
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
         if(channelPojo == null) {
             throw new ApiException("No Channel exists with Channel Name " + channelName);
+        }
+    }
+
+    @Transactional
+    public void allocateOrder() {
+        List<OrderPojo> createdOrders = orderApi.getOrdersByStatus(OrderStatus.CREATED);
+        for(OrderPojo orderPojo : createdOrders) {
+            boolean completeAllocate = true;
+            List<OrderItemPojo> orderedItems = orderApi.getOrderItemsByOrderId(orderPojo.getOrderId());
+            for(OrderItemPojo orderItemPojo : orderedItems) {
+                if(orderItemPojo.getOrderedQuantity() > orderItemPojo.getAllocatedQuantity()) {
+                    InventoryPojo inventoryPojo = inventoryApi.getByGlobalSkuId(orderItemPojo.getGlobalSkuId());
+                    Long allocated;
+                    if(inventoryPojo.getAvailableQuantity() > orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity()) {
+                        allocated = orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity();
+                    }
+                    else {
+                        allocated = inventoryPojo.getAvailableQuantity();
+                        completeAllocate = false;
+                    }
+                    inventoryPojo.setAvailableQuantity(inventoryPojo.getAvailableQuantity() - allocated);
+                    inventoryPojo.setAllocatedQuantity(inventoryPojo.getAllocatedQuantity() + allocated);
+                    orderItemPojo.setAllocatedQuantity(orderItemPojo.getAllocatedQuantity() + allocated);
+                    List<BinSkuPojo> binSkuPojoList = binSkuApi.getListByGlobalSkuId(orderItemPojo.getGlobalSkuId());
+                    for(BinSkuPojo binSkuPojo : binSkuPojoList) {
+                        if(binSkuPojo.getQuantity() > allocated) {
+                            binSkuPojo.setQuantity(binSkuPojo.getQuantity() - allocated);
+                            break;
+                        }
+                        else {
+                            allocated = allocated - binSkuPojo.getQuantity();
+                            binSkuApi.deleteByBinSkuId(binSkuPojo.getBinSkuId());
+                        }
+                    }
+
+                }
+
+            }
+            if(completeAllocate == true) {
+                orderPojo.setOrderStatus(OrderStatus.ALLOCATED);
+            }
         }
     }
 }

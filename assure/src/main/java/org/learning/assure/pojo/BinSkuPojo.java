@@ -1,16 +1,16 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 @Entity
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class BinSkuPojo extends AbstractPojo{
 
     @Id

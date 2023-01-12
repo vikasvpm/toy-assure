@@ -30,4 +30,12 @@ public class BinSkuApi {
     private BinSkuPojo checkIfExists(Long binId, Long globalSkuId) {
         return binSkuDao.getByBinIdAndGlobalSkuId(binId, globalSkuId);
     }
+
+    public List<BinSkuPojo> getListByGlobalSkuId(Long globalSkuId) {
+        return binSkuDao.getListByGlobalSkuId(globalSkuId);
+    }
+
+    public void deleteByBinSkuId(Long binSkuId) {
+        binSkuDao.deleteByBinSkuId(binSkuId);
+    }
 }

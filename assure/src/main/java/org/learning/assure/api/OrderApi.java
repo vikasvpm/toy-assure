@@ -1,6 +1,7 @@
 package org.learning.assure.api;
 
 import org.learning.assure.dao.OrderDao;
+import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.pojo.OrderItemPojo;
 import org.learning.assure.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,13 @@ public class OrderApi {
     public OrderPojo getOrderByChannelOrder(String channelOrderId, Long channelId) {
         return orderDao.getOrderByChannelOrder(channelOrderId, channelId);
 
+    }
+
+    public List<OrderPojo> getOrdersByStatus(OrderStatus status) {
+        return orderDao.getOrderByStatus(status);
+    }
+
+    public List<OrderItemPojo> getOrderItemsByOrderId(Long orderId) {
+        return orderDao.getOrderItemsByOrderId(orderId);
     }
 }

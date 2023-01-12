@@ -39,6 +39,12 @@ public class OrderController {
         orderDto.createChannelOrder(channelOrderFormList, clientId, channelOrderId, customerId, channelName);
     }
 
+    @PostMapping(path = "order/allocate")
+    @ApiOperation(value ="Allocate created orders")
+    public void allocateOrder() {
+        orderDto.allocateOrder();
+
+    }
 
 
 

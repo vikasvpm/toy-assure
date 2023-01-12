@@ -1,9 +1,13 @@
 package org.learning.assure.model.data;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.Setter;
 import org.learning.assure.model.form.UserForm;
 
-@Data
+@Getter
+@Setter
 public class UserData extends UserForm {
     private Long userId;
 }
