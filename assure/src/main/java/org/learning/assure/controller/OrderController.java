@@ -32,11 +32,14 @@ public class OrderController {
     }
 
     @PostMapping(path = "order/channel")
+    @ApiOperation(value = "Create Channel Order")
     public void createChannelOrder(@RequestBody List<ChannelOrderForm> channelOrderFormList, @RequestParam Long clientId,
                                    @RequestParam String channelOrderId, @RequestParam Long customerId,
                                    @RequestParam String channelName) throws ApiException {
         orderDto.createChannelOrder(channelOrderFormList, clientId, channelOrderId, customerId, channelName);
     }
+
+
 
 
 }

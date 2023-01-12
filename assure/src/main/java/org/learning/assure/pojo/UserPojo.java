@@ -3,6 +3,7 @@ package org.learning.assure.pojo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.learning.assure.model.enums.UserType;
 
 import javax.persistence.*;
 

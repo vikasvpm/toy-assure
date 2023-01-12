@@ -2,6 +2,7 @@ package org.learning.assure.pojo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.learning.assure.model.enums.OrderStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

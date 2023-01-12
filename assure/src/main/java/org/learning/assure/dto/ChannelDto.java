@@ -5,7 +5,7 @@ import org.learning.assure.dto.helper.ChannelHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.ChannelForm;
 import org.learning.assure.pojo.ChannelPojo;
-import org.learning.assure.pojo.InvoiceType;
+import org.learning.assure.model.enums.InvoiceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -5,7 +5,7 @@ import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.OrderItemPojo;
 import org.learning.assure.pojo.OrderPojo;
-import org.learning.assure.pojo.OrderStatus;
+import org.learning.assure.model.enums.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.learning.assure.pojo;
+package org.learning.assure.model.enums;
 
 public enum InvoiceType {
     SELF, CHANNEL
