@@ -26,7 +26,7 @@ public class ProductDto {
 
 
     public void deleteProduct(Long id) {
-        productApi.deleteProduct(id); //Add validation to check if exists
+        productApi.deleteProduct(id);
     }
 
     public List<ProductPojo> getAllProducts() {
@@ -52,13 +52,6 @@ public class ProductDto {
                         }
                     }
                     clientSkuIdSet.add(clientSkuId);
-//                    if(productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId) != null) {
-//                        try {
-//                            throw new ApiException("This record already exists in System");
-//                        } catch (ApiException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
                 });
 
     }

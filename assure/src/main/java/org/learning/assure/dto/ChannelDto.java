@@ -9,6 +9,8 @@ import org.learning.assure.model.enums.InvoiceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class ChannelDto {
     @Autowired
@@ -29,7 +31,7 @@ public class ChannelDto {
 
     private void createDefaultIfNotExists() {
         ChannelPojo channelPojo = channelApi.getDefault();
-        if(channelPojo == null) {
+        if(Objects.isNull(channelPojo)) {
             ChannelPojo internal = new ChannelPojo();
             internal.setName("INTERNAL");
             internal.setInvoiceType(InvoiceType.SELF);
@@ -39,7 +41,7 @@ public class ChannelDto {
 
     private void validateForDuplicateName(ChannelForm channelForm) throws ApiException {
         ChannelPojo channelPojo= channelApi.getChannelByName(channelForm.getName());
-        if(channelPojo != null) {
+        if(!Objects.isNull(channelPojo)) {
             throw new ApiException("Channel with name " + channelForm.getName() + "already exists");
         }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -19,7 +20,7 @@ public class InventoryApi {
     public void addInventory(List<InventoryPojo> inventoryPojoList) {
         for(InventoryPojo inventoryPojo : inventoryPojoList) {
             InventoryPojo exists = getByGlobalSkuId(inventoryPojo.getGlobalSkuId());
-            if(exists == null) {
+            if(Objects.isNull(exists)) {
                 inventoryDao.addInventory(inventoryPojo);
             }
             else {

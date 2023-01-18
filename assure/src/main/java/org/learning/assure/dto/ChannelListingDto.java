@@ -55,7 +55,7 @@ public class ChannelListingDto {
     private void validateClientIdAndChannelId(Long clientId, Long channelId) throws ApiException {
         userApi.invalidClientCheck(clientId);
         ChannelPojo channelPojo = channelApi.getChannelById(channelId);
-        if(channelPojo == null) {
+        if(Objects.isNull(channelPojo)) {
             throw new ApiException("Channel with channelId " + channelId + " does not exist");
         }
     }

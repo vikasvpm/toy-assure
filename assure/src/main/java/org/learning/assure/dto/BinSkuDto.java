@@ -1,9 +1,6 @@
 package org.learning.assure.dto;
 
-import org.learning.assure.api.BinApi;
-import org.learning.assure.api.BinSkuApi;
-import org.learning.assure.api.InventoryApi;
-import org.learning.assure.api.ProductApi;
+import org.learning.assure.api.*;
 import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.dto.helper.BinSkuHelper;
 import org.learning.assure.dto.helper.InventoryHelper;
@@ -32,9 +29,13 @@ public class BinSkuDto {
     private InventoryApi inventoryApi;
 
     @Autowired
+    private UserApi userApi;
+
+    @Autowired
     private BinWiseInventoryFlowApi binWiseInventoryFlowApi;
 
     public List<BinSkuPojo> addBinSkus(List<BinSkuForm> binSkuFormList, Long clientId) throws ApiException {
+        validateClient(clientId);
         validateForBinId(binSkuFormList);
         validateForClientSkuId(binSkuFormList, clientId);
         validateForQuantity(binSkuFormList);
@@ -42,6 +43,10 @@ public class BinSkuDto {
         List<BinSkuPojo> binSkuPojoList = BinSkuHelper.convertBinSkuFormListToBinSkuPojoList(binSkuFormList, clientId, map);
         List<InventoryPojo> inventoryPojoList = InventoryHelper.convertToInventoryPojoList(binSkuFormList, map);
         return binWiseInventoryFlowApi.addBinWiseInventory(binSkuPojoList, inventoryPojoList);
+    }
+
+    private void validateClient(Long clientId) throws ApiException {
+        userApi.invalidClientCheck(clientId);
     }
 
     private void validateForQuantity(List<BinSkuForm> binSkuFormList) throws ApiException {
@@ -66,7 +71,7 @@ public class BinSkuDto {
         Set<Long> binIdSet = new HashSet<>();
         binSkuFormList.stream().map(BinSkuForm::getBinId)
                 .forEach(binId -> {
-                    if(binApi.getBinByBinId(binId) == null) {
+                    if(Objects.isNull(binApi.getBinByBinId(binId))) {
                         try {
                             throw new ApiException("Bin with id " + binId + " does not exist");
                         } catch (ApiException e) {
@@ -80,7 +85,7 @@ public class BinSkuDto {
         Set<String> clientSkuIdSet = new HashSet<>();
         binSkuFormList.stream().map(BinSkuForm::getClientSkuId)
                 .forEach(clientSkuId -> {
-                    if(productApi.getProductByClientIdAndClientSkuId(clientId,clientSkuId) == null) {
+                    if(Objects.isNull(productApi.getProductByClientIdAndClientSkuId(clientId,clientSkuId))) {
                         try {
                             throw new ApiException("Product with Client SKU ID " + clientSkuId + " does not exist for Client " + clientId + " in the system");
                         } catch (ApiException e) {

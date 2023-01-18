@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -18,7 +19,7 @@ public class BinSkuApi {
     public List<BinSkuPojo> addBinSkus(List<BinSkuPojo> binSkuPojoList) {
         for(BinSkuPojo binSkuPojo : binSkuPojoList) {
             BinSkuPojo exists = getByBinIdAndBinSkuId(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
-            if(exists == null) {
+            if(Objects.isNull(exists)) {
                 binSkuDao.addBinSku(binSkuPojo);
             }
             else {

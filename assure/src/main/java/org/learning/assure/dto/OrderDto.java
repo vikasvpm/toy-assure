@@ -46,10 +46,19 @@ public class OrderDto {
         validateCustomer(customerId);
         validateClientSkus(internalOrderFormList, clientId);
         validateChannelOrderId(channelOrderId, 1l);
+        validateInternalOrderedQuantity(internalOrderFormList);
         OrderPojo orderPojo = OrderHelper.convertToInternalOrder(channelOrderId, clientId, customerId);
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(internalOrderFormList, map);
         orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+    }
+
+    private void validateInternalOrderedQuantity(List<InternalOrderForm> internalOrderFormList) throws ApiException {
+        for(InternalOrderForm internalOrderForm : internalOrderFormList) {
+            if(internalOrderForm.getOrderedQuantity() < 1) {
+                throw new ApiException("Ordered quantity can not be 0 or negative, such value found for product with client SKU ID = " + internalOrderForm.getClientSkuId());
+            }
+        }
     }
 
     private Map<String, Long> mapClientSkuIdToGlobalSkuId(List<InternalOrderForm> internalOrderFormList, Long clientId) {
@@ -63,10 +72,9 @@ public class OrderDto {
 
     private void validateChannelOrderId(String channelOrderId, Long channelId) throws ApiException {
         OrderPojo orderPojo = orderApi.getOrderByChannelOrder(channelOrderId, channelId);
-        if(orderPojo != null) {
+        if(!Objects.isNull(orderPojo)) {
             throw new ApiException("ChannelOrderId " + channelOrderId + " already exists for the Channel " + channelId );
         }
-
     }
 
     private void validateCustomer(Long customerId) throws ApiException {
@@ -90,7 +98,7 @@ public class OrderDto {
                     }
                     clientSkuIdSet.add(clientSkuId);
                     ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId);
-                    if(productPojo == null) {
+                    if(Objects.isNull(productPojo)) {
                         try {
                             throw new ApiException("Product with Client SKU ID " + clientSkuId + " is not present in the system for client with ID " + clientId );
                         } catch (ApiException e) {
@@ -107,6 +115,7 @@ public class OrderDto {
         validateChannelName(channelName);
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
         validateChannelSkuIds(channelOrderFormList, clientId, channelPojo.getChannelId());
+        validateChannelOrderedQuantity(channelOrderFormList);
         validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
         OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
@@ -114,11 +123,19 @@ public class OrderDto {
         orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
     }
 
+    private void validateChannelOrderedQuantity(List<ChannelOrderForm> channelOrderFormList) throws ApiException {
+        for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
+            if(channelOrderForm.getOrderedQuantity() < 1) {
+                throw new ApiException("Ordered quantity can not be 0 or negative, such value found for product with channel SKU ID = " + channelOrderForm.getChannelSkuId());
+            }
+        }
+    }
+
     private void validateChannelSkuIds(List<ChannelOrderForm> channelOrderFormList, Long clientId, Long channelId) {
         channelOrderFormList.stream().map(ChannelOrderForm::getChannelSkuId)
                 .forEach(channelSkuId -> {
                     ChannelListingPojo channelListingPojo = channelListingApi.getChannelListingToMapGlobalSkuId(clientId, channelId, channelSkuId);
-                    if(channelListingPojo == null) {
+                    if(Objects.isNull(channelListingPojo)) {
                         try {
                             throw new ApiException("No product with channelSkuId = " + channelSkuId + " present for client " + clientId + " and channel " + channelId);
                         } catch (ApiException e) {
@@ -141,7 +158,7 @@ public class OrderDto {
             throw new ApiException("Channel name can not be 'INTERNAL' for channel orders");
         }
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
-        if(channelPojo == null) {
+        if(Objects.isNull(channelPojo)) {
             throw new ApiException("No Channel exists with Channel Name " + channelName);
         }
     }
@@ -150,7 +167,7 @@ public class OrderDto {
     public void allocateOrder() {
         List<OrderPojo> createdOrders = orderApi.getOrdersByStatus(OrderStatus.CREATED);
         for(OrderPojo orderPojo : createdOrders) {
-            boolean completeAllocate = true;
+            Boolean completeAllocate = true;
             List<OrderItemPojo> orderedItems = orderApi.getOrderItemsByOrderId(orderPojo.getOrderId());
             for(OrderItemPojo orderItemPojo : orderedItems) {
                 if(orderItemPojo.getOrderedQuantity() > orderItemPojo.getAllocatedQuantity()) {
@@ -177,11 +194,9 @@ public class OrderDto {
                             binSkuApi.deleteByBinSkuId(binSkuPojo.getBinSkuId());
                         }
                     }
-
                 }
-
             }
-            if(completeAllocate == true) {
+            if(completeAllocate.equals(true)) {
                 orderPojo.setOrderStatus(OrderStatus.ALLOCATED);
             }
         }

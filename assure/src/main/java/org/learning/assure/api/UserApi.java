@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserApi {
@@ -38,7 +39,7 @@ public class UserApi {
 
     public void invalidClientCheck(Long userId) throws ApiException {
         UserPojo userPojo = userDao.getUserByUserId(userId);
-        if(userPojo == null) {
+        if(Objects.isNull(userPojo)) {
             throw new ApiException("No client exists with client Id = " + userId);
         }
         else if(!userPojo.getUserType().equals(UserType.CLIENT)){
@@ -48,7 +49,7 @@ public class UserApi {
 
     public void invalidCustomerCheck(Long customerId) throws ApiException {
         UserPojo userPojo = userDao.getUserByUserId(customerId);
-        if(userPojo == null) {
+        if(Objects.isNull(userPojo)) {
             throw new ApiException("No customer exists with ID = " + customerId);
         }
         else if(!userPojo.getUserType().equals(UserType.CUSTOMER)){
