@@ -5,13 +5,11 @@ import org.learning.assure.api.flow.AllocateOrderFlowApi;
 import org.learning.assure.api.flow.OrderAndOrderItemsFlowApi;
 import org.learning.assure.dto.helper.OrderHelper;
 import org.learning.assure.exception.ApiException;
-import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
@@ -163,42 +161,7 @@ public class OrderDto {
         }
     }
 
-    @Transactional
     public void allocateOrder() {
-        List<OrderPojo> createdOrders = orderApi.getOrdersByStatus(OrderStatus.CREATED);
-        for(OrderPojo orderPojo : createdOrders) {
-            Boolean completeAllocate = true;
-            List<OrderItemPojo> orderedItems = orderApi.getOrderItemsByOrderId(orderPojo.getOrderId());
-            for(OrderItemPojo orderItemPojo : orderedItems) {
-                if(orderItemPojo.getOrderedQuantity() > orderItemPojo.getAllocatedQuantity()) {
-                    InventoryPojo inventoryPojo = inventoryApi.getByGlobalSkuId(orderItemPojo.getGlobalSkuId());
-                    Long allocated;
-                    if(inventoryPojo.getAvailableQuantity() >= orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity()) {
-                        allocated = orderItemPojo.getOrderedQuantity() - orderItemPojo.getAllocatedQuantity();
-                    }
-                    else {
-                        allocated = inventoryPojo.getAvailableQuantity();
-                        completeAllocate = false;
-                    }
-                    inventoryPojo.setAvailableQuantity(inventoryPojo.getAvailableQuantity() - allocated);
-                    inventoryPojo.setAllocatedQuantity(inventoryPojo.getAllocatedQuantity() + allocated);
-                    orderItemPojo.setAllocatedQuantity(orderItemPojo.getAllocatedQuantity() + allocated);
-                    List<BinSkuPojo> binSkuPojoList = binSkuApi.getListByGlobalSkuId(orderItemPojo.getGlobalSkuId());
-                    for(BinSkuPojo binSkuPojo : binSkuPojoList) {
-                        if(binSkuPojo.getQuantity() > allocated) {
-                            binSkuPojo.setQuantity(binSkuPojo.getQuantity() - allocated);
-                            break;
-                        }
-                        else {
-                            allocated = allocated - binSkuPojo.getQuantity();
-                            binSkuApi.deleteByBinSkuId(binSkuPojo.getBinSkuId());
-                        }
-                    }
-                }
-            }
-            if(completeAllocate.equals(true)) {
-                orderPojo.setOrderStatus(OrderStatus.ALLOCATED);
-            }
-        }
+        allocateOrderFlowApi.allocateOrder();
     }
 }
