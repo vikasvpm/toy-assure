@@ -3,7 +3,6 @@ package org.learning.assure.dao;
 import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.pojo.OrderItemPojo;
 import org.learning.assure.pojo.OrderPojo;
-import org.learning.assure.pojo.ProductPojo;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,12 +21,12 @@ public class OrderDao {
     public static final String SELECT_ORDERITEMS_BY_ORDERID = "select o from OrderItemPojo o where orderId=: orderId";
 
 
-    public OrderPojo createInternalOrder(OrderPojo orderPojo) {
+    public OrderPojo createOrder(OrderPojo orderPojo) {
        entityManager.persist(orderPojo);
        return orderPojo;
     }
 
-    public void createInternalOrderItem(OrderItemPojo orderItemPojo) {
+    public void createOrderItem(OrderItemPojo orderItemPojo) {
         entityManager.persist(orderItemPojo);
     }
 

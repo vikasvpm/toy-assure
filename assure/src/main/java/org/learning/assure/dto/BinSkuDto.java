@@ -4,7 +4,7 @@ import org.learning.assure.api.BinApi;
 import org.learning.assure.api.BinSkuApi;
 import org.learning.assure.api.InventoryApi;
 import org.learning.assure.api.ProductApi;
-import org.learning.assure.api.flow.BinWiseInventoryApi;
+import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.dto.helper.BinSkuHelper;
 import org.learning.assure.dto.helper.InventoryHelper;
 import org.learning.assure.exception.ApiException;
@@ -32,16 +32,24 @@ public class BinSkuDto {
     private InventoryApi inventoryApi;
 
     @Autowired
-    private BinWiseInventoryApi binWiseInventoryApi;
+    private BinWiseInventoryFlowApi binWiseInventoryFlowApi;
 
-    public void addBinSkus(List<BinSkuForm> binSkuFormList, Long clientId) {
-        validateForClientSkuId(binSkuFormList, clientId);
+    public List<BinSkuPojo> addBinSkus(List<BinSkuForm> binSkuFormList, Long clientId) throws ApiException {
         validateForBinId(binSkuFormList);
+        validateForClientSkuId(binSkuFormList, clientId);
+        validateForQuantity(binSkuFormList);
         Map<String, Long> map = mapToGlobalSkuId(binSkuFormList, clientId);
         List<BinSkuPojo> binSkuPojoList = BinSkuHelper.convertBinSkuFormListToBinSkuPojoList(binSkuFormList, clientId, map);
         List<InventoryPojo> inventoryPojoList = InventoryHelper.convertToInventoryPojoList(binSkuFormList, map);
-        binWiseInventoryApi.addBinWiseInventory(binSkuPojoList, inventoryPojoList);
+        return binWiseInventoryFlowApi.addBinWiseInventory(binSkuPojoList, inventoryPojoList);
+    }
 
+    private void validateForQuantity(List<BinSkuForm> binSkuFormList) throws ApiException {
+        for(BinSkuForm binSkuForm : binSkuFormList) {
+            if(binSkuForm.getQuantity() < 1) {
+                throw new ApiException("Quantity of item can not be 0 or negative, Found such value for Product with clietn SKU ID = " + binSkuForm.getClientSkuId());
+            }
+        }
     }
 
     private Map<String, Long> mapToGlobalSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {
@@ -74,7 +82,7 @@ public class BinSkuDto {
                 .forEach(clientSkuId -> {
                     if(productApi.getProductByClientIdAndClientSkuId(clientId,clientSkuId) == null) {
                         try {
-                            throw new ApiException("Client SKU ID " + clientSkuId + " does not exist in the system");
+                            throw new ApiException("Product with Client SKU ID " + clientSkuId + " does not exist for Client " + clientId + " in the system");
                         } catch (ApiException e) {
                             throw new RuntimeException(e);
                         }

@@ -11,6 +11,4 @@ import org.springframework.context.annotation.PropertySources;
         @PropertySource(value = "file:./assure.properties", ignoreResourceNotFound = true) //
 })
 public class SpringConfig {
-    // TODO : create internal channel in post construct
-
 }

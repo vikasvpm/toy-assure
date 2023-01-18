@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class ChannelListingDto {
@@ -34,15 +35,18 @@ public class ChannelListingDto {
     private ChannelListingApi channelListingApi;
     public void addChannelListing(List<ChannelListingForm> channelListingFormList, Long clientId, Long channelId) throws ApiException {
         validateClientIdAndChannelId(clientId, channelId);
-        Map<String, Long> map = mapToGlobalSkuId(channelListingFormList, clientId);
+        Map<String, Long> map = validateAndMapToGlobalSkuId(channelListingFormList, clientId);
         List<ChannelListingPojo> channelListingPojoList = ChannelListingHelper.convertChannelListingFormListToChannelListingPojoList(channelListingFormList, clientId, channelId, map);
         channelListingApi.addChannelListing(channelListingPojoList);
     }
 
-    private Map<String, Long> mapToGlobalSkuId(List<ChannelListingForm> channelListingFormList, Long clientId) {
+    private Map<String, Long> validateAndMapToGlobalSkuId(List<ChannelListingForm> channelListingFormList, Long clientId) throws ApiException {
         Map<String, Long> map = new HashMap<>();
         for(ChannelListingForm channelListingForm : channelListingFormList) {
             ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, channelListingForm.getClientSkuId());
+            if(Objects.isNull(productPojo)) {
+                throw new ApiException("There is no product with Client SKU ID = " + channelListingForm.getChannelSkuId() + " for client " + clientId);
+            }
             map.put(channelListingForm.getClientSkuId(), productPojo.getGlobalSkuId());
         }
         return map;

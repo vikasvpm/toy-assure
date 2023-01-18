@@ -9,6 +9,8 @@ import org.learning.assure.model.data.UserData;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +26,9 @@ public class UserController {
     private UserDto userDto;
     @PostMapping(path = "")
     @ApiOperation(value = "Create a user")
-    public void addUser(@RequestBody UserForm userForm) throws ApiException {
+    public ResponseEntity<?> addUser(@RequestBody UserForm userForm) throws ApiException {
         userDto.addUser(userForm);
+        return new ResponseEntity<>( "Added user successfully", HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{id}")
@@ -40,9 +43,9 @@ public class UserController {
         return userDto.getAllUsers();
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "")
     @ApiOperation(value = "Delete user by User ID")
-    public void deleteUserByUserId(@PathVariable Long id) {
+    public void deleteUserByUserId(@RequestParam Long id) {
         userDto.deleteUser(id);
     }
 

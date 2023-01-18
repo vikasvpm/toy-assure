@@ -1,6 +1,8 @@
 package org.learning.assure.dto;
 
 import org.learning.assure.api.*;
+import org.learning.assure.api.flow.AllocateOrderFlowApi;
+import org.learning.assure.api.flow.OrderAndOrderItemsFlowApi;
 import org.learning.assure.dto.helper.OrderHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.enums.OrderStatus;
@@ -9,6 +11,7 @@ import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 @Service
@@ -33,18 +36,20 @@ public class OrderDto {
 
     @Autowired
     private ChannelListingApi channelListingApi;
+    @Autowired
+    private OrderAndOrderItemsFlowApi orderAndOrderItemsFlowApi;
+
+    @Autowired
+    private AllocateOrderFlowApi allocateOrderFlowApi;
     public void createInternalOrder(List<InternalOrderForm> internalOrderFormList, Long clientId, String channelOrderId, Long customerId) throws ApiException {
         validateClient(clientId);
         validateCustomer(customerId);
         validateClientSkus(internalOrderFormList, clientId);
         validateChannelOrderId(channelOrderId, 1l);
         OrderPojo orderPojo = OrderHelper.convertToInternalOrder(channelOrderId, clientId, customerId);
-        OrderPojo createdOrder = orderApi.createOrder(orderPojo);
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
-        List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(
-                createdOrder.getOrderId(), internalOrderFormList, map);
-        orderApi.createOrderItem(orderItemPojoList);
-
+        List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(internalOrderFormList, map);
+        orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
     }
 
     private Map<String, Long> mapClientSkuIdToGlobalSkuId(List<InternalOrderForm> internalOrderFormList, Long clientId) {
@@ -103,11 +108,10 @@ public class OrderDto {
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
         validateChannelSkuIds(channelOrderFormList, clientId, channelPojo.getChannelId());
         validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
-        OrderPojo orderPojo = OrderHelper.createChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
-        OrderPojo createdOrder = orderApi.createOrder(orderPojo);
+        OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
-        List<OrderItemPojo> orderItemPojoList = OrderHelper.createChannelOrderItem(createdOrder.getOrderId(),map, channelOrderFormList);
-        orderApi.createOrderItem(orderItemPojoList);
+        List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, channelOrderFormList);
+        orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
     }
 
     private void validateChannelSkuIds(List<ChannelOrderForm> channelOrderFormList, Long clientId, Long channelId) {
@@ -141,6 +145,8 @@ public class OrderDto {
             throw new ApiException("No Channel exists with Channel Name " + channelName);
         }
     }
+
+    @Transactional
     public void allocateOrder() {
         List<OrderPojo> createdOrders = orderApi.getOrdersByStatus(OrderStatus.CREATED);
         for(OrderPojo orderPojo : createdOrders) {

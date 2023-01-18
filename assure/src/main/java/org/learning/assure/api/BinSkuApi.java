@@ -15,7 +15,7 @@ public class BinSkuApi {
     @Autowired
     private BinSkuDao binSkuDao;
 
-    public void addBinSkus(List<BinSkuPojo> binSkuPojoList) {
+    public List<BinSkuPojo> addBinSkus(List<BinSkuPojo> binSkuPojoList) {
         for(BinSkuPojo binSkuPojo : binSkuPojoList) {
             BinSkuPojo exists = getByBinIdAndBinSkuId(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
             if(exists == null) {
@@ -25,6 +25,7 @@ public class BinSkuApi {
                 exists.setQuantity(exists.getQuantity() + binSkuPojo.getQuantity());
             }
         }
+        return binSkuPojoList;
     }
 
     @Transactional(readOnly = true)

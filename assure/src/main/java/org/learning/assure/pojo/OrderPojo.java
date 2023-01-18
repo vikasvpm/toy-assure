@@ -5,10 +5,7 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.learning.assure.model.enums.OrderStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -21,6 +18,7 @@ public class OrderPojo extends AbstractPojo {
     private Long customerId;
     private Long channelId;
     private String channelOrderId;
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
 

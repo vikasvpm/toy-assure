@@ -5,10 +5,7 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.learning.assure.model.enums.InvoiceType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -19,6 +16,6 @@ public class ChannelPojo extends AbstractPojo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long channelId;
     private String name;
-
+    @Enumerated(EnumType.STRING)
     private InvoiceType invoiceType;
 }

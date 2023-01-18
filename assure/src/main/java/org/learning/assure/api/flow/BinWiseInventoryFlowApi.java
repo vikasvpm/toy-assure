@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class BinWiseInventoryApi {
+public class BinWiseInventoryFlowApi {
 
     @Autowired
     private BinSkuApi binSkuApi;
@@ -20,8 +20,9 @@ public class BinWiseInventoryApi {
     private InventoryApi inventoryApi;
 
     @Transactional
-    public void addBinWiseInventory(List<BinSkuPojo> binSkuPojoList, List<InventoryPojo> inventoryPojoList) {
-        binSkuApi.addBinSkus(binSkuPojoList);
+    public List<BinSkuPojo> addBinWiseInventory(List<BinSkuPojo> binSkuPojoList, List<InventoryPojo> inventoryPojoList) {
+        List<BinSkuPojo> createdBinSkuPojoList = binSkuApi.addBinSkus(binSkuPojoList);
         inventoryApi.addInventory(inventoryPojoList);
+        return createdBinSkuPojoList;
     }
 }

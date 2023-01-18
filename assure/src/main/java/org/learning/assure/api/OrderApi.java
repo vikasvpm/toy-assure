@@ -17,13 +17,13 @@ public class OrderApi {
     @Autowired
     private OrderDao orderDao;
     public OrderPojo createOrder(OrderPojo orderPojo) {
-        OrderPojo createdOrderPojo = orderDao.createInternalOrder(orderPojo);
+        OrderPojo createdOrderPojo = orderDao.createOrder(orderPojo);
         return createdOrderPojo;
     }
 
     public void createOrderItem(List<OrderItemPojo> orderItemPojoList) {
         for(OrderItemPojo orderItemPojo : orderItemPojoList) {
-            orderDao.createInternalOrderItem(orderItemPojo);
+            orderDao.createOrderItem(orderItemPojo);
         }
     }
 
@@ -38,5 +38,13 @@ public class OrderApi {
 
     public List<OrderItemPojo> getOrderItemsByOrderId(Long orderId) {
         return orderDao.getOrderItemsByOrderId(orderId);
+    }
+
+    public void createOrderAndOrderItems(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) {
+        OrderPojo createdOrder = orderDao.createOrder(orderPojo);
+        for(OrderItemPojo orderItemPojo : orderItemPojoList) {
+            orderItemPojo.setOrderId(createdOrder.getOrderId());
+            orderDao.createOrderItem(orderItemPojo);
+        }
     }
 }

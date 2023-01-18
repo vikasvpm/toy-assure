@@ -8,12 +8,15 @@ import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Api
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
@@ -22,10 +25,12 @@ public class ProductController {
     @Autowired
     private ProductDto productDto;
 
-    @PostMapping(path = "/product/{clientId}")
-    @ApiOperation(value = "Create a product")
-    public void addProducts(@RequestBody List<ProductForm> productFormList, @PathVariable Long clientId) throws ApiException {
+    @PostMapping(path = "")
+    @ApiOperation(value = " Add products")
+    public ResponseEntity<?> addProducts(@RequestBody List<ProductForm> productFormList, @RequestParam Long clientId) throws ApiException {
         productDto.addProducts(productFormList, clientId);
+        return new ResponseEntity<>( "Added Products successfully", HttpStatus.CREATED);
+
     }
 
     @GetMapping(path = "/product/{id}")
@@ -34,15 +39,15 @@ public class ProductController {
         return productApi.getProductByGlobalSkuId(id);
     }
 
-    @GetMapping(path = "/product")
+    @GetMapping(path = "")
     @ApiOperation(value = "Get all Products")
     public List<ProductPojo> getAllProducts() {
         return productDto.getAllProducts();
     }
 
-    @DeleteMapping(path = "/product/{id}")
+    @DeleteMapping(path = "")
     @ApiOperation(value = "Delete product by Global SKU ID")
-    public void deleteProductByGlobalSkuId(@PathVariable Long id) {
+    public void deleteProductByGlobalSkuId(@RequestParam Long id) {
         productDto.deleteProduct(id);
     }
 

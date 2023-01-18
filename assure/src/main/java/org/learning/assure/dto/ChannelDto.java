@@ -16,8 +16,15 @@ public class ChannelDto {
     public void addChannel(ChannelForm channelForm) throws ApiException {
         createDefaultIfNotExists();
         validateForDuplicateName(channelForm);
+        validateForInvoiceType(channelForm);
         ChannelPojo channelPojo = ChannelHelper.convertChannelFormToChannelPojo(channelForm);
         channelApi.addChannel(channelPojo);
+    }
+
+    private void validateForInvoiceType(ChannelForm channelForm) throws ApiException {
+        if(channelForm.getInvoiceType().equals(InvoiceType.SELF)) {
+            throw new ApiException("SELF invoice can only be used by INTERNAL channel");
+        }
     }
 
     private void createDefaultIfNotExists() {
