@@ -27,15 +27,18 @@ public class OrderApi {
         }
     }
 
+    @Transactional(readOnly = true)
     public OrderPojo getOrderByChannelOrder(String channelOrderId, Long channelId) {
         return orderDao.getOrderByChannelOrder(channelOrderId, channelId);
 
     }
 
+    @Transactional(readOnly = true)
     public List<OrderPojo> getOrdersByStatus(OrderStatus status) {
         return orderDao.getOrderByStatus(status);
     }
 
+    @Transactional(readOnly = true)
     public List<OrderItemPojo> getOrderItemsByOrderId(Long orderId) {
         return orderDao.getOrderItemsByOrderId(orderId);
     }

@@ -29,7 +29,7 @@ public class AllocateOrderFlowApi {
 
 
     @Transactional
-    public void allocateOrder() {
+    public void allocateOrder() { // TODO remove loop and pass order id in API call
         List<OrderPojo> createdOrders = orderApi.getOrdersByStatus(OrderStatus.CREATED);
         for(OrderPojo orderPojo : createdOrders) {
             Boolean completeAllocate = true;

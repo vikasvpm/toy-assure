@@ -18,14 +18,17 @@ public class ChannelApi {
         channelDao.addChannel(channelPojo);
     }
 
+    @Transactional(readOnly = true)
     public ChannelPojo getChannelByName(String name) {
         return channelDao.getChannelByName(name);
     }
 
+    @Transactional(readOnly = true)
     public ChannelPojo getChannelById(Long channelId) {
         return channelDao.getChannelById(channelId);
     }
 
+    @Transactional(readOnly = true)
     public ChannelPojo getDefault() {
         return channelDao.getDefault();
     }

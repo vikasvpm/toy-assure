@@ -52,7 +52,7 @@ public class BinSkuDto {
     private void validateForQuantity(List<BinSkuForm> binSkuFormList) throws ApiException {
         for(BinSkuForm binSkuForm : binSkuFormList) {
             if(binSkuForm.getQuantity() < 1) {
-                throw new ApiException("Quantity of item can not be 0 or negative, Found such value for Product with clietn SKU ID = " + binSkuForm.getClientSkuId());
+                throw new ApiException("Quantity of item can not be 0 or negative, Found such value for Product with client SKU ID = " + binSkuForm.getClientSkuId());
             }
         }
     }

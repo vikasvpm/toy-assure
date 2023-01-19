@@ -23,6 +23,6 @@ public class ChannelController {
     @ApiOperation(value = "Create a channel")
     public ResponseEntity<?> addChannel(@RequestBody ChannelForm channelForm) throws ApiException {
         channelDto.addChannel(channelForm);
-        return new ResponseEntity<>( "Added channel successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Added channel successfully", HttpStatus.OK);
     }
 }

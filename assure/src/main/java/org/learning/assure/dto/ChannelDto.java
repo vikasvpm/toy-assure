@@ -18,7 +18,7 @@ public class ChannelDto {
     public void addChannel(ChannelForm channelForm) throws ApiException {
         createDefaultIfNotExists();
         validateForDuplicateName(channelForm);
-        validateForInvoiceType(channelForm);
+        validateForInvoiceType(channelForm); // TODO remove this
         ChannelPojo channelPojo = ChannelHelper.convertChannelFormToChannelPojo(channelForm);
         channelApi.addChannel(channelPojo);
     }

@@ -21,6 +21,7 @@ public class ChannelListingApi {
         }
     }
 
+    @Transactional(readOnly = true)
     public ChannelListingPojo getChannelListingToMapGlobalSkuId(Long clientId, Long channelId, String channelSkuId) {
         return channelListingDao.getChannelListingToMapGlobalSkuId(clientId, channelId, channelSkuId );
     }

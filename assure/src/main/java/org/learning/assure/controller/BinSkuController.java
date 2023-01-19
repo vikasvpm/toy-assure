@@ -27,7 +27,7 @@ public class BinSkuController {
     @ApiOperation(value = "Add Bin SKUs")
     public ResponseEntity<?> addBinSkus(@RequestBody @NotNull(message = "Upload data can not be null") List<BinSkuForm> binSkuFormList, @RequestParam Long clientId) throws ApiException {
         List<BinSkuPojo> binSkuPojoList = binSkuDto.addBinSkus(binSkuFormList, clientId);
-        return new ResponseEntity<>( "Created binSKUs successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Created binSKUs successfully", HttpStatus.OK);
 
     }
 }

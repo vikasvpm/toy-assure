@@ -26,7 +26,7 @@ public class OrderController {
             @RequestBody List<InternalOrderForm> internalOrderFormList, @RequestParam Long clientId,
             @RequestParam String channelOrderId, @RequestParam Long customerId) throws ApiException {
         orderDto.createInternalOrder(internalOrderFormList, clientId, channelOrderId, customerId);
-        return new ResponseEntity<>( "Created Internal order successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Created Internal order successfully", HttpStatus.OK);
 
     }
 
@@ -36,7 +36,7 @@ public class OrderController {
                                    @RequestParam String channelOrderId, @RequestParam Long customerId,
                                    @RequestParam String channelName) throws ApiException {
         orderDto.createChannelOrder(channelOrderFormList, clientId, channelOrderId, customerId, channelName);
-        return new ResponseEntity<>( "Created Channel Order successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Created Channel Order successfully", HttpStatus.OK);
 
     }
 
@@ -44,7 +44,7 @@ public class OrderController {
     @ApiOperation(value ="Allocate created orders")
     public ResponseEntity<?> allocateOrder() {
         orderDto.allocateOrder();
-        return new ResponseEntity<>( "Allocated orders successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Allocated orders successfully", HttpStatus.OK);
 
     }
 

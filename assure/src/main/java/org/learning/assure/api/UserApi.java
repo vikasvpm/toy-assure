@@ -12,30 +12,30 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
+@Transactional
 public class UserApi {
     
     @Autowired
     private UserDao userDao;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UserPojo getUserByUserId(Long userId) {
         return userDao.getUserByUserId(userId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<UserPojo> getAllUsers() {
         return userDao.getAllUsers();
     }
 
-    @Transactional
     public void addUser(UserPojo userPojo) {
         userDao.addUser(userPojo);
     }
 
-    @Transactional
     public void deleteUser(Long userId) {
         userDao.deleteUserByUserId(userId);
     }
+
 
     public void invalidClientCheck(Long userId) throws ApiException {
         UserPojo userPojo = userDao.getUserByUserId(userId);

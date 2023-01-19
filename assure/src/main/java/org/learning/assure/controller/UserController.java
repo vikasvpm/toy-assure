@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Api
@@ -26,9 +27,9 @@ public class UserController {
     private UserDto userDto;
     @PostMapping(path = "")
     @ApiOperation(value = "Create a user")
-    public ResponseEntity<?> addUser(@RequestBody UserForm userForm) throws ApiException {
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserForm userForm) throws ApiException {
         userDto.addUser(userForm);
-        return new ResponseEntity<>( "Added user successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Added user successfully", HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")

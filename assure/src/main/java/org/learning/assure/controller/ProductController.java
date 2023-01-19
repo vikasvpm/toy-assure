@@ -29,7 +29,7 @@ public class ProductController {
     @ApiOperation(value = " Add products")
     public ResponseEntity<?> addProducts(@RequestBody List<ProductForm> productFormList, @RequestParam Long clientId) throws ApiException {
         productDto.addProducts(productFormList, clientId);
-        return new ResponseEntity<>( "Added Products successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Added Products successfully", HttpStatus.OK);
 
     }
 

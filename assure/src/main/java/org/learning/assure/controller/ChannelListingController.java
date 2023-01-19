@@ -21,6 +21,6 @@ public class ChannelListingController {
     @PostMapping(path = "")
     public ResponseEntity<?> addChannelListing(@RequestBody List<ChannelListingForm> channelListingFormList, @RequestParam Long clientId, @RequestParam Long channelId) throws ApiException {
         channelListingDto.addChannelListing(channelListingFormList, clientId, channelId);
-        return new ResponseEntity<>( "Added channel listing successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>( "Added channel listing successfully", HttpStatus.OK);
     }
 }

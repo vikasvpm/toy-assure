@@ -5,6 +5,7 @@ import org.learning.assure.pojo.ProductPojo;
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDao {
 
     @PersistenceContext
@@ -22,11 +24,12 @@ public class UserDao {
     public static final String SELECT_BY_USERID = "select u from UserPojo u where userID=:userId";
     private static final String DELETE_BY_USERID = "delete from UserPojo u where userId=:userId";
 
+    @Transactional(readOnly = true)
     public List<UserPojo> getAllUsers() {
         Query query = entityManager.createQuery(SELECT_ALL);
         return query.getResultList();
     }
-
+    @Transactional(readOnly = true)
     public UserPojo getUserByUserId(Long userId) {
         TypedQuery<UserPojo> query = entityManager.createQuery(SELECT_BY_USERID, UserPojo.class);
         query.setParameter("userId", userId);

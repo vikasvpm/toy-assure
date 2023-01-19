@@ -15,17 +15,16 @@ public class ProductApi {
     @Autowired
     private ProductDao productDao;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductPojo getProductByGlobalSkuId(Long globalSkuId) {
         return productDao.getProductByGlobalSkuId(globalSkuId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ProductPojo> getAllProducts() {
         return productDao.getAllProducts();
     }
 
-    @Transactional
     public void addProduct(ProductPojo productPojo) {
         ProductPojo exists = productDao.getProductByClientIdAndClientSkuId(productPojo.getClientId(),productPojo.getClientSkuId());
         if(Objects.isNull(exists)) {
@@ -39,12 +38,10 @@ public class ProductApi {
         }
     }
 
-    @Transactional
     public void deleteProduct(Long globalSkuId) {
         productDao.deleteProductByGlobalSkuId(globalSkuId);
     }
 
-    @Transactional
     public void addProducts(List<ProductPojo> productPojoList) {
         for(ProductPojo productPojo : productPojoList) {
             addProduct(productPojo);
