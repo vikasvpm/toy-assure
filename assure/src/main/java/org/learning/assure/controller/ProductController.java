@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Api
@@ -27,8 +29,8 @@ public class ProductController {
 
     @PostMapping(path = "")
     @ApiOperation(value = " Add products")
-    public ResponseEntity<?> addProducts(@RequestBody List<ProductForm> productFormList, @RequestParam Long clientId) throws ApiException {
-        productDto.addProducts(productFormList, clientId);
+    public ResponseEntity<?> addProducts(@RequestBody MultipartFile productCsvFile, @RequestParam Long clientId) throws ApiException, IOException {
+        productDto.addProducts(productCsvFile, clientId);
         return new ResponseEntity<>( "Added Products successfully", HttpStatus.OK);
 
     }

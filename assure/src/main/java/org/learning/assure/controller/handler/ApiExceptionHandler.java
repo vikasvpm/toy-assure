@@ -52,7 +52,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> errors = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> "Field '" + error.getField() + "' " + error.getDefaultMessage())
                 .collect(Collectors.toList());
-        return new ResponseEntity<Object>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
     }
 
 }

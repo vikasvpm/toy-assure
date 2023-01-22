@@ -4,44 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/config/AbstractUnitTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/config/QaConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/test.properties" afterDir="false" />
+    <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="Order allocation by passing orded id instead of all created orders">
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/invoice/InvoiceData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/invoice/InvoiceItemData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/util/csvParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/main/resources/xslTemplate.xsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/dto/BinDtoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/dto/BinSkuDtoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/dto/UserDtoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/assure/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/BinSkuApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/BinSkuApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InventoryApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InventoryApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/OrderApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/OrderApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ProductApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ProductApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/AllocateOrderFlowApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/AllocateOrderFlowApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/OrderAndOrderItemsFlowApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/OrderAndOrderItemsFlowApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/config/SpringConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelListingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelListingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinSkuDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinSkuDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelListingDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ChannelListingDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/InventoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/InventoryDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/UserForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/UserForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/resources/org.learning.assure/test.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/BinSkuForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/BinSkuForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelListingForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelListingForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelOrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelOrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/InternalOrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/InternalOrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ProductForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ProductForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/resources/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/resources/test.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,6 +85,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
@@ -96,7 +93,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -114,21 +111,38 @@
       <recent name="org.learning.assure.model.enums" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.learning.assure.dto" />
       <recent name="org.learning.assure.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserControllerTest.getUser">
-    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Maven.Assure Jetty Run">
+    <configuration name="BinDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="PATTERN" value="org.learning.assure.dto.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.UserControllerTest" />
+      <option name="PACKAGE_NAME" value="org.learning.assure.dto" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.dto.BinDtoTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BinDtoTest.addInvalidNumberTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.learning.assure.dto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.learning.assure.dto" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.dto.BinDtoTest" />
+      <option name="METHOD_NAME" value="addInvalidNumberTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -144,22 +158,6 @@
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
       <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.UserControllerTest" />
       <option name="METHOD_NAME" value="getUser" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserControllerTest.getUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assure" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.UserControllerTest" />
-      <option name="METHOD_NAME" value="getUserTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -181,17 +179,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserControllerTest.random" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserDtoTest.testGetUserById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="PATTERN" value="org.learning.assure.dto.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.UserControllerTest" />
-      <option name="METHOD_NAME" value="random" />
+      <option name="PACKAGE_NAME" value="org.learning.assure.dto" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.dto.UserDtoTest" />
+      <option name="METHOD_NAME" value="testGetUserById" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -237,11 +235,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserDtoTest.testGetUserById" />
+        <item itemvalue="JUnit.BinDtoTest" />
+        <item itemvalue="JUnit.BinDtoTest.addInvalidNumberTest" />
         <item itemvalue="JUnit.UserControllerTest.getUser" />
         <item itemvalue="JUnit.UserControllerTest.rand" />
-        <item itemvalue="JUnit.UserControllerTest" />
-        <item itemvalue="JUnit.UserControllerTest.random" />
-        <item itemvalue="JUnit.UserControllerTest.getUserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -415,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674035753626</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added transactional to all repositories classes">
+      <created>1674116884792</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1674116884792</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -470,7 +475,8 @@
     <MESSAGE value="Controller advice added" />
     <MESSAGE value="Added few validations" />
     <MESSAGE value="Allocate order logic written in flow api" />
-    <option name="LAST_COMMIT_MESSAGE" value="Allocate order logic written in flow api" />
+    <MESSAGE value="Added transactional to all repositories classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added transactional to all repositories classes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -479,41 +485,93 @@
           <properties class="org.springframework.web.util.NestedServletException" package="org.springframework.web.util" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="120" />
+        </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="50" />
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="51" />
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="52" />
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="95" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="53" />
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="54" />
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="56" />
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="98" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>78</line>
+          <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="100" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>73</line>
+          <option name="timeStamp" value="101" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="102" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="103" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>58</line>
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>57</line>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="106" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InvoiceApi.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="107" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.RuntimeException" memberName="suppressedExceptions" />
         <PinnedItemInfo parentTag="org.learning.assure.pojo.OrderPojo" memberName="orderId" />
+        <PinnedItemInfo parentTag="org.learning.assure.controller.handler.ApiExceptionHandler" memberName="logger" />
+        <PinnedItemInfo parentTag="org.learning.assure.dto.UserDtoTest" memberName="userDto" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

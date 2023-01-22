@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.UserDto;
 import org.learning.assure.exception.ApiException;
-import org.learning.assure.model.data.UserData;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,7 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Get User by User ID")
-    public UserData getUserByUserId(@PathVariable Long id) {
+    public UserPojo getUserByUserId(@PathVariable Long id) {
         return userDto.getUserByUserId(id);
     }
 

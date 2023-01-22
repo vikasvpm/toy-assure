@@ -22,9 +22,8 @@ public class UserDto {
         userApi.addUser(userPojo);
     }
 
-    public UserData getUserByUserId(Long id) {
-        UserPojo userPojo = userApi.getUserByUserId(id);
-        return UserHelper.convertToUserData(userPojo);
+    public UserPojo getUserByUserId(Long id) {
+        return userApi.getUserByUserId(id);
     }
 
     public List<UserPojo> getAllUsers() {

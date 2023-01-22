@@ -50,4 +50,9 @@ public class OrderApi {
             orderDao.createOrderItem(orderItemPojo);
         }
     }
+
+    @Transactional(readOnly = true)
+    public OrderPojo getOrderByOrderId(Long orderId) {
+        return orderDao.getOrderByOrderId(orderId);
+    }
 }

@@ -21,7 +21,7 @@ public class OrderDao {
     public static final String SELECT_ORDER_BY_ORDERSTATUS = "select o from OrderPojo o where orderStatus=: status";
 
     public static final String SELECT_ORDERITEMS_BY_ORDERID = "select o from OrderItemPojo o where orderId=: orderId";
-
+    public static final String SELECT_ORDER_BY_ORDERID = "select o from OrderPojo o where orderId=: orderId";
 
     public OrderPojo createOrder(OrderPojo orderPojo) {
        entityManager.persist(orderPojo);
@@ -53,5 +53,12 @@ public class OrderDao {
         query.setParameter("orderId", orderId);
         return query.getResultList();
 
+    }
+
+    @Transactional(readOnly = true)
+    public OrderPojo getOrderByOrderId(Long orderId) {
+        TypedQuery<OrderPojo> query = entityManager.createQuery(SELECT_ORDER_BY_ORDERID, OrderPojo.class);
+        query.setParameter("orderId", orderId);
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 }
