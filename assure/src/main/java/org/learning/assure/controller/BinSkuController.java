@@ -27,9 +27,9 @@ public class BinSkuController {
 
     @PostMapping(path = "")
     @ApiOperation(value = "Add Bin SKUs")
-    public ResponseEntity<?> addBinSkus(@RequestBody MultipartFile binSkuCsvFile, @RequestParam Long clientId) throws ApiException, IOException {
+    public List<BinSkuPojo> addBinSkus(@RequestBody MultipartFile binSkuCsvFile, @RequestParam Long clientId) throws ApiException, IOException {
         List<BinSkuPojo> binSkuPojoList = binSkuDto.addBinSkus(binSkuCsvFile, clientId);
-        return new ResponseEntity<>( "Created binSKUs successfully", HttpStatus.OK);
+        return binSkuPojoList;
 
     }
 }

@@ -25,8 +25,8 @@ public class BinController {
     private BinDto binDto;
     @ApiOperation(value = "Add Bins")
     @PostMapping()
-    public ResponseEntity<?> addBins(@RequestParam Long noOfBins) throws ApiException {
+    public List<BinPojo> addBins(@RequestParam Long noOfBins) throws ApiException {
         List<BinPojo> binPojoList = binDto.addBins(noOfBins);
-        return new ResponseEntity<>( binPojoList, HttpStatus.OK);
+        return binPojoList;
     }
 }

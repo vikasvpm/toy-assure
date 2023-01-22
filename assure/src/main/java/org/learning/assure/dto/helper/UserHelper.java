@@ -1,18 +1,17 @@
 package org.learning.assure.dto.helper;
 
 import org.learning.assure.model.data.UserData;
-import org.learning.assure.model.form.UserForm;
-import org.learning.assure.pojo.UserPojo;
+import org.learning.assure.model.form.UserPojo;
 
 public class UserHelper {
-    public static UserPojo convert(UserForm userForm) {
-        UserPojo userPojo = new UserPojo();
+    public static org.learning.assure.pojo.UserPojo convert(UserPojo userForm) {
+        org.learning.assure.pojo.UserPojo userPojo = new org.learning.assure.pojo.UserPojo();
         userPojo.setUserType(userForm.getUserType());
         userPojo.setName(userForm.getName());
         return userPojo;
     }
     
-    public static UserData convertToUserData(UserPojo userPojo) {
+    public static UserData convertToUserData(org.learning.assure.pojo.UserPojo userPojo) {
         UserData userData = new UserData();
         userData.setUserId(userPojo.getUserId());
         userData.setUserType(userPojo.getUserType());

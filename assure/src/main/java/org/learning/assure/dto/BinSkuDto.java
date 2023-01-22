@@ -80,18 +80,12 @@ public class BinSkuDto {
     }
 
 
-    private void validateForBinId(List<BinSkuForm> binSkuFormList) {
-        Set<Long> binIdSet = new HashSet<>();
-        binSkuFormList.stream().map(BinSkuForm::getBinId)
-                .forEach(binId -> {
-                    if(Objects.isNull(binApi.getBinByBinId(binId))) {
-                        try {
-                            throw new ApiException("Bin with id " + binId + " does not exist");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
+    private void validateForBinId(List<BinSkuForm> binSkuFormList) throws ApiException {
+        for(BinSkuForm binSkuForm : binSkuFormList) {
+            if(Objects.isNull(binApi.getBinByBinId(binSkuForm.getBinId()))) {
+                throw new ApiException("Bin with id " + binSkuForm.getBinId() + " does not exist");
+            }
+        }
     }
 
     private void validateForClientSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {

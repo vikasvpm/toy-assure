@@ -2,31 +2,39 @@ package org.learning.assure.dto;
 
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.UserHelper;
-import org.learning.assure.model.data.UserData;
-import org.learning.assure.model.form.UserForm;
-import org.learning.assure.pojo.UserPojo;
+import org.learning.assure.exception.ApiException;
+import org.learning.assure.model.form.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserDto {
 
     @Autowired
     private UserApi userApi;
-    public void addUser(UserForm userForm) {
-        UserPojo userPojo = UserHelper.convert(userForm);
+    public org.learning.assure.pojo.UserPojo addUser(UserPojo userForm) throws ApiException {
+        validateForDuplicate(userForm);
+        org.learning.assure.pojo.UserPojo userPojo = UserHelper.convert(userForm);
         userApi.addUser(userPojo);
+        return userPojo;
     }
 
-    public UserPojo getUserByUserId(Long id) {
+    private void validateForDuplicate(UserPojo userForm) throws ApiException {
+        org.learning.assure.pojo.UserPojo userPojo = userApi.getUserByName(userForm.getName());
+        if(!Objects.isNull(userPojo)) {
+            throw new ApiException("User with name = " + userForm.getName() + " already exists in the system");
+        }
+    }
+
+    public org.learning.assure.pojo.UserPojo getUserByUserId(Long id) {
         return userApi.getUserByUserId(id);
     }
 
-    public List<UserPojo> getAllUsers() {
+    public List<org.learning.assure.pojo.UserPojo> getAllUsers() {
         return userApi.getAllUsers();
     }
 

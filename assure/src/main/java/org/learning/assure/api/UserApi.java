@@ -24,12 +24,17 @@ public class UserApi {
     }
 
     @Transactional(readOnly = true)
+    public UserPojo getUserByName(String name) {
+        return userDao.getUserByName(name);
+    }
+
+    @Transactional(readOnly = true)
     public List<UserPojo> getAllUsers() {
         return userDao.getAllUsers();
     }
 
-    public void addUser(UserPojo userPojo) {
-        userDao.addUser(userPojo);
+    public UserPojo addUser(UserPojo userPojo) {
+        return userDao.addUser(userPojo);
     }
 
     public void deleteUser(Long userId) {
