@@ -21,8 +21,9 @@ public class ChannelDao {
     public static final String SELECT_ALL = "select c from ChannelPojo c";
 
 
-    public void addChannel(ChannelPojo channelPojo) {
+    public ChannelPojo addChannel(ChannelPojo channelPojo) {
         entityManager.persist(channelPojo);
+        return channelPojo;
     }
 
     @Transactional(readOnly = true)

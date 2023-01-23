@@ -29,9 +29,8 @@ public class ProductController {
 
     @PostMapping(path = "")
     @ApiOperation(value = " Add products")
-    public ResponseEntity<?> addProducts(@RequestBody MultipartFile productCsvFile, @RequestParam Long clientId) throws ApiException, IOException {
-        productDto.addProducts(productCsvFile, clientId);
-        return new ResponseEntity<>( "Added Products successfully", HttpStatus.OK);
+    public List<ProductPojo> addProducts(@RequestBody MultipartFile productCsvFile, @RequestParam Long clientId) throws ApiException, IOException {
+        return productDto.addProducts(productCsvFile, clientId);
 
     }
 

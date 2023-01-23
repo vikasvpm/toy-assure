@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,10 +17,13 @@ public class ChannelListingApi {
 
     @Autowired
     private ChannelListingDao channelListingDao;
-    public void addChannelListing(List<ChannelListingPojo> channelListingPojoList) {
+    public List<ChannelListingPojo> addChannelListing(List<ChannelListingPojo> channelListingPojoList) {
+        List<ChannelListingPojo> created = new ArrayList<>();
         for(ChannelListingPojo channelListingPojo : channelListingPojoList) {
             channelListingDao.addChannelListing(channelListingPojo);
+            created.add(channelListingPojo);
         }
+        return created;
     }
 
     @Transactional(readOnly = true)

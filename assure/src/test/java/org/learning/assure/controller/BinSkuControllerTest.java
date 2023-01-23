@@ -3,6 +3,7 @@ package org.learning.assure.controller;
 import org.junit.Assert;
 import org.junit.Test;
 import org.learning.assure.api.BinApi;
+import org.learning.assure.api.InventoryApi;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.config.AbstractUnitTest;
@@ -34,6 +35,9 @@ public class BinSkuControllerTest extends AbstractUnitTest {
     @Autowired
     private ProductApi productApi;
 
+    @Autowired
+    private InventoryApi inventoryApi;
+
     @Test
     public void testAddBinSku() throws IOException, ApiException {
         String csvFileName = "binSkuHappyCsv.csv";
@@ -43,12 +47,13 @@ public class BinSkuControllerTest extends AbstractUnitTest {
         UserPojo client = userApi.addUser(TestUtil.createClient());
         binApi.addBin(TestUtil.createBin(1L));
         binApi.addBin(TestUtil.createBin(2L));
-        productApi.addProducts(TestUtil.createProductList());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
         List<BinSkuPojo> binSkuPojoList = binSkuController.addBinSkus(csvFile, client.getUserId());
         Assert.assertEquals(2, binSkuPojoList.size());
         Assert.assertEquals(Optional.of(5L).get(), binSkuPojoList.get(0).getQuantity());
         Assert.assertEquals(Optional.of(10L).get(), binSkuPojoList.get(1).getQuantity());
-
+        Assert.assertEquals(Optional.of(5L).get(), inventoryApi.getByGlobalSkuId(1L).getAvailableQuantity());
+        Assert.assertEquals(Optional.of(10L).get(), inventoryApi.getByGlobalSkuId(2L).getAvailableQuantity());
     }
     @Test
     public void testAddBinSkuWithoutClient() throws IOException {

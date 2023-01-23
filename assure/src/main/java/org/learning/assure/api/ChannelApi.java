@@ -14,8 +14,8 @@ public class ChannelApi {
     @Autowired
     private ChannelDao channelDao;
 
-    public void addChannel(ChannelPojo channelPojo) {
-        channelDao.addChannel(channelPojo);
+    public ChannelPojo addChannel(ChannelPojo channelPojo) {
+        return channelDao.addChannel(channelPojo);
     }
 
     @Transactional(readOnly = true)

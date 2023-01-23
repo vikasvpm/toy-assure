@@ -37,12 +37,12 @@ public class ChannelListingDto {
 
     @Autowired
     private ChannelListingApi channelListingApi;
-    public void addChannelListing(MultipartFile channelListingCsv, Long clientId, Long channelId) throws ApiException, IOException {
+    public List<ChannelListingPojo> addChannelListing(MultipartFile channelListingCsv, Long clientId, Long channelId) throws ApiException, IOException {
         validateClientIdAndChannelId(clientId, channelId);
         List<ChannelListingForm> channelListingFormList = parseCsv(channelListingCsv);
         Map<String, Long> map = validateAndMapToGlobalSkuId(channelListingFormList, clientId);
         List<ChannelListingPojo> channelListingPojoList = ChannelListingHelper.convertChannelListingFormListToChannelListingPojoList(channelListingFormList, clientId, channelId, map);
-        channelListingApi.addChannelListing(channelListingPojoList);
+        return channelListingApi.addChannelListing(channelListingPojoList);
     }
     private List<ChannelListingForm> parseCsv(MultipartFile binSkuCsvFile) throws ApiException, IOException {
         if (!FilenameUtils.isExtension(binSkuCsvFile.getOriginalFilename(), "csv")) {

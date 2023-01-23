@@ -15,11 +15,11 @@ import java.util.Objects;
 public class ChannelDto {
     @Autowired
     private ChannelApi channelApi;
-    public void addChannel(ChannelForm channelForm) throws ApiException {
+    public ChannelPojo addChannel(ChannelForm channelForm) throws ApiException {
         createDefaultIfNotExists();
         validateForDuplicateName(channelForm);
         ChannelPojo channelPojo = ChannelHelper.convertChannelFormToChannelPojo(channelForm);
-        channelApi.addChannel(channelPojo);
+        return channelApi.addChannel(channelPojo);
     }
 
     private void createDefaultIfNotExists() {

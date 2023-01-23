@@ -37,12 +37,12 @@ public class ProductDto {
         return productApi.getAllProducts();
     }
 
-    public void addProducts(MultipartFile productCsvFile, Long clientId) throws ApiException, IOException {
+    public List<ProductPojo> addProducts(MultipartFile productCsvFile, Long clientId) throws ApiException, IOException {
         validateForClientId(clientId);
         List<ProductForm> productFormList = parseCSV(productCsvFile);
         validateForDuplicate(productFormList, clientId);
         List<ProductPojo> productPojoList = ProductHelper.convertListOfProductFormToListOfProductPojo(productFormList, clientId);
-        productApi.addProducts(productPojoList);
+        return productApi.addProducts(productPojoList);
     }
 
     private List<ProductForm> parseCSV(MultipartFile csvFile) throws IOException, ApiException {
