@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class UserPojo {
+public class UserForm {
 
     @NotNull(message = "User can not be added without name")
     private String name;

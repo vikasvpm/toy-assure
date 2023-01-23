@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class UserPojo extends AbstractPojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private Long userId;
     private String name;
     @Enumerated(EnumType.STRING)
     private UserType userType;

@@ -6,17 +6,18 @@ import org.junit.Test;
 import org.learning.assure.config.AbstractUnitTest;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.enums.UserType;
-import org.learning.assure.model.form.UserPojo;
+import org.learning.assure.model.form.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
-
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserControllerTest extends AbstractUnitTest {
 
     @Autowired
     private UserController userController;
     @Test
     public void addUserTest() throws ApiException {
-        UserPojo userForm = new UserPojo();
+        UserForm userForm = new UserForm();
         userForm.setUserType(UserType.CLIENT);
         userForm.setName("Dummy");
         org.learning.assure.pojo.UserPojo userPojo = userController.addUser(userForm);
@@ -27,7 +28,7 @@ public class UserControllerTest extends AbstractUnitTest {
 
     @Test
     public void duplicateUserTest() throws ApiException {
-        UserPojo userForm = new UserPojo();
+        UserForm userForm = new UserForm();
         userForm.setUserType(UserType.CLIENT);
         userForm.setName("Dummy");
         org.learning.assure.pojo.UserPojo userPojo = userController.addUser(userForm);

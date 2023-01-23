@@ -29,7 +29,7 @@ public class AllocateOrderFlowApi {
 
 
     @Transactional
-    public void allocateOrder(Long orderId) {
+    public OrderPojo allocateOrder(Long orderId) {
         Boolean completeAllocate = true;
         OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);
         List<OrderItemPojo> orderedItems = orderApi.getOrderItemsByOrderId(orderPojo.getOrderId());
@@ -63,5 +63,6 @@ public class AllocateOrderFlowApi {
         if(completeAllocate.equals(true)) {
             orderPojo.setOrderStatus(OrderStatus.ALLOCATED);
         }
+        return orderPojo;
     }
 }

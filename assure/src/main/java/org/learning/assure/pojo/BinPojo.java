@@ -15,6 +15,6 @@ import javax.persistence.Id;
 public class BinPojo extends AbstractPojo{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // TODO: Generation type table
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long binId;
 }

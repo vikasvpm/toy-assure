@@ -44,17 +44,26 @@ public class OrderDto {
     private AllocateOrderFlowApi allocateOrderFlowApi;
     @Autowired
     private InvoiceApi invoiceApi;
-    public void createInternalOrder(MultipartFile internalOrderCsv, Long clientId, String channelOrderId, Long customerId) throws ApiException, IOException {
+    public OrderPojo createInternalOrder(MultipartFile internalOrderCsv, Long clientId, String channelOrderId, Long customerId) throws ApiException, IOException {
         validateClient(clientId);
         validateCustomer(customerId);
-        validateChannelOrderId(channelOrderId, 1l);
+        validateInternalChannelExists();
+        ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
+        validateChannelOrderId(channelOrderId, internalChannel.getChannelId());
         List<InternalOrderForm> internalOrderFormList = parseInteralOrderCsv(internalOrderCsv);
         validateClientSkus(internalOrderFormList, clientId);
         validateInternalOrderedQuantity(internalOrderFormList);
         OrderPojo orderPojo = OrderHelper.convertToInternalOrder(channelOrderId, clientId, customerId);
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(internalOrderFormList, map);
-        orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+        return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+    }
+
+    private void validateInternalChannelExists() throws ApiException {
+        if(Objects.isNull(channelApi.getChannelByName("INTERNAL"))) {
+            throw new ApiException("INTERNAL channel does not exist");
+        }
+
     }
 
     private List<InternalOrderForm> parseInteralOrderCsv(MultipartFile internalOrderCsvFile) throws ApiException, IOException {
@@ -121,7 +130,7 @@ public class OrderDto {
                 });
     }
 
-    public void createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
+    public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
         validateClient(clientId);
         validateCustomer(customerId);
         validateChannelName(channelName);
@@ -134,7 +143,7 @@ public class OrderDto {
         OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, channelOrderFormList);
-        orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+        return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
     }
 
     private List<ChannelOrderForm> parseChannelOrderCsv(MultipartFile channelOrderCsv) throws ApiException, IOException {
@@ -185,9 +194,9 @@ public class OrderDto {
         }
     }
 
-    public void allocateOrder(Long orderId) throws ApiException {
+    public OrderPojo allocateOrder(Long orderId) throws ApiException {
         validateOrderForAllocation(orderId);
-        allocateOrderFlowApi.allocateOrder(orderId);
+        return allocateOrderFlowApi.allocateOrder(orderId);
     }
 
     private void validateOrderForAllocation(Long orderId) throws ApiException {

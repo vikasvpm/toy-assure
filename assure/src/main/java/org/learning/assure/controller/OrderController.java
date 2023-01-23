@@ -7,6 +7,7 @@ import org.learning.assure.dto.OrderDto;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
+import org.learning.assure.pojo.OrderPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,29 +28,26 @@ public class OrderController {
     private OrderDto orderDto;
     @PostMapping(path = "/internal")
     @ApiOperation(value = "Create Internal Order")
-    public ResponseEntity<?> createInternalOrder(
+    public OrderPojo createInternalOrder(
             @RequestBody MultipartFile internalOrderCsv, @RequestParam Long clientId,
             @RequestParam String channelOrderId, @RequestParam Long customerId) throws ApiException, IOException {
-        orderDto.createInternalOrder(internalOrderCsv, clientId, channelOrderId, customerId);
-        return new ResponseEntity<>( "Created Internal order successfully", HttpStatus.OK);
+        return orderDto.createInternalOrder(internalOrderCsv, clientId, channelOrderId, customerId);
 
     }
 
     @PostMapping(path = "/channel")
     @ApiOperation(value = "Create Channel Order")
-    public ResponseEntity<?> createChannelOrder(@RequestBody MultipartFile channelOrderCsv, @RequestParam Long clientId,
-                                   @RequestParam String channelOrderId, @RequestParam Long customerId,
-                                   @RequestParam String channelName) throws ApiException, IOException {
-        orderDto.createChannelOrder(channelOrderCsv, clientId, channelOrderId, customerId, channelName);
-        return new ResponseEntity<>( "Created Channel Order successfully", HttpStatus.OK);
+    public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, @RequestParam Long clientId,
+                                        @RequestParam String channelOrderId, @RequestParam Long customerId,
+                                        @RequestParam String channelName) throws ApiException, IOException {
+        return orderDto.createChannelOrder(channelOrderCsv, clientId, channelOrderId, customerId, channelName);
 
     }
 
     @PostMapping(path = "/allocate")
     @ApiOperation(value ="Allocate any created order")
-    public ResponseEntity<?> allocateOrder(@RequestParam Long orderId) throws ApiException {
-        orderDto.allocateOrder(orderId);
-        return new ResponseEntity<>( "Allocated orders successfully", HttpStatus.OK);
+    public OrderPojo allocateOrder(@RequestParam Long orderId) throws ApiException {
+        return orderDto.allocateOrder(orderId);
 
     }
 

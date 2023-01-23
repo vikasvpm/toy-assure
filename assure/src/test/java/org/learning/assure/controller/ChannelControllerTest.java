@@ -10,9 +10,11 @@ import org.learning.assure.pojo.ChannelPojo;
 import org.learning.assure.util.TestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Optional;
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ChannelControllerTest extends AbstractUnitTest {
 
     @Autowired

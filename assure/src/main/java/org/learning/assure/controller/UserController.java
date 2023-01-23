@@ -5,7 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.UserDto;
 import org.learning.assure.exception.ApiException;
-import org.learning.assure.model.form.UserPojo;
+import org.learning.assure.model.form.UserForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,8 @@ public class UserController {
     private UserDto userDto;
     @PostMapping(path = "")
     @ApiOperation(value = "Create a user")
-    public org.learning.assure.pojo.UserPojo addUser(@Valid @RequestBody UserPojo userPojo) throws ApiException {
-        return userDto.addUser(userPojo);
+    public org.learning.assure.pojo.UserPojo addUser(@Valid @RequestBody UserForm userForm) throws ApiException {
+        return userDto.addUser(userForm);
     }
 
     @GetMapping(path = "/{id}")

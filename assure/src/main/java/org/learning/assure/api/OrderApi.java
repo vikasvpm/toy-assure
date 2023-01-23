@@ -43,12 +43,13 @@ public class OrderApi {
         return orderDao.getOrderItemsByOrderId(orderId);
     }
 
-    public void createOrderAndOrderItems(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) {
+    public OrderPojo createOrderAndOrderItems(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) {
         OrderPojo createdOrder = orderDao.createOrder(orderPojo);
         for(OrderItemPojo orderItemPojo : orderItemPojoList) {
             orderItemPojo.setOrderId(createdOrder.getOrderId());
             orderDao.createOrderItem(orderItemPojo);
         }
+        return createdOrder;
     }
 
     @Transactional(readOnly = true)
