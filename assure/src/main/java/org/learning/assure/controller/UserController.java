@@ -40,10 +40,5 @@ public class UserController {
         return userDto.getAllUsers();
     }
 
-    @DeleteMapping(path = "")
-    @ApiOperation(value = "Delete user by User ID")
-    public void deleteUserByUserId(@RequestParam Long id) {
-        userDto.deleteUser(id);
-    }
 
 }

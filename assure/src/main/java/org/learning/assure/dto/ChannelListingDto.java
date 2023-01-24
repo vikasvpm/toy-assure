@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class ChannelListingDto {
@@ -65,7 +62,8 @@ public class ChannelListingDto {
     }
 
     private void validateClientIdAndChannelId(Long clientId, Long channelId) throws ApiException {
-        userApi.invalidClientCheck(clientId);
+        List<String> errorList = new ArrayList<>();
+        userApi.invalidClientCheck(clientId, errorList);
         ChannelPojo channelPojo = channelApi.getChannelById(channelId);
         if(Objects.isNull(channelPojo)) {
             throw new ApiException("Channel with channelId " + channelId + " does not exist");

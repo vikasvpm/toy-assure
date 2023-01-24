@@ -105,9 +105,6 @@ public class OrderControllerTest extends AbstractUnitTest {
         UserPojo client = userApi.addUser(TestUtil.createClient());
         UserPojo customer = userApi.addUser(TestUtil.createCustomer());
         List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
-//        binApi.addBin(new BinPojo());
-//        binApi.addBin(new BinPojo());
-//        binSkuApi.addBinSkus(TestUtil.createBinSkus(createdProducts));
         ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("INTERNAL"));
         ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
         List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), internalChannel.getChannelId(), createdProducts));

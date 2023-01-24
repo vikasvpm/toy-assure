@@ -38,7 +38,4 @@ public class UserDto {
         return userApi.getAllUsers();
     }
 
-    public void deleteUser(@PathVariable Long id) {
-        userApi.deleteUser(id);
-    }
 }

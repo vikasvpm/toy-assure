@@ -50,7 +50,7 @@ public class InvoiceApi {
         invoiceData.setInvoiceNumber(orderPojo.getOrderId());
         invoiceData.setInvoiceDate(new Timestamp(System.currentTimeMillis()).toString());
         invoiceData.setClientId(orderPojo.getClientId().toString());
-        invoiceData.setInvoiceTotal(orderItemPojoList.stream().mapToDouble(orderItemPojo -> orderItemPojo.getFulfilledQuantity() * orderItemPojo.getSellingPricePerUnit()).sum());
+        invoiceData.setInvoiceTotal(orderItemPojoList.stream().mapToDouble(orderItemPojo -> orderItemPojo.getAllocatedQuantity() * orderItemPojo.getSellingPricePerUnit()).sum());
         StringWriter stringWriter = new StringWriter();
         try {
             JAXBContext context = JAXBContext.newInstance(InvoiceData.class);
@@ -86,7 +86,7 @@ public class InvoiceApi {
             InvoiceItemData invoiceItemData = new InvoiceItemData();
             ProductPojo productPojo = productDao.getProductByGlobalSkuId(orderItemPojo.getGlobalSkuId());
             invoiceItemData.setProductName(productPojo.getName());
-            invoiceItemData.setClientSkuid(productPojo.getClientSkuId());
+            invoiceItemData.setClientSkuId(productPojo.getClientSkuId());
             invoiceItemData.setQuantity(orderItemPojo.getAllocatedQuantity());
             invoiceItemData.setSellingPricePerUnit(orderItemPojo.getSellingPricePerUnit());
             invoiceItemData.setAmount(orderItemPojo.getSellingPricePerUnit() * orderItemPojo.getAllocatedQuantity());

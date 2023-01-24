@@ -40,10 +40,6 @@ public class ProductApi {
         }
     }
 
-    public void deleteProduct(Long globalSkuId) {
-        productDao.deleteProductByGlobalSkuId(globalSkuId);
-    }
-
     public List<ProductPojo> addProducts(List<ProductPojo> productPojoList) {
         List<ProductPojo> productPojoList1 = new ArrayList<>();
         for(ProductPojo productPojo : productPojoList) {

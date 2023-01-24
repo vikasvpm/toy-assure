@@ -91,7 +91,7 @@
                                     </fo:table-cell>
                                     <fo:table-cell text-align="center" padding-bottom="2px" padding-top="2px">
                                         <fo:block>
-                                            <xsl:value-of select="productPojo-name"/>
+                                            <xsl:value-of select="product-name"/>
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell text-align="center" padding-bottom="2px" padding-top="2px">

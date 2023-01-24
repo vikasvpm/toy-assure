@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -102,8 +104,9 @@ public class OrderDto {
         userApi.invalidCustomerCheck(customerId);
     }
 
-    private void validateClient(Long clientId) throws ApiException {
-        userApi.invalidClientCheck(clientId);
+    public void validateClient(Long clientId) throws ApiException {
+        List<String> errorList = new ArrayList<>();
+        userApi.invalidClientCheck(clientId, errorList);
     }
 
     private void validateClientSkus(List<InternalOrderForm> internalOrderFormList, Long clientId) {
@@ -216,6 +219,7 @@ public class OrderDto {
         List<OrderItemPojo> orderItemPojoList = orderApi.getOrderItemsByOrderId(orderId);
         try {
             byte[] invoiceBytes = invoiceApi.generateInvoice(orderItemPojoList, orderPojo);
+            Files.write(Paths.get("invoice.pdf"), invoiceBytes);
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.setContentLengthLong(invoiceBytes.length);

@@ -24,9 +24,6 @@ public class UserDao {
     public static final String SELECT_BY_USERID = "select u from UserPojo u where userID=:userId";
 
     public static final String SELECT_BY_NAME = "select u from UserPojo u where name=:name";
-    private static final String DELETE_BY_USERID = "delete from UserPojo u where userId=:userId";
-
-
 
     @Transactional(readOnly = true)
     public List<UserPojo> getAllUsers() {
@@ -43,12 +40,6 @@ public class UserDao {
     public UserPojo addUser(UserPojo userPojo) {
         entityManager.persist(userPojo);
         return userPojo;
-    }
-
-    public int deleteUserByUserId(Long userId) {
-        Query query = entityManager.createQuery(DELETE_BY_USERID);
-        query.setParameter("userId", userId);
-        return query.executeUpdate();
     }
 
     public UserPojo getUserByName(String name) {

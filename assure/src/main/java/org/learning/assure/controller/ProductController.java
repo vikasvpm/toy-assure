@@ -46,11 +46,5 @@ public class ProductController {
         return productDto.getAllProducts();
     }
 
-    @DeleteMapping(path = "")
-    @ApiOperation(value = "Delete product by Global SKU ID")
-    public void deleteProductByGlobalSkuId(@RequestParam Long id) {
-        productDto.deleteProduct(id);
-    }
-
 
 }

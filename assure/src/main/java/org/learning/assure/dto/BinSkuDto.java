@@ -58,8 +58,9 @@ public class BinSkuDto {
         return binSkuFormList;
     }
 
-    private void validateClient(Long clientId) throws ApiException {
-        userApi.invalidClientCheck(clientId);
+    public void validateClient(Long clientId) throws ApiException {
+        List<String> errorList = new ArrayList<>();
+        userApi.invalidClientCheck(clientId, errorList);
     }
 
     private void validateForQuantity(List<BinSkuForm> binSkuFormList) throws ApiException {

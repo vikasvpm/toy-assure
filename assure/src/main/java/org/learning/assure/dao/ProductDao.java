@@ -23,8 +23,6 @@ public class ProductDao {
 
     public static final String SELECT_BY_CLIENTID_AND_CLIENTSKUID = "select p from ProductPojo p where clientId=:clientId and clientSkuId=:clientSkuId";
 
-    private static final String DELETE_BY_GLOBALSKUID = "delete from ProductPojo p where globalSkuId=:globalSkuId";
-
     private static final String SELECT_GLOBALSKUID = "select p.globalSkuId from ProductPojo p where clientId=:clientId and clientSkuId=:clientSkuId";
 
 
@@ -44,12 +42,6 @@ public class ProductDao {
     public void addProduct(ProductPojo productPojo) {
         entityManager.persist(productPojo);
 
-    }
-
-    public int deleteProductByGlobalSkuId(Long globalSkuId) {
-        Query query = entityManager.createQuery(DELETE_BY_GLOBALSKUID);
-        query.setParameter("globalSkuId", globalSkuId);
-        return query.executeUpdate();
     }
 
 
