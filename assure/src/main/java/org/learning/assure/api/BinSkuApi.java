@@ -30,7 +30,7 @@ public class BinSkuApi {
     }
 
     @Transactional(readOnly = true)
-    private BinSkuPojo getByBinIdAndBinSkuId(Long binId, Long globalSkuId) {
+    public BinSkuPojo getByBinIdAndBinSkuId(Long binId, Long globalSkuId) {
         return binSkuDao.getByBinIdAndGlobalSkuId(binId, globalSkuId);
     }
     @Transactional(readOnly = true)

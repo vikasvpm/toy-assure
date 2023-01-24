@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(rollbackFor = ApiException.class)
+@Transactional
 public class OrderAndOrderItemsFlowApi {
 
     @Autowired

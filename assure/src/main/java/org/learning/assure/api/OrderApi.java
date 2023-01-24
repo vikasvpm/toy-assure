@@ -27,24 +27,33 @@ public class OrderApi {
         }
     }
 
+    @Transactional(readOnly = true)
     public OrderPojo getOrderByChannelOrder(String channelOrderId, Long channelId) {
         return orderDao.getOrderByChannelOrder(channelOrderId, channelId);
 
     }
 
+    @Transactional(readOnly = true)
     public List<OrderPojo> getOrdersByStatus(OrderStatus status) {
         return orderDao.getOrderByStatus(status);
     }
 
+    @Transactional(readOnly = true)
     public List<OrderItemPojo> getOrderItemsByOrderId(Long orderId) {
         return orderDao.getOrderItemsByOrderId(orderId);
     }
 
-    public void createOrderAndOrderItems(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) {
+    public OrderPojo createOrderAndOrderItems(OrderPojo orderPojo, List<OrderItemPojo> orderItemPojoList) {
         OrderPojo createdOrder = orderDao.createOrder(orderPojo);
         for(OrderItemPojo orderItemPojo : orderItemPojoList) {
             orderItemPojo.setOrderId(createdOrder.getOrderId());
             orderDao.createOrderItem(orderItemPojo);
         }
+        return createdOrder;
+    }
+
+    @Transactional(readOnly = true)
+    public OrderPojo getOrderByOrderId(Long orderId) {
+        return orderDao.getOrderByOrderId(orderId);
     }
 }

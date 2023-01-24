@@ -1,6 +1,7 @@
 package org.learning.assure.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;

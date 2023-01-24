@@ -1,5 +1,6 @@
 package org.learning.assure.dto;
 
+import org.apache.commons.io.FilenameUtils;
 import org.learning.assure.api.*;
 import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.dto.helper.BinSkuHelper;
@@ -9,9 +10,12 @@ import org.learning.assure.model.form.BinSkuForm;
 import org.learning.assure.pojo.BinSkuPojo;
 import org.learning.assure.pojo.InventoryPojo;
 import org.learning.assure.pojo.ProductPojo;
+import org.learning.assure.util.csvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -34,8 +38,9 @@ public class BinSkuDto {
     @Autowired
     private BinWiseInventoryFlowApi binWiseInventoryFlowApi;
 
-    public List<BinSkuPojo> addBinSkus(List<BinSkuForm> binSkuFormList, Long clientId) throws ApiException {
+    public List<BinSkuPojo> addBinSkus(MultipartFile binSkuCsvFile, Long clientId) throws ApiException, IOException {
         validateClient(clientId);
+        List<BinSkuForm>  binSkuFormList = parseCsv(binSkuCsvFile);
         validateForBinId(binSkuFormList);
         validateForClientSkuId(binSkuFormList, clientId);
         validateForQuantity(binSkuFormList);
@@ -45,6 +50,14 @@ public class BinSkuDto {
         return binWiseInventoryFlowApi.addBinWiseInventory(binSkuPojoList, inventoryPojoList);
     }
 
+    private List<BinSkuForm> parseCsv(MultipartFile binSkuCsvFile) throws ApiException, IOException {
+        if (!FilenameUtils.isExtension(binSkuCsvFile.getOriginalFilename(), "csv")) {
+            throw new ApiException("Input file is not a valid CSV file");
+        }
+        List<BinSkuForm> binSkuFormList = csvParser.parseCSV(binSkuCsvFile.getBytes(), BinSkuForm.class);
+        return binSkuFormList;
+    }
+
     private void validateClient(Long clientId) throws ApiException {
         userApi.invalidClientCheck(clientId);
     }
@@ -52,7 +65,7 @@ public class BinSkuDto {
     private void validateForQuantity(List<BinSkuForm> binSkuFormList) throws ApiException {
         for(BinSkuForm binSkuForm : binSkuFormList) {
             if(binSkuForm.getQuantity() < 1) {
-                throw new ApiException("Quantity of item can not be 0 or negative, Found such value for Product with clietn SKU ID = " + binSkuForm.getClientSkuId());
+                throw new ApiException("Quantity of item can not be 0 or negative, Found such value for Product with client SKU ID = " + binSkuForm.getClientSkuId());
             }
         }
     }
@@ -67,18 +80,12 @@ public class BinSkuDto {
     }
 
 
-    private void validateForBinId(List<BinSkuForm> binSkuFormList) {
-        Set<Long> binIdSet = new HashSet<>();
-        binSkuFormList.stream().map(BinSkuForm::getBinId)
-                .forEach(binId -> {
-                    if(Objects.isNull(binApi.getBinByBinId(binId))) {
-                        try {
-                            throw new ApiException("Bin with id " + binId + " does not exist");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
+    private void validateForBinId(List<BinSkuForm> binSkuFormList) throws ApiException {
+        for(BinSkuForm binSkuForm : binSkuFormList) {
+            if(Objects.isNull(binApi.getBinByBinId(binSkuForm.getBinId()))) {
+                throw new ApiException("Bin with id " + binSkuForm.getBinId() + " does not exist");
+            }
+        }
     }
 
     private void validateForClientSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {

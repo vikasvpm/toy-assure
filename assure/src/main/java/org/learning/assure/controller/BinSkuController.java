@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,9 +27,9 @@ public class BinSkuController {
 
     @PostMapping(path = "")
     @ApiOperation(value = "Add Bin SKUs")
-    public ResponseEntity<?> addBinSkus(@RequestBody @NotNull(message = "Upload data can not be null") List<BinSkuForm> binSkuFormList, @RequestParam Long clientId) throws ApiException {
-        List<BinSkuPojo> binSkuPojoList = binSkuDto.addBinSkus(binSkuFormList, clientId);
-        return new ResponseEntity<>( "Created binSKUs successfully", HttpStatus.CREATED);
+    public List<BinSkuPojo> addBinSkus(@RequestBody MultipartFile binSkuCsvFile, @RequestParam Long clientId) throws ApiException, IOException {
+        List<BinSkuPojo> binSkuPojoList = binSkuDto.addBinSkus(binSkuCsvFile, clientId);
+        return binSkuPojoList;
 
     }
 }

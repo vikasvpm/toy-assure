@@ -1,15 +1,24 @@
 package org.learning.assure.dto;
 
+import org.apache.commons.io.FilenameUtils;
 import org.learning.assure.api.*;
 import org.learning.assure.api.flow.AllocateOrderFlowApi;
 import org.learning.assure.api.flow.OrderAndOrderItemsFlowApi;
 import org.learning.assure.dto.helper.OrderHelper;
 import org.learning.assure.exception.ApiException;
+import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.*;
+import org.learning.assure.util.csvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -19,36 +28,50 @@ public class OrderDto {
     private ProductApi productApi;
     @Autowired
     private InventoryApi inventoryApi;
-
     @Autowired
     private UserApi userApi;
-
     @Autowired
     private OrderApi orderApi;
-
     @Autowired
     private ChannelApi channelApi;
-
     @Autowired
     private BinSkuApi binSkuApi;
-
     @Autowired
     private ChannelListingApi channelListingApi;
     @Autowired
     private OrderAndOrderItemsFlowApi orderAndOrderItemsFlowApi;
-
     @Autowired
     private AllocateOrderFlowApi allocateOrderFlowApi;
-    public void createInternalOrder(List<InternalOrderForm> internalOrderFormList, Long clientId, String channelOrderId, Long customerId) throws ApiException {
+    @Autowired
+    private InvoiceApi invoiceApi;
+    public OrderPojo createInternalOrder(MultipartFile internalOrderCsv, Long clientId, String channelOrderId, Long customerId) throws ApiException, IOException {
         validateClient(clientId);
         validateCustomer(customerId);
+        validateInternalChannelExists();
+        ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
+        validateChannelOrderId(channelOrderId, internalChannel.getChannelId());
+        List<InternalOrderForm> internalOrderFormList = parseInteralOrderCsv(internalOrderCsv);
         validateClientSkus(internalOrderFormList, clientId);
-        validateChannelOrderId(channelOrderId, 1l);
         validateInternalOrderedQuantity(internalOrderFormList);
         OrderPojo orderPojo = OrderHelper.convertToInternalOrder(channelOrderId, clientId, customerId);
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(internalOrderFormList, map);
-        orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+        return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+    }
+
+    private void validateInternalChannelExists() throws ApiException {
+        if(Objects.isNull(channelApi.getChannelByName("INTERNAL"))) {
+            throw new ApiException("INTERNAL channel does not exist");
+        }
+
+    }
+
+    private List<InternalOrderForm> parseInteralOrderCsv(MultipartFile internalOrderCsvFile) throws ApiException, IOException {
+        if (!FilenameUtils.isExtension(internalOrderCsvFile.getOriginalFilename(), "csv")) {
+            throw new ApiException("Input file is not a valid CSV file");
+        }
+        List<InternalOrderForm> internalOrderFormList = csvParser.parseCSV(internalOrderCsvFile.getBytes(), InternalOrderForm.class);
+        return internalOrderFormList;
     }
 
     private void validateInternalOrderedQuantity(List<InternalOrderForm> internalOrderFormList) throws ApiException {
@@ -107,18 +130,28 @@ public class OrderDto {
                 });
     }
 
-    public void createChannelOrder(List<ChannelOrderForm> channelOrderFormList, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException {
+    public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
         validateClient(clientId);
         validateCustomer(customerId);
         validateChannelName(channelName);
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
+        validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
+        List<ChannelOrderForm> channelOrderFormList = parseChannelOrderCsv(channelOrderCsv);
         validateChannelSkuIds(channelOrderFormList, clientId, channelPojo.getChannelId());
         validateChannelOrderedQuantity(channelOrderFormList);
-        validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
+
         OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, channelOrderFormList);
-        orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+        return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+    }
+
+    private List<ChannelOrderForm> parseChannelOrderCsv(MultipartFile channelOrderCsv) throws ApiException, IOException {
+        if (!FilenameUtils.isExtension(channelOrderCsv.getOriginalFilename(), "csv")) {
+            throw new ApiException("Input file is not a valid CSV file");
+        }
+        List<ChannelOrderForm> channelOrderFormList = csvParser.parseCSV(channelOrderCsv.getBytes(), ChannelOrderForm.class);
+        return channelOrderFormList;
     }
 
     private void validateChannelOrderedQuantity(List<ChannelOrderForm> channelOrderFormList) throws ApiException {
@@ -161,7 +194,48 @@ public class OrderDto {
         }
     }
 
-    public void allocateOrder() {
-        allocateOrderFlowApi.allocateOrder();
+    public OrderPojo allocateOrder(Long orderId) throws ApiException {
+        validateOrderForAllocation(orderId);
+        return allocateOrderFlowApi.allocateOrder(orderId);
+    }
+
+    private void validateOrderForAllocation(Long orderId) throws ApiException {
+        OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);
+        if(Objects.isNull(orderPojo)) {
+            throw new ApiException("No order with ID = " + orderId + " exists in the system");
+        }
+        else if(!orderPojo.getOrderStatus().equals(OrderStatus.CREATED)) {
+            throw new ApiException("Order with ID = " + orderId + " is not in CREATED state and can not be allocated");
+        }
+    }
+
+    public void fulfillOrder(Long orderId, HttpServletResponse response) throws ApiException {
+        validateOrderForFulfillment(orderId);
+        OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);
+        String fileName = "Invoice_" + orderPojo.getChannelOrderId();
+        List<OrderItemPojo> orderItemPojoList = orderApi.getOrderItemsByOrderId(orderId);
+        try {
+            byte[] invoiceBytes = invoiceApi.generateInvoice(orderItemPojoList, orderPojo);
+            response.setContentType("application/pdf");
+            response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
+            response.setContentLengthLong(invoiceBytes.length);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            baos.write(invoiceBytes);
+            baos.writeTo(response.getOutputStream());
+            baos.close();
+        }
+        catch (Exception ex) {
+            throw new ApiException("Error generating invoice");
+        }
+
+    }
+    private void validateOrderForFulfillment(Long orderId) throws ApiException {
+        OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);
+        if(Objects.isNull(orderPojo)) {
+            throw new ApiException("No order with ID = " + orderId + " exists in the system");
+        }
+        else if(!orderPojo.getOrderStatus().equals(OrderStatus.ALLOCATED)) {
+            throw new ApiException("Order with ID = " + orderId + " is not in ALLOCATED state and can not be fulfilled");
+        }
     }
 }

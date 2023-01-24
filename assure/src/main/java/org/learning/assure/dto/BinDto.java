@@ -17,7 +17,7 @@ public class BinDto {
     public List<BinPojo> addBins(Long noOfBins) throws ApiException {
         checkValidNumber(noOfBins);
         List<BinPojo> binPojoList = new ArrayList<>();
-        for(Long i = 1l; i <= noOfBins; i++) {
+        for(Long binNumber = 1l; binNumber <= noOfBins; binNumber++) {
             binPojoList.add(binApi.addBin(new BinPojo()));
         }
         return binPojoList;
