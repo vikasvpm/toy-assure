@@ -50,6 +50,10 @@ public class BinSkuDto {
         return binWiseInventoryFlowApi.addBinWiseInventory(binSkuPojoList, inventoryPojoList);
     }
 
+    public void validateClient(Long clientId) throws ApiException {
+        userApi.invalidClientCheck(clientId);
+    }
+
     private List<BinSkuForm> parseCsv(MultipartFile binSkuCsvFile) throws ApiException, IOException {
         if (!FilenameUtils.isExtension(binSkuCsvFile.getOriginalFilename(), "csv")) {
             throw new ApiException("Input file is not a valid CSV file");
@@ -57,21 +61,6 @@ public class BinSkuDto {
         List<BinSkuForm> binSkuFormList = csvParser.parseCSV(binSkuCsvFile.getBytes(), BinSkuForm.class);
         return binSkuFormList;
     }
-
-    public void validateClient(Long clientId) throws ApiException {
-        List<String> errorList = new ArrayList<>();
-        userApi.invalidClientCheck(clientId);
-    }
-
-    private Map<String, Long> mapToGlobalSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {
-        Map<String, Long> map = new HashMap<>();
-        for(BinSkuForm binSkuForm : binSkuFormList) {
-            ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, binSkuForm.getClientSkuId());
-            map.put(binSkuForm.getClientSkuId(), productPojo.getGlobalSkuId());
-        }
-        return map;
-    }
-
 
     private void validateForm(List<BinSkuForm> binSkuFormList,Long clientId, List<String> errorList) throws ApiException {
         Set<String> clientSkuIdSet = new HashSet<>();
@@ -94,5 +83,13 @@ public class BinSkuDto {
         ThrowExceptionHelper.throwIfErrors(errorList);
     }
 
+    private Map<String, Long> mapToGlobalSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {
+        Map<String, Long> map = new HashMap<>();
+        for(BinSkuForm binSkuForm : binSkuFormList) {
+            ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, binSkuForm.getClientSkuId());
+            map.put(binSkuForm.getClientSkuId(), productPojo.getGlobalSkuId());
+        }
+        return map;
+    }
 
 }

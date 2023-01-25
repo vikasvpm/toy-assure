@@ -17,7 +17,7 @@ public class UserDto {
 
     @Autowired
     private UserApi userApi;
-    public org.learning.assure.pojo.UserPojo addUser(UserForm userForm) throws ApiException {
+    public UserPojo addUser(UserForm userForm) throws ApiException {
         validateForDuplicate(userForm);
         UserPojo userPojo = UserHelper.convert(userForm);
         userApi.addUser(userPojo);

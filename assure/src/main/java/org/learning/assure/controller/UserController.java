@@ -7,6 +7,7 @@ import org.learning.assure.dto.UserDto;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.UserForm;
 
+import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,19 +25,19 @@ public class UserController {
     private UserDto userDto;
     @PostMapping(path = "")
     @ApiOperation(value = "Create a user")
-    public org.learning.assure.pojo.UserPojo addUser(@Valid @RequestBody UserForm userForm) throws ApiException {
+    public UserPojo addUser(@Valid @RequestBody UserForm userForm) throws ApiException {
         return userDto.addUser(userForm);
     }
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Get User by User ID")
-    public org.learning.assure.pojo.UserPojo getUserByUserId(@PathVariable Long id) {
+    public UserPojo getUserByUserId(@PathVariable Long id) {
         return userDto.getUserByUserId(id);
     }
 
     @GetMapping(path = "")
     @ApiOperation(value = "Get all Users")
-    public List<org.learning.assure.pojo.UserPojo> getAllUsers() {
+    public List<UserPojo> getAllUsers() {
         return userDto.getAllUsers();
     }
 

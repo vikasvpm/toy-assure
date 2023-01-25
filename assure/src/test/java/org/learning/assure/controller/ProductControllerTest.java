@@ -30,7 +30,7 @@ public class ProductControllerTest extends AbstractUnitTest {
 
     @Test
     public void testAddProducts() throws IOException, ApiException {
-        String csvFileName = "validProductsCsv.csv";
+        String csvFileName = "product_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
@@ -39,5 +39,32 @@ public class ProductControllerTest extends AbstractUnitTest {
         List<ProductPojo> productPojoList = productController.addProducts(csvFile, client.getUserId());
         Assert.assertEquals(2, productPojoList.size());
         Assert.assertEquals(Optional.of("mock1").get(), productPojoList.get(0).getClientSkuId());
+    }
+
+    @Test
+    public void addProductsWithMissingFieldsTest() throws IOException {
+        String csvFileName = "product_missing.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = TestUtil.createClient();
+        userApi.addUser(client);
+        try {
+            productController.addProducts(csvFile, client.getUserId());
+            Assert.fail();
+        } catch (ApiException e) {
+            Assert.assertEquals("Error parsing CSV File :" +
+                    " Field 'name' is mandatory but no value was provided at line number 2," +
+                    " Field 'mrp' is mandatory but no value was provided at line number 2," +
+                    " Field 'clientSkuId' is mandatory but no value was provided at line number 3," +
+                    " Field 'brandId' is mandatory but no value was provided at line number 3," +
+                    " Field 'description' is mandatory but no value was provided at line number 3"
+                    ,e.getMessage());
+        }
+    }
+
+    @Test
+    public void addProductsWithValidationFails() {
+
     }
 }

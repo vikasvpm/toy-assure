@@ -46,7 +46,7 @@ public class BinSkuControllerTest extends AbstractUnitTest {
 
     @Test
     public void testAddBinSku() throws IOException, ApiException {
-        String csvFileName = "binSkuHappyCsv.csv";
+        String csvFileName = "bin_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
@@ -63,7 +63,7 @@ public class BinSkuControllerTest extends AbstractUnitTest {
     }
     @Test
     public void testAddBinSkuWithoutClient() throws IOException {
-        String csvFileName = "binSkuHappyCsv.csv";
+        String csvFileName = "bin_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
@@ -77,17 +77,60 @@ public class BinSkuControllerTest extends AbstractUnitTest {
     }
     @Test
     public void testAddBinSkuWithoutBin() throws IOException, ApiException {
-        String csvFileName = "binSkuHappyCsv.csv";
+        String csvFileName = "bin_nobin.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
         UserPojo client = userApi.addUser(TestUtil.createClient());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
         try {
             binSkuController.addBinSkus(csvFile, client.getUserId());
             Assert.fail();
         }
         catch (ApiException ex) {
-            Assert.assertEquals("Bin with id " + 1l + " does not exist", ex.getMessage());
+            Assert.assertEquals("Bin with id " + 1L + " does not exist", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testAddBinSkuWithMissingFields() throws IOException {
+        String csvFileName = "bin_missingfields.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        try {
+            List<BinSkuPojo> binSkuPojoList = binSkuController.addBinSkus(csvFile, client.getUserId());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals(
+                    "Error parsing CSV File :" +
+                            " Field 'binId' is mandatory but no value was provided at line number 2," +
+                            " Field 'clientSkuId' is mandatory but no value was provided at line number 3",
+                    ex.getMessage()
+            );
+        }
+    }
+
+    @Test
+    public void testAddBinSkuWithMultipleValidationFails() throws IOException {
+        String csvFileName = "bin_validations.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        BinPojo bin1 = binApi.addBin(TestUtil.createBin());
+        BinPojo bin2 = binApi.addBin(TestUtil.createBin());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        try {
+            List<BinSkuPojo> binSkuPojoList = binSkuController.addBinSkus(csvFile, client.getUserId());
+            Assert.fail();
+        } catch (ApiException ex) {
+            Assert.assertEquals("Product with Client SKU ID mockx1 does not exist for Client 1 in the system," +
+                    " Bin with id 22 does not exist, " +
+                    "Quantity of item can not be 0 or negative: Found such value for Product with client SKU ID = mock2",
+                    ex.getMessage());
         }
     }
 }
