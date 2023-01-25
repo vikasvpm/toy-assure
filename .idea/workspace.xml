@@ -5,20 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/bin/bin_missingfields.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/bin/bin_nobin.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/bin/bin_validations.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/product/product_missing.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/channelListing/chlisting_missing.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/channelListing/chlisting_validation.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assure/src/test/resources/data/product/product_validation.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/UserHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/UserHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/BinSkuControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/BinSkuControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelListingControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelListingControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/resources/data/bin/binSkuHappyCsv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/resources/data/bin/bin_ok.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/resources/data/product/validProductsCsv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/resources/data/product/product_ok.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/resources/data/channelListing/validChannelListingCsv.csv" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/resources/data/channelListing/chlisting_ok.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +102,7 @@
       <recent name="org.learning.assure.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductControllerTest.addProductsWithMissingFieldsTest">
+  <component name="RunManager" selected="JUnit.ChannelListingControllerTest.testAddChannelListingWithValidationFails">
     <configuration name="All in assure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <option name="PACKAGE_NAME" value="" />
@@ -136,7 +131,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BinSkuControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BinSkuControllerTest.testAddBinSkuWithMissingFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -146,28 +141,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
       <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.BinSkuControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BinSkuControllerTest.testAddBinSkuWithMultipleValidationFails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assure" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.BinSkuControllerTest" />
-      <option name="METHOD_NAME" value="testAddBinSkuWithMultipleValidationFails" />
+      <option name="METHOD_NAME" value="testAddBinSkuWithMissingFields" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BinSkuControllerTest.testAddBinWithMissingFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ChannelListingControllerTest.testAddChannelListingWithInvalidChannel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -176,14 +156,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.BinSkuControllerTest" />
-      <option name="METHOD_NAME" value="testAddBinWithMissingFields" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ChannelListingControllerTest" />
+      <option name="METHOD_NAME" value="testAddChannelListingWithInvalidChannel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductControllerTest.addProductsWithMissingFieldsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ChannelListingControllerTest.testAddChannelListingWithInvalidClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -192,14 +172,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ProductControllerTest" />
-      <option name="METHOD_NAME" value="addProductsWithMissingFieldsTest" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ChannelListingControllerTest" />
+      <option name="METHOD_NAME" value="testAddChannelListingWithInvalidClient" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductControllerTest.testAddProducts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ChannelListingControllerTest.testAddChannelListingWithMissingFields" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -208,8 +188,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ProductControllerTest" />
-      <option name="METHOD_NAME" value="testAddProducts" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ChannelListingControllerTest" />
+      <option name="METHOD_NAME" value="testAddChannelListingWithMissingFields" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChannelListingControllerTest.testAddChannelListingWithValidationFails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ChannelListingControllerTest" />
+      <option name="METHOD_NAME" value="testAddChannelListingWithValidationFails" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -255,11 +251,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductControllerTest.addProductsWithMissingFieldsTest" />
-        <item itemvalue="JUnit.ProductControllerTest.testAddProducts" />
-        <item itemvalue="JUnit.BinSkuControllerTest.testAddBinSkuWithMultipleValidationFails" />
-        <item itemvalue="JUnit.BinSkuControllerTest.testAddBinWithMissingFields" />
-        <item itemvalue="JUnit.BinSkuControllerTest" />
+        <item itemvalue="JUnit.ChannelListingControllerTest.testAddChannelListingWithValidationFails" />
+        <item itemvalue="JUnit.BinSkuControllerTest.testAddBinSkuWithMissingFields" />
+        <item itemvalue="JUnit.ChannelListingControllerTest.testAddChannelListingWithMissingFields" />
+        <item itemvalue="JUnit.ChannelListingControllerTest.testAddChannelListingWithInvalidChannel" />
+        <item itemvalue="JUnit.ChannelListingControllerTest.testAddChannelListingWithInvalidClient" />
       </list>
     </recent_temporary>
   </component>
@@ -482,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674636197716</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="More tests added for product, binsku">
+      <created>1674641404253</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1674641404253</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -514,7 +517,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Abstract Pojo and Bin flow working" />
     <MESSAGE value="Duplicate clientSku validation and product update added" />
     <MESSAGE value="Update product and duplicate validation" />
     <MESSAGE value="BinSku getting added with validations" />
@@ -539,7 +541,8 @@
     <MESSAGE value="Order Tests added" />
     <MESSAGE value="Refactoring and removing junk code" />
     <MESSAGE value="Refactoring validations and exceptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring validations and exceptions" />
+    <MESSAGE value="More tests added for product, binsku" />
+    <option name="LAST_COMMIT_MESSAGE" value="More tests added for product, binsku" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

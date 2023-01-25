@@ -26,4 +26,18 @@ public class ChannelControllerTest extends AbstractUnitTest {
         ChannelPojo channelPojo = channelController.addChannel(channelForm);
         Assert.assertEquals(Optional.of("Mock Channel").get(), channelPojo.getName());
     }
+
+    @Test
+    public void testAddDuplicateChannel() throws ApiException {
+        ChannelForm channelForm = TestUtil.createChannelForm("Mock Channel");
+        ChannelPojo channelPojo = channelController.addChannel(channelForm);
+        try {
+            ChannelPojo channelPojo1 = channelController.addChannel(channelForm);
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("Channel with name Mock Channel already exists", ex.getMessage());
+        }
+
+    }
 }

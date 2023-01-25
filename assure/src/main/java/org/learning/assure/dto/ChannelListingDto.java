@@ -57,7 +57,6 @@ public class ChannelListingDto {
             ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, channelListingForm.getClientSkuId());
             if(Objects.isNull(productPojo)) {
                 errorList.add("There is no product with Client SKU ID = " + channelListingForm.getClientSkuId() + " for client " + clientId);
-//                throw new ApiException("There is no product with Client SKU ID = " + channelListingForm.getChannelSkuId() + " for client " + clientId);
             }
             else {
                 map.put(channelListingForm.getClientSkuId(), productPojo.getGlobalSkuId());
@@ -68,7 +67,6 @@ public class ChannelListingDto {
     }
 
     private void validateClientIdAndChannelId(Long clientId, Long channelId) throws ApiException {
-        List<String> errorList = new ArrayList<>();
         userApi.invalidClientCheck(clientId);
         ChannelPojo channelPojo = channelApi.getChannelById(channelId);
         if(Objects.isNull(channelPojo)) {

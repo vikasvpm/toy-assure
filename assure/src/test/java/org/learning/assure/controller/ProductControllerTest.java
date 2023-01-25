@@ -1,6 +1,5 @@
 package org.learning.assure.controller;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.learning.assure.api.UserApi;
@@ -42,6 +41,28 @@ public class ProductControllerTest extends AbstractUnitTest {
     }
 
     @Test
+    public void addProductsWithInvalidClientTest() throws IOException {
+        String csvFileName = "product_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        try {
+            List<ProductPojo> productPojoList = productController.addProducts(csvFile, 44L);
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("No client exists with client Id = 44", ex.getMessage());
+        }
+        try {
+            List<ProductPojo> productPojoList = productController.addProducts(csvFile, customer.getUserId());
+        } catch (ApiException e) {
+            Assert.assertEquals("User with Id = 2 is not a client", e.getMessage());
+        }
+    }
+
+    @Test
     public void addProductsWithMissingFieldsTest() throws IOException {
         String csvFileName = "product_missing.csv";
         MultipartFile csvFile = null;
@@ -64,7 +85,18 @@ public class ProductControllerTest extends AbstractUnitTest {
     }
 
     @Test
-    public void addProductsWithValidationFails() {
-
+    public void addProductsWithValidationFailsTest() throws IOException {
+        String csvFileName = "product_validation.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = TestUtil.createClient();
+        userApi.addUser(client);
+        try {
+            productController.addProducts(csvFile, client.getUserId());
+            Assert.fail();
+        } catch (ApiException e) {
+            Assert.assertEquals("Duplicate Client SKU mock2 in the upload", e.getMessage());
+        }
     }
 }

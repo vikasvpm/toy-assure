@@ -40,7 +40,7 @@ public class ChannelListingControllerTest extends AbstractUnitTest {
 
     @Test
     public void testAddChannelListing() throws IOException, ApiException {
-        String csvFileName = "validChannelListingCsv.csv";
+        String csvFileName = "chlisting_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
@@ -49,5 +49,79 @@ public class ChannelListingControllerTest extends AbstractUnitTest {
         ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
         List<ChannelListingPojo> channelListingPojoList = channelListingController.addChannelListing(csvFile, client.getUserId(),channelPojo.getChannelId());
         Assert.assertEquals(2, channelListingPojoList.size());
+        Assert.assertEquals("cn1", channelListingPojoList.get(0).getChannelSkuId());
+    }
+
+    @Test
+    public void testAddChannelListingWithInvalidClient() throws IOException {
+        String csvFileName = "chlisting_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        try {
+            List<ChannelListingPojo> channelListingPojoList = channelListingController.addChannelListing(csvFile, 44L,channelPojo.getChannelId());
+            Assert.fail();
+        } catch (ApiException e) {
+            Assert.assertEquals("No client exists with client Id = 44",e.getMessage());
+        }
+    }
+
+    @Test
+    public void testAddChannelListingWithInvalidChannel() throws IOException {
+        String csvFileName = "chlisting_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        try {
+            List<ChannelListingPojo> channelListingPojoList = channelListingController.addChannelListing(csvFile, client.getUserId(),55L);
+            Assert.fail();
+        } catch (ApiException e) {
+            Assert.assertEquals("Channel with channelId 55 does not exist",e.getMessage());
+        }
+    }
+
+    @Test
+    public void testAddChannelListingWithMissingFields() throws IOException {
+        String csvFileName = "chlisting_missing.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        try {
+            List<ChannelListingPojo> channelListingPojoList = channelListingController.addChannelListing(csvFile, client.getUserId(), channelPojo.getChannelId());
+            Assert.fail();
+        } catch (ApiException e) {
+            Assert.assertEquals("Error parsing CSV File :" +
+                    " Field 'clientSkuId' is mandatory but no value was provided at line number 2," +
+                    " Field 'channelSkuId' is mandatory but no value was provided at line number 3"
+                    ,e.getMessage());
+        }
+    }
+
+    @Test
+    public void testAddChannelListingWithValidationFails() throws IOException {
+        String csvFileName = "chlisting_validation.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        try {
+            List<ChannelListingPojo> channelListingPojoList = channelListingController.addChannelListing(csvFile, client.getUserId(), channelPojo.getChannelId());
+            Assert.fail();
+        } catch (ApiException e) {
+            Assert.assertEquals("There is no product with Client SKU ID = mocsk1 for client 1," +
+                            " There is no product with Client SKU ID = mocsk2 for client 1"
+                    ,e.getMessage());
+        }
     }
 }
