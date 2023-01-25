@@ -1,10 +1,14 @@
-package org.learning.assure.api;
+package org.learning.assure.api.flow;
 
 import org.apache.fop.apps.*;
-import org.learning.assure.dao.ProductDao;
+import org.learning.assure.api.InventoryApi;
+import org.learning.assure.api.OrderApi;
+import org.learning.assure.api.ProductApi;
 import org.learning.assure.exception.ApiException;
+import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.model.invoice.InvoiceData;
 import org.learning.assure.model.invoice.InvoiceItemData;
+import org.learning.assure.pojo.InventoryPojo;
 import org.learning.assure.pojo.OrderItemPojo;
 import org.learning.assure.pojo.OrderPojo;
 import org.learning.assure.pojo.ProductPojo;
@@ -24,15 +28,22 @@ import java.util.List;
 
 @Service
 @Transactional
-public class InvoiceApi {
+public class InvoiceFlowApi {
     private FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
     private String xslTemplateName = "xslTemplate.xsl";
 
     @Autowired
-    private ProductDao productDao;
+    private ProductApi productApi;
 
+    @Autowired
+    private InventoryApi inventoryApi;
 
-    public byte[] generateInvoice(List<OrderItemPojo> orderItemPojoList, OrderPojo orderPojo) throws ApiException {
+    @Autowired
+    private OrderApi orderApi;
+
+    public byte[] generateInvoice(Long orderId) throws ApiException {
+        OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);
+        List<OrderItemPojo> orderItemPojoList = orderApi.getOrderItemsByOrderId(orderId);
         try {
             File xslFile = new File(Thread.currentThread().getContextClassLoader().getResource(xslTemplateName).toURI());
             String xmlInput = getXmlString(orderItemPojoList, orderPojo);
@@ -41,6 +52,16 @@ public class InvoiceApi {
         catch (Exception e) {
             e.printStackTrace();
             throw new ApiException("Issue while generating XML for orders");
+        }
+        finally {
+            orderPojo.setOrderStatus(OrderStatus.FULFILLED);
+            for(OrderItemPojo orderItemPojo : orderItemPojoList) {
+                orderItemPojo.setFulfilledQuantity(orderItemPojo.getAllocatedQuantity());
+                orderItemPojo.setAllocatedQuantity(0L);
+                InventoryPojo inventoryPojo = inventoryApi.getByGlobalSkuId(orderItemPojo.getGlobalSkuId());
+                inventoryPojo.setAllocatedQuantity(inventoryPojo.getAllocatedQuantity() - orderItemPojo.getFulfilledQuantity());
+                inventoryPojo.setFulfilledQuantity(inventoryPojo.getFulfilledQuantity() + orderItemPojo.getFulfilledQuantity());
+            }
         }
     }
 
@@ -84,7 +105,7 @@ public class InvoiceApi {
         List<InvoiceItemData> invoiceItemDataList = new ArrayList<>();
         for(OrderItemPojo orderItemPojo : orderItemPojoList) {
             InvoiceItemData invoiceItemData = new InvoiceItemData();
-            ProductPojo productPojo = productDao.getProductByGlobalSkuId(orderItemPojo.getGlobalSkuId());
+            ProductPojo productPojo = productApi.getProductByGlobalSkuId(orderItemPojo.getGlobalSkuId());
             invoiceItemData.setProductName(productPojo.getName());
             invoiceItemData.setClientSkuId(productPojo.getClientSkuId());
             invoiceItemData.setQuantity(orderItemPojo.getAllocatedQuantity());
@@ -94,6 +115,4 @@ public class InvoiceApi {
         }
         return invoiceItemDataList;
     }
-
-
 }

@@ -39,7 +39,7 @@ public class UserApi {
 
 
 
-    public void invalidClientCheck(Long userId, List<String> errorList) throws ApiException {
+    public void invalidClientCheck(Long userId) throws ApiException {
         UserPojo userPojo = userDao.getUserByUserId(userId);
         if(Objects.isNull(userPojo)) {
             throw new ApiException("No client exists with client Id = " + userId);

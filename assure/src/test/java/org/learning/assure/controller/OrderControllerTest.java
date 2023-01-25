@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.learning.assure.api.*;
+import org.learning.assure.api.flow.AllocateOrderFlowApi;
 import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.config.AbstractUnitTest;
 import org.learning.assure.exception.ApiException;
@@ -12,10 +13,12 @@ import org.learning.assure.pojo.*;
 import org.learning.assure.util.FileUtil;
 import org.learning.assure.util.TestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +50,9 @@ public class OrderControllerTest extends AbstractUnitTest {
 
     @Autowired
     private BinWiseInventoryFlowApi binWiseInventoryFlowApi;
+
+    @Autowired
+    private AllocateOrderFlowApi allocateOrderFlowApi;
 
     @Test
     public void createChannelOrderTest() throws IOException, ApiException {
@@ -155,5 +161,24 @@ public class OrderControllerTest extends AbstractUnitTest {
         Assert.assertNotEquals(orderApi.getOrderItemsByOrderId(allocatedOrder.getOrderId()).get(0).getAllocatedQuantity() ,orderApi.getOrderItemsByOrderId(allocatedOrder.getOrderId()).get(0).getOrderedQuantity());
     }
 
+    @Test
+    public void fulfillTest() throws ApiException {
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        binApi.addBin(new BinPojo());
+        binApi.addBin(new BinPojo());
+        binWiseInventoryFlowApi.addBinWiseInventory(TestUtil.createBinSkus(createdProducts, 5L), TestUtil.createInventoryPojos(createdProducts, 5L));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("INTERNAL"));
+        ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), internalChannel.getChannelId(), createdProducts));
+        OrderStatus status = OrderStatus.CREATED;
+        OrderPojo orderPojo = orderApi.createOrderAndOrderItems(TestUtil.createOrder(client.getUserId(),customer.getUserId(),internalChannel.getChannelId(),"mock-internal-order", status),
+                TestUtil.createOrderItems(createdProducts));
+        OrderPojo allocatedOrder = allocateOrderFlowApi.allocateOrder(orderPojo.getOrderId());
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        OrderPojo fulfilledOrder = orderController.fulfillOrder(allocatedOrder.getOrderId(), response);
+        Assert.assertEquals(OrderStatus.FULFILLED, fulfilledOrder.getOrderStatus());
+    }
 
 }

@@ -6,6 +6,7 @@ import org.learning.assure.api.ChannelListingApi;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.ChannelListingHelper;
+import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.BinSkuForm;
 import org.learning.assure.model.form.ChannelListingForm;
@@ -37,7 +38,8 @@ public class ChannelListingDto {
     public List<ChannelListingPojo> addChannelListing(MultipartFile channelListingCsv, Long clientId, Long channelId) throws ApiException, IOException {
         validateClientIdAndChannelId(clientId, channelId);
         List<ChannelListingForm> channelListingFormList = parseCsv(channelListingCsv);
-        Map<String, Long> map = validateAndMapToGlobalSkuId(channelListingFormList, clientId);
+        List<String> errorList = new ArrayList<>();
+        Map<String, Long> map = validateAndMapToGlobalSkuId(channelListingFormList, clientId, errorList);
         List<ChannelListingPojo> channelListingPojoList = ChannelListingHelper.convertChannelListingFormListToChannelListingPojoList(channelListingFormList, clientId, channelId, map);
         return channelListingApi.addChannelListing(channelListingPojoList);
     }
@@ -49,21 +51,25 @@ public class ChannelListingDto {
         return channelListingFormList;
     }
 
-    private Map<String, Long> validateAndMapToGlobalSkuId(List<ChannelListingForm> channelListingFormList, Long clientId) throws ApiException {
+    private Map<String, Long> validateAndMapToGlobalSkuId(List<ChannelListingForm> channelListingFormList, Long clientId, List<String> errorList) throws ApiException {
         Map<String, Long> map = new HashMap<>();
         for(ChannelListingForm channelListingForm : channelListingFormList) {
             ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, channelListingForm.getClientSkuId());
             if(Objects.isNull(productPojo)) {
-                throw new ApiException("There is no product with Client SKU ID = " + channelListingForm.getChannelSkuId() + " for client " + clientId);
+                errorList.add("There is no product with Client SKU ID = " + channelListingForm.getClientSkuId() + " for client " + clientId);
+//                throw new ApiException("There is no product with Client SKU ID = " + channelListingForm.getChannelSkuId() + " for client " + clientId);
             }
-            map.put(channelListingForm.getClientSkuId(), productPojo.getGlobalSkuId());
+            else {
+                map.put(channelListingForm.getClientSkuId(), productPojo.getGlobalSkuId());
+            }
         }
+        ThrowExceptionHelper.throwIfErrors(errorList);
         return map;
     }
 
     private void validateClientIdAndChannelId(Long clientId, Long channelId) throws ApiException {
         List<String> errorList = new ArrayList<>();
-        userApi.invalidClientCheck(clientId, errorList);
+        userApi.invalidClientCheck(clientId);
         ChannelPojo channelPojo = channelApi.getChannelById(channelId);
         if(Objects.isNull(channelPojo)) {
             throw new ApiException("Channel with channelId " + channelId + " does not exist");

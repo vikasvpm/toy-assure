@@ -3,10 +3,13 @@ package org.learning.assure.dto;
 import org.apache.commons.io.FilenameUtils;
 import org.learning.assure.api.*;
 import org.learning.assure.api.flow.AllocateOrderFlowApi;
+import org.learning.assure.api.flow.InvoiceFlowApi;
 import org.learning.assure.api.flow.OrderAndOrderItemsFlowApi;
 import org.learning.assure.dto.helper.OrderHelper;
+import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.enums.OrderStatus;
+import org.learning.assure.model.form.ChannelListingForm;
 import org.learning.assure.model.form.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.*;
@@ -45,7 +48,7 @@ public class OrderDto {
     @Autowired
     private AllocateOrderFlowApi allocateOrderFlowApi;
     @Autowired
-    private InvoiceApi invoiceApi;
+    private InvoiceFlowApi invoiceFlowApi;
     public OrderPojo createInternalOrder(MultipartFile internalOrderCsv, Long clientId, String channelOrderId, Long customerId) throws ApiException, IOException {
         validateClient(clientId);
         validateCustomer(customerId);
@@ -53,8 +56,8 @@ public class OrderDto {
         ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
         validateChannelOrderId(channelOrderId, internalChannel.getChannelId());
         List<InternalOrderForm> internalOrderFormList = parseInteralOrderCsv(internalOrderCsv);
-        validateClientSkus(internalOrderFormList, clientId);
-        validateInternalOrderedQuantity(internalOrderFormList);
+        List<String> errorList = new ArrayList<>();
+        validateInternalOrderForm(internalOrderFormList, clientId, errorList);
         OrderPojo orderPojo = OrderHelper.convertToInternalOrder(channelOrderId, clientId, customerId);
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(internalOrderFormList, map);
@@ -96,7 +99,7 @@ public class OrderDto {
     private void validateChannelOrderId(String channelOrderId, Long channelId) throws ApiException {
         OrderPojo orderPojo = orderApi.getOrderByChannelOrder(channelOrderId, channelId);
         if(!Objects.isNull(orderPojo)) {
-            throw new ApiException("ChannelOrderId " + channelOrderId + " already exists for the Channel " + channelId );
+            throw new ApiException("Channel Order Id " + channelOrderId + " already exists for the Channel " + channelId );
         }
     }
 
@@ -106,31 +109,30 @@ public class OrderDto {
 
     public void validateClient(Long clientId) throws ApiException {
         List<String> errorList = new ArrayList<>();
-        userApi.invalidClientCheck(clientId, errorList);
+        userApi.invalidClientCheck(clientId);
     }
 
-    private void validateClientSkus(List<InternalOrderForm> internalOrderFormList, Long clientId) {
+    private void validateInternalOrderForm(List<InternalOrderForm> internalOrderFormList, Long clientId, List<String> errorList) throws ApiException {
         Set<String> clientSkuIdSet = new HashSet<>();
-        internalOrderFormList.stream().map(InternalOrderForm::getClientSkuId)
-                .forEach(clientSkuId -> {
-                    if(clientSkuIdSet.contains(clientSkuId)) {
-                        try {
-                            throw new ApiException("Duplicate Client SKU ID " + clientSkuId + " is present in the upload");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    clientSkuIdSet.add(clientSkuId);
-                    ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId);
-                    if(Objects.isNull(productPojo)) {
-                        try {
-                            throw new ApiException("Product with Client SKU ID " + clientSkuId + " is not present in the system for client with ID " + clientId );
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-                });
+        for(InternalOrderForm internalOrderForm: internalOrderFormList) {
+            String clientSkuId = internalOrderForm.getClientSkuId();
+            ProductPojo productPojo = productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId);
+            if(Objects.isNull(productPojo)) {
+                errorList.add("Product with Client SKU ID " + clientSkuId + " is not present in the system for client with ID " + clientId);
+            }
+            else if(clientSkuIdSet.contains(clientSkuId)) {
+                errorList.add("Duplicate Client SKU ID " + clientSkuId + " is present in the upload");
+            }
+            else {
+                clientSkuIdSet.add(clientSkuId);
+                if(internalOrderForm.getOrderedQuantity() < 1) {
+                    errorList.add("Ordered quantity can not be 0 or negative: such value found for product with client SKU ID = " + clientSkuId);
+                }
+            }
+        }
+        if(!errorList.isEmpty()) {
+            ThrowExceptionHelper.throwIfErrors(errorList);
+        }
     }
 
     public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
@@ -140,9 +142,8 @@ public class OrderDto {
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
         validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
         List<ChannelOrderForm> channelOrderFormList = parseChannelOrderCsv(channelOrderCsv);
-        validateChannelSkuIds(channelOrderFormList, clientId, channelPojo.getChannelId());
-        validateChannelOrderedQuantity(channelOrderFormList);
-
+        List<String> errorList = new ArrayList<>();
+        validateChannelOrderForm(channelOrderFormList, clientId, channelPojo.getChannelId(), errorList);
         OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, channelOrderFormList);
@@ -160,23 +161,25 @@ public class OrderDto {
     private void validateChannelOrderedQuantity(List<ChannelOrderForm> channelOrderFormList) throws ApiException {
         for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
             if(channelOrderForm.getOrderedQuantity() < 1) {
-                throw new ApiException("Ordered quantity can not be 0 or negative, such value found for product with channel SKU ID = " + channelOrderForm.getChannelSkuId());
+                throw new ApiException("Ordered quantity can not be 0 or negative: such value found for product with channel SKU ID = " + channelOrderForm.getChannelSkuId());
             }
         }
     }
 
-    private void validateChannelSkuIds(List<ChannelOrderForm> channelOrderFormList, Long clientId, Long channelId) {
-        channelOrderFormList.stream().map(ChannelOrderForm::getChannelSkuId)
-                .forEach(channelSkuId -> {
-                    ChannelListingPojo channelListingPojo = channelListingApi.getChannelListingToMapGlobalSkuId(clientId, channelId, channelSkuId);
-                    if(Objects.isNull(channelListingPojo)) {
-                        try {
-                            throw new ApiException("No product with channelSkuId = " + channelSkuId + " present for client " + clientId + " and channel " + channelId);
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
+    private void validateChannelOrderForm(List<ChannelOrderForm> channelOrderFormList, Long clientId, Long channelId, List<String> errorList) throws ApiException {
+        for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
+            String channelSkuId = channelOrderForm.getChannelSkuId();
+            ChannelListingPojo channelListingPojo = channelListingApi.getChannelListingToMapGlobalSkuId(clientId,channelId,channelSkuId);
+            if(Objects.isNull(channelListingPojo)) {
+                errorList.add("No product with channelSkuId = " + channelSkuId + " present for client " + clientId + " and channel " + channelId);
+            }
+            else if(channelOrderForm.getOrderedQuantity() < 1L) {
+                errorList.add("Ordered quantity can not be 0 or negative: such value found for product with channel SKU ID = " + channelSkuId);
+            }
+        }
+        if(!errorList.isEmpty()) {
+            ThrowExceptionHelper.throwIfErrors(errorList);
+        }
     }
     private Map<String, Long> mapChannelSkuIdToGlobalSkuId(List<ChannelOrderForm> channelOrderFormList, Long channelId, Long clientId) {
         Map<String, Long> map = new HashMap<>();
@@ -211,14 +214,12 @@ public class OrderDto {
             throw new ApiException("Order with ID = " + orderId + " is not in CREATED state and can not be allocated");
         }
     }
-
-    public void fulfillOrder(Long orderId, HttpServletResponse response) throws ApiException {
+    public OrderPojo fulfillOrder(Long orderId, HttpServletResponse response) throws ApiException {
         validateOrderForFulfillment(orderId);
         OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);
         String fileName = "Invoice_" + orderPojo.getChannelOrderId();
-        List<OrderItemPojo> orderItemPojoList = orderApi.getOrderItemsByOrderId(orderId);
         try {
-            byte[] invoiceBytes = invoiceApi.generateInvoice(orderItemPojoList, orderPojo);
+            byte[] invoiceBytes = invoiceFlowApi.generateInvoice(orderId);
             Files.write(Paths.get("invoice.pdf"), invoiceBytes);
             response.setContentType("application/pdf");
             response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
@@ -231,7 +232,7 @@ public class OrderDto {
         catch (Exception ex) {
             throw new ApiException("Error generating invoice");
         }
-
+        return orderPojo;
     }
     private void validateOrderForFulfillment(Long orderId) throws ApiException {
         OrderPojo orderPojo = orderApi.getOrderByOrderId(orderId);

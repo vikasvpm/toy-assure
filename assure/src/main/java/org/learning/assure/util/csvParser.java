@@ -36,7 +36,7 @@ public class csvParser {
             String errorMessage = e.getMessage().replaceAll("\\.", "");
             errorMessages.add(errorMessage + " at line number " + e.getLineNumber());
         }
-        String message = String.join("\n", errorMessages);
-        throw new ApiException("Error parsing CSV File :\n" + message);
+        String message = String.join(", ", errorMessages);
+        throw new ApiException("Error parsing CSV File : " + message);
     }
 }

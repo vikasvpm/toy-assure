@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ApiExceptionResponse {
+public class ExceptionResponse {
     private String message;
 }

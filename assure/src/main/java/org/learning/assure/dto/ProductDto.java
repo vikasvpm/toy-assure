@@ -5,6 +5,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.ProductHelper;
+import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
@@ -35,20 +36,12 @@ public class ProductDto {
     }
 
     public List<ProductPojo> addProducts(MultipartFile productCsvFile, Long clientId) throws ApiException, IOException {
-        List<String> errorList = new ArrayList<>();
-        validateForClientId(clientId, errorList);
+        validateForClientId(clientId);
         List<ProductForm> productFormList = parseCSV(productCsvFile);
+        List<String> errorList = new ArrayList<>();
         validateForDuplicate(productFormList, clientId, errorList);
-        throwIfErrors(errorList);
         List<ProductPojo> productPojoList = ProductHelper.convertListOfProductFormToListOfProductPojo(productFormList, clientId);
         return productApi.addProducts(productPojoList);
-    }
-
-    private void throwIfErrors(List<String> errorList) throws ApiException {
-        if(!errorList.isEmpty()) {
-            String errorMessage = String.join("\n", errorList);
-            throw new ApiException(errorMessage);
-        }
     }
 
     private List<ProductForm> parseCSV(MultipartFile csvFile) throws IOException, ApiException {
@@ -65,13 +58,13 @@ public class ProductDto {
         for(ProductForm productForm : productFormList) {
             if(clientSkuIdSet.contains(productForm.getClientSkuId())) {
                 errorList.add("Duplicate Client SKU " + productForm.getClientSkuId() + " in the upload");
-//                throw new ApiException("Duplicate Client SKU " + productForm.getClientSkuId() + " in the upload");
             }
             clientSkuIdSet.add(productForm.getClientSkuId());
         }
+        ThrowExceptionHelper.throwIfErrors(errorList);
     }
-    private void validateForClientId(Long clientId, List<String> errorList) throws ApiException {
-        userApi.invalidClientCheck(clientId, errorList);
+    private void validateForClientId(Long clientId) throws ApiException {
+        userApi.invalidClientCheck(clientId);
     }
 
 }

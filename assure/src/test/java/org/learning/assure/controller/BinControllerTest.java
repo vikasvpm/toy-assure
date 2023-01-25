@@ -7,9 +7,10 @@ import org.learning.assure.config.AbstractUnitTest;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.pojo.BinPojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
-
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class BinControllerTest extends AbstractUnitTest {
 
     @Autowired

@@ -53,8 +53,8 @@ public class OrderController {
 
     @PostMapping(path = "/fulfill")
     @ApiOperation(value = "Fulfill any allocated order")
-    public void fulfillOrder(@RequestParam Long orderId, HttpServletResponse response) throws ApiException {
-        orderDto.fulfillOrder(orderId, response);
+    public OrderPojo fulfillOrder(@RequestParam Long orderId, HttpServletResponse response) throws ApiException {
+        return orderDto.fulfillOrder(orderId, response);
     }
 
 

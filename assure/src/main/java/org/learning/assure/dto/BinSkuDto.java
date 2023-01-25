@@ -5,6 +5,7 @@ import org.learning.assure.api.*;
 import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.dto.helper.BinSkuHelper;
 import org.learning.assure.dto.helper.InventoryHelper;
+import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.BinSkuForm;
 import org.learning.assure.pojo.BinSkuPojo;
@@ -41,9 +42,8 @@ public class BinSkuDto {
     public List<BinSkuPojo> addBinSkus(MultipartFile binSkuCsvFile, Long clientId) throws ApiException, IOException {
         validateClient(clientId);
         List<BinSkuForm>  binSkuFormList = parseCsv(binSkuCsvFile);
-        validateForBinId(binSkuFormList);
-        validateForClientSkuId(binSkuFormList, clientId);
-        validateForQuantity(binSkuFormList);
+        List<String> errorList = new ArrayList<>();
+        validateForm(binSkuFormList, clientId, errorList);
         Map<String, Long> map = mapToGlobalSkuId(binSkuFormList, clientId);
         List<BinSkuPojo> binSkuPojoList = BinSkuHelper.convertBinSkuFormListToBinSkuPojoList(binSkuFormList, clientId, map);
         List<InventoryPojo> inventoryPojoList = InventoryHelper.convertToInventoryPojoList(binSkuFormList, map);
@@ -60,15 +60,7 @@ public class BinSkuDto {
 
     public void validateClient(Long clientId) throws ApiException {
         List<String> errorList = new ArrayList<>();
-        userApi.invalidClientCheck(clientId, errorList);
-    }
-
-    private void validateForQuantity(List<BinSkuForm> binSkuFormList) throws ApiException {
-        for(BinSkuForm binSkuForm : binSkuFormList) {
-            if(binSkuForm.getQuantity() < 1) {
-                throw new ApiException("Quantity of item can not be 0 or negative, Found such value for Product with client SKU ID = " + binSkuForm.getClientSkuId());
-            }
-        }
+        userApi.invalidClientCheck(clientId);
     }
 
     private Map<String, Long> mapToGlobalSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {
@@ -81,35 +73,25 @@ public class BinSkuDto {
     }
 
 
-    private void validateForBinId(List<BinSkuForm> binSkuFormList) throws ApiException {
+    private void validateForm(List<BinSkuForm> binSkuFormList,Long clientId, List<String> errorList) throws ApiException {
+        Set<String> clientSkuIdSet = new HashSet<>();
         for(BinSkuForm binSkuForm : binSkuFormList) {
             if(Objects.isNull(binApi.getBinByBinId(binSkuForm.getBinId()))) {
-                throw new ApiException("Bin with id " + binSkuForm.getBinId() + " does not exist");
+                errorList.add("Bin with id " + binSkuForm.getBinId() + " does not exist");
+            }
+            String clientSkuId = binSkuForm.getClientSkuId();
+            if(Objects.isNull(productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId))) {
+                errorList.add("Product with Client SKU ID " + clientSkuId + " does not exist for Client " + clientId + " in the system");
+            }
+            if(clientSkuIdSet.contains(clientSkuId)) {
+                errorList.add("Duplicate Client SKU ID " + clientSkuId + " present in the upload");
+            }
+            clientSkuIdSet.add(clientSkuId);
+            if(binSkuForm.getQuantity() < 1) {
+                errorList.add("Quantity of item can not be 0 or negative: Found such value for Product with client SKU ID = " + clientSkuId);
             }
         }
-    }
-
-    private void validateForClientSkuId(List<BinSkuForm> binSkuFormList, Long clientId) {
-        Set<String> clientSkuIdSet = new HashSet<>();
-        binSkuFormList.stream().map(BinSkuForm::getClientSkuId)
-                .forEach(clientSkuId -> {
-                    if(Objects.isNull(productApi.getProductByClientIdAndClientSkuId(clientId,clientSkuId))) {
-                        try {
-                            throw new ApiException("Product with Client SKU ID " + clientSkuId + " does not exist for Client " + clientId + " in the system");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    if(clientSkuIdSet.contains(clientSkuId)) {
-                        try {
-                            throw new ApiException("Duplicate Client SKU ID " + clientSkuId + " present in the upload");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    clientSkuIdSet.add(clientSkuId);
-                    
-                });
+        ThrowExceptionHelper.throwIfErrors(errorList);
     }
 
 
