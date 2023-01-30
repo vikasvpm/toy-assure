@@ -79,14 +79,6 @@ public class OrderDto {
         return internalOrderFormList;
     }
 
-    private void validateInternalOrderedQuantity(List<InternalOrderForm> internalOrderFormList) throws ApiException {
-        for(InternalOrderForm internalOrderForm : internalOrderFormList) {
-            if(internalOrderForm.getOrderedQuantity() < 1) {
-                throw new ApiException("Ordered quantity can not be 0 or negative, such value found for product with client SKU ID = " + internalOrderForm.getClientSkuId());
-            }
-        }
-    }
-
     private Map<String, Long> mapClientSkuIdToGlobalSkuId(List<InternalOrderForm> internalOrderFormList, Long clientId) {
         Map<String, Long> map = new HashMap<>();
         for(InternalOrderForm internalOrderForm : internalOrderFormList) {
@@ -94,22 +86,6 @@ public class OrderDto {
             map.put(internalOrderForm.getClientSkuId(), productPojo.getGlobalSkuId());
         }
         return map;
-    }
-
-    private void validateChannelOrderId(String channelOrderId, Long channelId) throws ApiException {
-        OrderPojo orderPojo = orderApi.getOrderByChannelOrder(channelOrderId, channelId);
-        if(!Objects.isNull(orderPojo)) {
-            throw new ApiException("Channel Order Id " + channelOrderId + " already exists for the Channel " + channelId );
-        }
-    }
-
-    private void validateCustomer(Long customerId) throws ApiException {
-        userApi.invalidCustomerCheck(customerId);
-    }
-
-    public void validateClient(Long clientId) throws ApiException {
-        List<String> errorList = new ArrayList<>();
-        userApi.invalidClientCheck(clientId);
     }
 
     private void validateInternalOrderForm(List<InternalOrderForm> internalOrderFormList, Long clientId, List<String> errorList) throws ApiException {
@@ -135,6 +111,15 @@ public class OrderDto {
         }
     }
 
+    private void validateCustomer(Long customerId) throws ApiException {
+        userApi.invalidCustomerCheck(customerId);
+    }
+
+    public void validateClient(Long clientId) throws ApiException {
+        List<String> errorList = new ArrayList<>();
+        userApi.invalidClientCheck(clientId);
+    }
+
     public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
         validateClient(clientId);
         validateCustomer(customerId);
@@ -158,11 +143,10 @@ public class OrderDto {
         return channelOrderFormList;
     }
 
-    private void validateChannelOrderedQuantity(List<ChannelOrderForm> channelOrderFormList) throws ApiException {
-        for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
-            if(channelOrderForm.getOrderedQuantity() < 1) {
-                throw new ApiException("Ordered quantity can not be 0 or negative: such value found for product with channel SKU ID = " + channelOrderForm.getChannelSkuId());
-            }
+    private void validateChannelOrderId(String channelOrderId, Long channelId) throws ApiException {
+        OrderPojo orderPojo = orderApi.getOrderByChannelOrder(channelOrderId, channelId);
+        if(!Objects.isNull(orderPojo)) {
+            throw new ApiException("Channel Order Id " + channelOrderId + " already exists for the Channel " + channelId );
         }
     }
 
@@ -196,7 +180,7 @@ public class OrderDto {
         }
         ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
         if(Objects.isNull(channelPojo)) {
-            throw new ApiException("No Channel exists with Channel Name " + channelName);
+            throw new ApiException("No Channel exists with Channel Name = " + channelName);
         }
     }
 

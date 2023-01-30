@@ -7,8 +7,7 @@ import java.util.List;
 public class ThrowExceptionHelper {
     public static void throwIfErrors(List<String> errorList) throws ApiException {
         if(!errorList.isEmpty()) {
-            String errorMessage = String.join(", ", errorList);
-            throw new ApiException(errorMessage);
+            throw new ApiException(errorList);
         }
     }
 }

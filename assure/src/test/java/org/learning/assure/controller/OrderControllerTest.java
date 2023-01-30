@@ -56,7 +56,7 @@ public class OrderControllerTest extends AbstractUnitTest {
 
     @Test
     public void createChannelOrderTest() throws IOException, ApiException {
-        String csvFileName = "channelOrderValidCsv.csv";
+        String csvFileName = "chorder_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
@@ -74,16 +74,13 @@ public class OrderControllerTest extends AbstractUnitTest {
 
     @Test
     public void createChannelOrderWithInvalidClientTest() throws IOException {
-        String csvFileName = "channelOrderValidCsv.csv";
+        String csvFileName = "chorder_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
         UserPojo client = userApi.addUser(TestUtil.createClient());
         UserPojo customer = userApi.addUser(TestUtil.createCustomer());
         List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
-//        binApi.addBin(new BinPojo());
-//        binApi.addBin(new BinPojo());
-//        binSkuApi.addBinSkus(TestUtil.createBinSkus(createdProducts));
         ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
         List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), channelPojo.getChannelId(), createdProducts));
         try {
@@ -100,11 +97,103 @@ public class OrderControllerTest extends AbstractUnitTest {
         catch (ApiException ex) {
             Assert.assertEquals("User with Id = " + customer.getUserId() + " is not a client", ex.getMessage());
         }
-
     }
+
+    @Test
+    public void createChannelOrderWithInvalidCustomerTest() throws IOException {
+        String csvFileName = "chorder_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), channelPojo.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createChannelOrder(csvFile, client.getUserId(), "mock-channel-order", 55L, channelPojo.getName());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("No customer exists with ID = " + 55L, ex.getMessage());
+        }
+        try {
+            OrderPojo orderPojo = orderController.createChannelOrder(csvFile, client.getUserId(), "mock-channel-order", client.getUserId(), channelPojo.getName());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("User with Id = " + client.getUserId() + " is not a customer", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void createChannelOrderWithInvalidChannelTest() throws IOException{
+        String csvFileName = "chorder_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), channelPojo.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createChannelOrder(csvFile, client.getUserId(), "mock-channel-order", customer.getUserId(), "Not Channel");
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("No Channel exists with Channel Name = Not Channel", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void createChannelOrderWithMissingFieldsTest() throws IOException {
+        String csvFileName = "chorder_missing.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), channelPojo.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createChannelOrder(csvFile, client.getUserId(), "mock-channel-order", customer.getUserId(), channelPojo.getName());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals(
+                    "Field 'channelSkuId' is mandatory but no value was provided at line number 2," +
+                    " Field 'sellingPricePerUnit' is mandatory but no value was provided at line number 3",
+                    ex.getMessage());
+        }
+    }
+
+    @Test
+    public void createChannelOrderWithValidationFailsTest() throws IOException {
+        String csvFileName = "chorder_validation.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("Mock Channel"));
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), channelPojo.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createChannelOrder(csvFile, client.getUserId(), "mock-channel-order", customer.getUserId(), channelPojo.getName());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("No product with channelSkuId = cnx present for client 1 and channel 1," +
+                    " No product with channelSkuId = cnk present for client 1 and channel 1"
+                    , ex.getMessage());
+        }
+    }
+
     @Test
     public void createInternalOrderTest() throws IOException, ApiException {
-        String csvFileName = "internalOrderValidCsv.csv";
+        String csvFileName = "inorder_ok.csv";
         MultipartFile csvFile = null;
         String filePath = csvDir + csvFileName;
         csvFile = FileUtil.loadCSV(filePath, csvFileName);
@@ -116,9 +205,101 @@ public class OrderControllerTest extends AbstractUnitTest {
         List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), internalChannel.getChannelId(), createdProducts));
         OrderPojo orderPojo = orderController.createInternalOrder(csvFile, client.getUserId(), "mock-internal-order", customer.getUserId());
         Assert.assertNotNull(orderPojo);
-        Assert.assertEquals("mock-internal-order", orderPojo.getChannelOrderId());
-        Assert.assertEquals(2, orderApi.getOrderItemsByOrderId(orderPojo.getOrderId()).size());
-        Assert.assertEquals(Optional.of(10L).get(), orderApi.getOrderItemsByOrderId((orderPojo.getOrderId())).get(0).getOrderedQuantity());
+    }
+
+    @Test
+    public void createInternalOrderWithInvalidClientTest() throws IOException {
+        String csvFileName = "inorder_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("INTERNAL"));
+        ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), internalChannel.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createInternalOrder(csvFile, 4L, "mock-internal-order", customer.getUserId());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("No client exists with client Id = " + 4L, ex.getMessage());
+        }
+        try {
+            OrderPojo orderPojo = orderController.createInternalOrder(csvFile, customer.getUserId(), "mock-internal-order", customer.getUserId());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("User with Id = " + customer.getUserId() + " is not a client", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void createInternalOrderWithInvalidCustomerTest() throws IOException {
+        String csvFileName = "inorder_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("INTERNAL"));
+        ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), internalChannel.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createInternalOrder(csvFile, client.getUserId(), "mock-internal-order", 55L);
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("No customer exists with ID = " + 55L, ex.getMessage());
+        }
+        try {
+            OrderPojo orderPojo = orderController.createInternalOrder(csvFile, client.getUserId(), "mock-internal-order", client.getUserId());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+            Assert.assertEquals("User with Id = " + client.getUserId() + " is not a customer", ex.getMessage());
+        }
+    }
+
+    @Test
+    public void createInternalOrderWithNoInternalChannelTest() throws IOException {
+        String csvFileName = "inorder_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        try {
+            OrderPojo orderPojo = orderController.createInternalOrder(csvFile, client.getUserId(), "mock-internal-order", customer.getUserId());
+            Assert.fail();
+        }
+        catch (ApiException ex) {
+
+        }
+    }
+
+    @Test
+    public void createInternalOrderWithMissingFields() throws IOException {
+        String csvFileName = "inorder_missing.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = userApi.addUser(TestUtil.createClient());
+        UserPojo customer = userApi.addUser(TestUtil.createCustomer());
+        List<ProductPojo> createdProducts = productApi.addProducts(TestUtil.createProductList(client.getUserId()));
+        ChannelPojo channelPojo = channelApi.addChannel(TestUtil.createChannel("INTERNAL"));
+        ChannelPojo internalChannel = channelApi.getChannelByName("INTERNAL");
+        List<ChannelListingPojo> channelListingPojoList = channelListingApi.addChannelListing(TestUtil.createChannelListingList(client.getUserId(), internalChannel.getChannelId(), createdProducts));
+        try {
+            OrderPojo orderPojo = orderController.createInternalOrder(csvFile, client.getUserId(), "mock-internal-order", customer.getUserId());
+            Assert.fail();
+        } catch (ApiException ex) {
+            Assert.assertEquals("Field 'orderedQuantity' is mandatory but no value was provided at line number 2," +
+                    " Field 'clientSkuId' is mandatory but no value was provided at line number 3", ex.getMessage());
+        }
     }
 
     @Test

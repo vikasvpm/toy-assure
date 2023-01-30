@@ -105,8 +105,7 @@ public class BinSkuControllerTest extends AbstractUnitTest {
         }
         catch (ApiException ex) {
             Assert.assertEquals(
-                    "Error parsing CSV File :" +
-                            " Field 'binId' is mandatory but no value was provided at line number 2," +
+                            "Field 'binId' is mandatory but no value was provided at line number 2," +
                             " Field 'clientSkuId' is mandatory but no value was provided at line number 3",
                     ex.getMessage()
             );

@@ -36,7 +36,7 @@ public class ChannelControllerTest extends AbstractUnitTest {
             Assert.fail();
         }
         catch (ApiException ex) {
-            Assert.assertEquals("Channel with name Mock Channel already exists", ex.getMessage());
+            Assert.assertEquals("Channel with name = Mock Channel already exists", ex.getMessage());
         }
 
     }

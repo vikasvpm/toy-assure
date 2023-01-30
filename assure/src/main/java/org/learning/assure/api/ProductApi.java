@@ -27,24 +27,24 @@ public class ProductApi {
         return productDao.getAllProducts();
     }
 
-    public void addProduct(ProductPojo productPojo) {
+    public ProductPojo addProduct(ProductPojo productPojo) {
         ProductPojo exists = productDao.getProductByClientIdAndClientSkuId(productPojo.getClientId(),productPojo.getClientSkuId());
         if(Objects.isNull(exists)) {
-            productDao.addProduct(productPojo);
+            return productDao.addProduct(productPojo);
         }
         else {
             exists.setMrp(productPojo.getMrp());
             exists.setName(productPojo.getName());
             exists.setBrandId(productPojo.getBrandId());
             exists.setDescription(productPojo.getDescription());
+            return exists;
         }
     }
 
     public List<ProductPojo> addProducts(List<ProductPojo> productPojoList) {
         List<ProductPojo> productPojoList1 = new ArrayList<>();
         for(ProductPojo productPojo : productPojoList) {
-            addProduct(productPojo);
-            productPojoList1.add(productPojo);
+            productPojoList1.add(addProduct(productPojo));
         }
         return productPojoList1;
     }

@@ -39,9 +39,9 @@ public class ProductDao {
         return query.getResultList().stream().findFirst().orElse(null);
     }
 
-    public void addProduct(ProductPojo productPojo) {
+    public ProductPojo addProduct(ProductPojo productPojo) {
         entityManager.persist(productPojo);
-
+        return productPojo;
     }
 
 

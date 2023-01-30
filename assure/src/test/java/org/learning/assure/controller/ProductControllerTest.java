@@ -74,8 +74,8 @@ public class ProductControllerTest extends AbstractUnitTest {
             productController.addProducts(csvFile, client.getUserId());
             Assert.fail();
         } catch (ApiException e) {
-            Assert.assertEquals("Error parsing CSV File :" +
-                    " Field 'name' is mandatory but no value was provided at line number 2," +
+            Assert.assertEquals(
+                    "Field 'name' is mandatory but no value was provided at line number 2," +
                     " Field 'mrp' is mandatory but no value was provided at line number 2," +
                     " Field 'clientSkuId' is mandatory but no value was provided at line number 3," +
                     " Field 'brandId' is mandatory but no value was provided at line number 3," +

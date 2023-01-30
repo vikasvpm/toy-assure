@@ -38,3 +38,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /assure/invoice.pdf
+/.metadata/

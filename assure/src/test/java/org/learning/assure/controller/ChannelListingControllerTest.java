@@ -99,8 +99,8 @@ public class ChannelListingControllerTest extends AbstractUnitTest {
             List<ChannelListingPojo> channelListingPojoList = channelListingController.addChannelListing(csvFile, client.getUserId(), channelPojo.getChannelId());
             Assert.fail();
         } catch (ApiException e) {
-            Assert.assertEquals("Error parsing CSV File :" +
-                    " Field 'clientSkuId' is mandatory but no value was provided at line number 2," +
+            Assert.assertEquals(
+                    "Field 'clientSkuId' is mandatory but no value was provided at line number 2," +
                     " Field 'channelSkuId' is mandatory but no value was provided at line number 3"
                     ,e.getMessage());
         }

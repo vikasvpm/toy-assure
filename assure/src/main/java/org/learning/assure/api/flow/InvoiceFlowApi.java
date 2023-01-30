@@ -83,8 +83,6 @@ public class InvoiceFlowApi {
             throw new ApiException("Issue while generating XML for orders");
         }
         return stringWriter.toString();
-
-
     }
 
 

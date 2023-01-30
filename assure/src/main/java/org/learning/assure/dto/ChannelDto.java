@@ -35,7 +35,7 @@ public class ChannelDto {
     private void validateForDuplicateName(ChannelForm channelForm) throws ApiException {
         ChannelPojo channelPojo= channelApi.getChannelByName(channelForm.getName());
         if(!Objects.isNull(channelPojo)) {
-            throw new ApiException("Channel with name " + channelForm.getName() + " already exists");
+            throw new ApiException("Channel with name = " + channelForm.getName() + " already exists");
         }
 
     }
