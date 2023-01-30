@@ -1,6 +1,7 @@
 package org.learning.assure.dto;
 
 import org.learning.assure.api.UserApi;
+import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.dto.helper.UserHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.form.UserForm;
@@ -19,11 +20,22 @@ public class UserDto {
     @Autowired
     private UserApi userApi;
     public UserPojo addUser(UserForm userForm) throws ApiException {
+        validateNullValues(userForm);
         validateForDuplicate(userForm);
         UserPojo userPojo = UserHelper.convert(userForm);
         userApi.addUser(userPojo);
         return userPojo;
-        // TODO : empty string and enum handling
+    }
+
+    private void validateNullValues(UserForm userForm) throws ApiException {
+        List<String> errors = new ArrayList<>();
+        if(Objects.isNull(userForm.getName()) || userForm.getName().equals("")) {
+            errors.add("User Name must be provided");
+        }
+        if(Objects.isNull(userForm.getUserType())) {
+            errors.add("User Type must be provided");
+        }
+        ThrowExceptionHelper.throwIfErrors(errors);
     }
 
     private void validateForDuplicate(UserForm userForm) throws ApiException {

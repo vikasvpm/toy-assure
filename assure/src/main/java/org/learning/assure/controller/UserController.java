@@ -9,6 +9,7 @@ import org.learning.assure.model.form.UserForm;
 
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +26,7 @@ public class UserController {
     private UserDto userDto;
     @PostMapping(path = "")
     @ApiOperation(value = "Create a user")
-    public UserPojo addUser(@Valid @RequestBody UserForm userForm) throws ApiException {
+    public UserPojo addUser(@RequestBody UserForm userForm) throws ApiException {
         return userDto.addUser(userForm);
     }
 

@@ -67,6 +67,14 @@ public class ChannelListingDto {
     }
 
     private void validateClientIdAndChannelId(Long clientId, Long channelId) throws ApiException {
+        List<String> errors = new ArrayList<>();
+        if(Objects.isNull(clientId)) {
+            errors.add("Client ID can not be null");
+        }
+        if(Objects.isNull(channelId)) {
+            errors.add("Channel ID can not be null");
+        }
+        ThrowExceptionHelper.throwIfErrors(errors);
         userApi.invalidClientCheck(clientId);
         ChannelPojo channelPojo = channelApi.getChannelById(channelId);
         if(Objects.isNull(channelPojo)) {

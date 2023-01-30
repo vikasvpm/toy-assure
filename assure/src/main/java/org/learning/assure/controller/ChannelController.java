@@ -22,7 +22,7 @@ public class ChannelController {
     private ChannelDto channelDto;
     @PostMapping("")
     @ApiOperation(value = "Create a channel")
-    public ChannelPojo addChannel(@Valid @RequestBody ChannelForm channelForm) throws ApiException {
+    public ChannelPojo addChannel(@RequestBody ChannelForm channelForm) throws ApiException {
         return channelDto.addChannel(channelForm);
     }
 }

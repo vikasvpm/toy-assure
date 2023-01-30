@@ -51,6 +51,9 @@ public class BinSkuDto {
     }
 
     public void validateClient(Long clientId) throws ApiException {
+        if(Objects.isNull(clientId)) {
+            throw new ApiException("Client ID can not be null");
+        }
         userApi.invalidClientCheck(clientId);
     }
 

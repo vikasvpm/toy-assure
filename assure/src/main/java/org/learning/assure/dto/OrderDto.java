@@ -50,6 +50,7 @@ public class OrderDto {
     @Autowired
     private InvoiceFlowApi invoiceFlowApi;
     public OrderPojo createInternalOrder(MultipartFile internalOrderCsv, Long clientId, String channelOrderId, Long customerId) throws ApiException, IOException {
+        validateInteralOrderNullValues(clientId, channelOrderId, customerId);
         validateClient(clientId);
         validateCustomer(customerId);
         validateInternalChannelExists();
@@ -62,6 +63,20 @@ public class OrderDto {
         Map<String, Long> map = mapClientSkuIdToGlobalSkuId(internalOrderFormList, clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToInternalOrderItemList(internalOrderFormList, map);
         return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+    }
+
+    private void validateInteralOrderNullValues(Long clientId, String channelOrderId, Long customerId) throws ApiException {
+        List<String> errors = new ArrayList<>();
+        if(Objects.isNull(clientId)) {
+            errors.add("Client ID can not be null");
+        }
+        if(Objects.isNull(customerId)) {
+            errors.add("Customer ID can not be null");
+        }
+        if(Objects.isNull(channelOrderId) || channelOrderId.equals("")) {
+            errors.add("Channel Order ID can not be null or blank");
+        }
+        ThrowExceptionHelper.throwIfErrors(errors);
     }
 
     private void validateInternalChannelExists() throws ApiException {
@@ -121,6 +136,7 @@ public class OrderDto {
     }
 
     public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
+        validateChannelOrderNullValues(clientId, customerId, channelOrderId, channelName);
         validateClient(clientId);
         validateCustomer(customerId);
         validateChannelName(channelName);
@@ -133,6 +149,23 @@ public class OrderDto {
         Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
         List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, channelOrderFormList);
         return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
+    }
+
+    private void validateChannelOrderNullValues(Long clientId, Long customerId, String channelOrderId, String channelName) throws ApiException {
+        List<String> errors = new ArrayList<>();
+        if(Objects.isNull(clientId)) {
+            errors.add("Client ID can not be null");
+        }
+        if(Objects.isNull(customerId)) {
+            errors.add("Customer ID can not be null");
+        }
+        if(Objects.isNull(channelOrderId) || channelOrderId.equals("")) {
+            errors.add("Channel Order ID can not be null or blank");
+        }
+        if(Objects.isNull(channelName) || channelName.equals("")) {
+            errors.add("Channel Name can not be null or blank");
+        }
+        ThrowExceptionHelper.throwIfErrors(errors);
     }
 
     private List<ChannelOrderForm> parseChannelOrderCsv(MultipartFile channelOrderCsv) throws ApiException, IOException {

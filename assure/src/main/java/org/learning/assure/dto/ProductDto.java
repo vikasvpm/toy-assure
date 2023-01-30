@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -64,6 +61,9 @@ public class ProductDto {
         ThrowExceptionHelper.throwIfErrors(errorList);
     }
     private void validateForClientId(Long clientId) throws ApiException {
+        if(Objects.isNull(clientId)) {
+            throw new ApiException("Client ID can not be null");
+        }
         userApi.invalidClientCheck(clientId);
     }
 
