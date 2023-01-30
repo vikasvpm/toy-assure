@@ -26,7 +26,6 @@ public class UserControllerTest extends AbstractUnitTest {
         UserPojo userPojo = userController.addUser(userForm);
         Assert.assertEquals("Dummy", userPojo.getName());
         Assert.assertEquals(UserType.CLIENT, userPojo.getUserType());
-
     }
 
     @Test

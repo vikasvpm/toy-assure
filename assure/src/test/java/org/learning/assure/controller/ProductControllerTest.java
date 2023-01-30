@@ -99,4 +99,33 @@ public class ProductControllerTest extends AbstractUnitTest {
             Assert.assertEquals("Duplicate Client SKU mock2 in the upload", e.getMessage());
         }
     }
+
+    @Test
+    public void testGetAllProducts() throws IOException, ApiException {
+        String csvFileName = "product_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = TestUtil.createClient();
+        userApi.addUser(client);
+        productController.addProducts(csvFile, client.getUserId());
+        List<ProductPojo> productPojoList = productController.getAllProducts();
+        Assert.assertEquals(2, productPojoList.size());
+        Assert.assertEquals(Optional.of("mock1").get(), productPojoList.get(0).getClientSkuId());
+    }
+
+    @Test
+    public void testGetProductById() throws IOException, ApiException {
+        String csvFileName = "product_ok.csv";
+        MultipartFile csvFile = null;
+        String filePath = csvDir + csvFileName;
+        csvFile = FileUtil.loadCSV(filePath, csvFileName);
+        UserPojo client = TestUtil.createClient();
+        userApi.addUser(client);
+        productController.addProducts(csvFile, client.getUserId());
+        List<ProductPojo> productPojoList = productController.getAllProducts();
+        ProductPojo pojo = productController.getProductByGlobalSkuId(productPojoList.get(0).getGlobalSkuId());
+        Assert.assertNotNull(pojo);
+    }
+
 }
