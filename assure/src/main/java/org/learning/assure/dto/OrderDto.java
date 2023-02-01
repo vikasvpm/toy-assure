@@ -9,9 +9,9 @@ import org.learning.assure.dto.helper.OrderHelper;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.exception.ApiException;
 import org.learning.assure.model.enums.OrderStatus;
-import org.learning.assure.model.form.ChannelListingForm;
-import org.learning.assure.model.form.ChannelOrderForm;
+import org.learning.commons.model.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
+import org.learning.commons.model.OrderForm;
 import org.learning.assure.pojo.*;
 import org.learning.assure.util.csvParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class OrderDto {
     @Autowired
     private InvoiceFlowApi invoiceFlowApi;
     public OrderPojo createInternalOrder(MultipartFile internalOrderCsv, Long clientId, String channelOrderId, Long customerId) throws ApiException, IOException {
-        validateInteralOrderNullValues(clientId, channelOrderId, customerId);
+        validateInternalOrderNullValues(clientId, channelOrderId, customerId);
         validateClient(clientId);
         validateCustomer(customerId);
         validateInternalChannelExists();
@@ -65,7 +65,7 @@ public class OrderDto {
         return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
     }
 
-    private void validateInteralOrderNullValues(Long clientId, String channelOrderId, Long customerId) throws ApiException {
+    private void validateInternalOrderNullValues(Long clientId, String channelOrderId, Long customerId) throws ApiException {
         List<String> errors = new ArrayList<>();
         if(Objects.isNull(clientId)) {
             errors.add("Client ID can not be null");
@@ -135,35 +135,55 @@ public class OrderDto {
         userApi.invalidClientCheck(clientId);
     }
 
-    public OrderPojo createChannelOrder(@RequestBody MultipartFile channelOrderCsv, Long clientId, String channelOrderId, Long customerId, String channelName) throws ApiException, IOException {
-        validateChannelOrderNullValues(clientId, customerId, channelOrderId, channelName);
-        validateClient(clientId);
-        validateCustomer(customerId);
-        validateChannelName(channelName);
-        ChannelPojo channelPojo = channelApi.getChannelByName(channelName);
-        validateChannelOrderId(channelOrderId, channelPojo.getChannelId());
-        List<ChannelOrderForm> channelOrderFormList = parseChannelOrderCsv(channelOrderCsv);
-        List<String> errorList = new ArrayList<>();
-        validateChannelOrderForm(channelOrderFormList, clientId, channelPojo.getChannelId(), errorList);
-        OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), clientId, customerId, channelOrderId);
-        Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(channelOrderFormList, channelPojo.getChannelId(), clientId);
-        List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, channelOrderFormList);
+    public OrderPojo createChannelOrder(OrderForm orderForm) throws ApiException {
+        validateChannelOrderNullValues(orderForm);
+        validateNullOrderItems(orderForm.getChannelOrderFormList());
+        validateClient(orderForm.getClientId());
+        validateCustomer(orderForm.getCustomerId());
+        validateChannelName(orderForm.getChannelName());
+        ChannelPojo channelPojo = channelApi.getChannelByName(orderForm.getChannelName());
+        validateChannelOrderId(orderForm.getChannelOrderId(), channelPojo.getChannelId());
+        validateChannelOrderForm(orderForm.getChannelOrderFormList(), orderForm.getClientId(), channelPojo.getChannelId());
+        OrderPojo orderPojo = OrderHelper.convertToChannelOrder(channelPojo.getChannelId(), orderForm.getClientId(), orderForm.getCustomerId(), orderForm.getChannelOrderId());
+        Map<String, Long> map = mapChannelSkuIdToGlobalSkuId(orderForm.getChannelOrderFormList(), channelPojo.getChannelId(), orderForm.getClientId());
+        List<OrderItemPojo> orderItemPojoList = OrderHelper.convertToChannelOrderItem(map, orderForm.getChannelOrderFormList());
         return orderApi.createOrderAndOrderItems(orderPojo, orderItemPojoList);
     }
 
-    private void validateChannelOrderNullValues(Long clientId, Long customerId, String channelOrderId, String channelName) throws ApiException {
+    private void validateNullOrderItems(List<ChannelOrderForm> channelOrderFormList) throws ApiException {
+        Integer itemCounter = 1;
         List<String> errors = new ArrayList<>();
-        if(Objects.isNull(clientId)) {
+        for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
+            if(Objects.isNull(channelOrderForm.getChannelSkuId()) || channelOrderForm.getChannelSkuId().equals("")) {
+                errors.add("Channel SKU ID can not be null or blank, found null/blank value for order item = " + itemCounter);
+            }
+            if(Objects.isNull(channelOrderForm.getOrderedQuantity())) {
+                errors.add("Ordered quantity can not be null, found null value for order item = " + itemCounter);
+            }
+            if(Objects.isNull(channelOrderForm.getSellingPricePerUnit())) {
+                errors.add("Selling price per unit can not be null, found null value for order item = " + itemCounter);
+            }
+            itemCounter++;
+        }
+        ThrowExceptionHelper.throwIfErrors(errors);
+    }
+
+    private void validateChannelOrderNullValues(OrderForm orderForm) throws ApiException {
+        List<String> errors = new ArrayList<>();
+        if(Objects.isNull(orderForm.getClientId())) {
             errors.add("Client ID can not be null");
         }
-        if(Objects.isNull(customerId)) {
+        if(Objects.isNull(orderForm.getCustomerId())) {
             errors.add("Customer ID can not be null");
         }
-        if(Objects.isNull(channelOrderId) || channelOrderId.equals("")) {
+        if(Objects.isNull(orderForm.getChannelOrderId()) || orderForm.getChannelOrderId().equals("")) {
             errors.add("Channel Order ID can not be null or blank");
         }
-        if(Objects.isNull(channelName) || channelName.equals("")) {
+        if(Objects.isNull(orderForm.getChannelName()) || orderForm.getChannelName().equals("")) {
             errors.add("Channel Name can not be null or blank");
+        }
+        if(Objects.isNull(orderForm.getChannelOrderFormList())) {
+            errors.add("List of items can not be null");
         }
         ThrowExceptionHelper.throwIfErrors(errors);
     }
@@ -183,7 +203,8 @@ public class OrderDto {
         }
     }
 
-    private void validateChannelOrderForm(List<ChannelOrderForm> channelOrderFormList, Long clientId, Long channelId, List<String> errorList) throws ApiException {
+    private void validateChannelOrderForm(List<ChannelOrderForm> channelOrderFormList, Long clientId, Long channelId) throws ApiException {
+        List<String> errorList = new ArrayList<>();
         for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
             String channelSkuId = channelOrderForm.getChannelSkuId();
             ChannelListingPojo channelListingPojo = channelListingApi.getChannelListingToMapGlobalSkuId(clientId,channelId,channelSkuId);
@@ -194,9 +215,7 @@ public class OrderDto {
                 errorList.add("Ordered quantity can not be 0 or negative: such value found for product with channel SKU ID = " + channelSkuId);
             }
         }
-        if(!errorList.isEmpty()) {
-            ThrowExceptionHelper.throwIfErrors(errorList);
-        }
+        ThrowExceptionHelper.throwIfErrors(errorList);
     }
     private Map<String, Long> mapChannelSkuIdToGlobalSkuId(List<ChannelOrderForm> channelOrderFormList, Long channelId, Long clientId) {
         Map<String, Long> map = new HashMap<>();

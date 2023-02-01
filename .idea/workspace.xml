@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
+    <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="Adding get tests for products">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ProductControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/assure/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/OrderHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/OrderHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelOrderForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/OrderControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/OrderControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/util/TestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/util/TestUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,25 +105,8 @@
       <recent name="org.learning.assure.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.Assure Jetty Run">
-    <configuration name="All in assure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assure" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.hibernate.Hibernate" />
-          <option name="ENABLED" value="true" />
-          <option name="INCLUDE" value="false" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.OrderControllerTest.createChannelOrderWithMissingFieldsTest">
+    <configuration name="OrderControllerTest.createChannelOrderWithInvalidChannelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -124,43 +116,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
       <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assure" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ProductControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductControllerTest.testGetAllProducts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assure" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ProductControllerTest" />
-      <option name="METHOD_NAME" value="testGetAllProducts" />
+      <option name="METHOD_NAME" value="createChannelOrderWithInvalidChannelTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductControllerTest.testGetProductById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderControllerTest.createChannelOrderWithInvalidClientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -169,14 +131,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.ProductControllerTest" />
-      <option name="METHOD_NAME" value="testGetProductById" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
+      <option name="METHOD_NAME" value="createChannelOrderWithInvalidClientTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderControllerTest.createChannelOrderWithInvalidCustomerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
@@ -185,8 +147,41 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.UserControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
+      <option name="METHOD_NAME" value="createChannelOrderWithInvalidCustomerTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderControllerTest.createChannelOrderWithMissingFieldsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
+      <option name="METHOD_NAME" value="createChannelOrderWithMissingFieldsTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderControllerTest.createChannelOrderWithValidationFailsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assure" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
+      <option name="METHOD_NAME" value="createChannelOrderWithValidationFailsTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -231,11 +226,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProductControllerTest.testGetProductById" />
-        <item itemvalue="JUnit.ProductControllerTest.testGetAllProducts" />
-        <item itemvalue="JUnit.UserControllerTest" />
-        <item itemvalue="JUnit.ProductControllerTest" />
-        <item itemvalue="JUnit.OrderControllerTest" />
+        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithMissingFieldsTest" />
+        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithValidationFailsTest" />
+        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithInvalidChannelTest" />
+        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithInvalidCustomerTest" />
+        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithInvalidClientTest" />
       </list>
     </recent_temporary>
   </component>
@@ -486,7 +481,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675076004601</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Adding get tests for products">
+      <created>1675077282966</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1675077282966</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,7 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Channel Flow Added" />
     <MESSAGE value="Channel Listing flow added" />
     <MESSAGE value="Internal Order creation added" />
     <MESSAGE value="Channel Order creation added" />
@@ -543,7 +544,8 @@
     <MESSAGE value="More tests added for product, channel, channelListing" />
     <MESSAGE value="Refactored exceptions to generate list of errors" />
     <MESSAGE value="Adding validations and refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding validations and refactoring" />
+    <MESSAGE value="Adding get tests for products" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding get tests for products" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -584,12 +586,18 @@
     <SUITE FILE_PATH="coverage/Toy_Assure$CoverageReportWithoutIntTokens.ic" NAME="CoverageReportWithoutIntTokens Coverage Results" MODIFIED="1674616795193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <EXCLUDED_FILTER>org.hibernate.hql.internal.antlr.HqlTokenTypes</EXCLUDED_FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/Toy_Assure$ProductControllerTest_testGetProductById.ic" NAME="ProductControllerTest.testGetProductById Coverage Results" MODIFIED="1675077223064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.learning.assure.controller.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/Toy_Assure$BinControllerTest.ic" NAME="BinControllerTest Coverage Results" MODIFIED="1675076631072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.learning.assure.controller.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Toy_Assure$All_in_assure__3_.ic" NAME="All in assure (3) Coverage Results" MODIFIED="1674552380060" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Toy_Assure$All_in_toy_assure.ic" NAME="All in toy-assure Coverage Results" MODIFIED="1674570040991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Toy_Assure$ChannelControllerTest.ic" NAME="ChannelControllerTest Coverage Results" MODIFIED="1675076654171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.learning.assure.controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Toy_Assure$ProductControllerTest_testGetAllProducts.ic" NAME="ProductControllerTest.testGetAllProducts Coverage Results" MODIFIED="1675077039390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.learning.assure.controller.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Toy_Assure$ProductControllerTest.ic" NAME="ProductControllerTest Coverage Results" MODIFIED="1675076687858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

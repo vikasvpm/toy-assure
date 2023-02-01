@@ -2,7 +2,7 @@ package org.learning.assure.dto.helper;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.learning.assure.model.form.ChannelOrderForm;
+import org.learning.commons.model.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.OrderItemPojo;
 import org.learning.assure.pojo.OrderPojo;

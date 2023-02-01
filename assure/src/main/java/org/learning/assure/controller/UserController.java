@@ -41,6 +41,4 @@ public class UserController {
     public List<UserPojo> getAllUsers() {
         return userDto.getAllUsers();
     }
-
-
 }
