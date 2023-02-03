@@ -3,7 +3,7 @@ package org.learning.assure.dto;
 import org.learning.assure.api.ChannelApi;
 import org.learning.assure.dto.helper.ChannelHelper;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.ChannelForm;
 import org.learning.assure.pojo.ChannelPojo;
 import org.learning.assure.model.enums.InvoiceType;

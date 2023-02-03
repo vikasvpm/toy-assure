@@ -3,7 +3,7 @@ package org.learning.assure.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.learning.assure.dto.BinDto;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.BinPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -7,7 +7,7 @@ import org.learning.assure.api.ChannelApi;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.config.AbstractUnitTest;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.ChannelListingPojo;
 import org.learning.assure.pojo.ChannelPojo;
 import org.learning.assure.pojo.UserPojo;

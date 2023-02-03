@@ -14,7 +14,8 @@ import javax.persistence.*;
  public class ProductPojo extends AbstractPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_generator")
+    @TableGenerator(name = "product_generator", initialValue = 1000, allocationSize = 1)
     private Long globalSkuId;
     private String clientSkuId;
     private Long clientId;

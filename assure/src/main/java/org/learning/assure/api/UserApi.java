@@ -1,7 +1,7 @@
 package org.learning.assure.api;
 
 import org.learning.assure.dao.UserDao;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.UserPojo;
 import org.learning.assure.model.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;

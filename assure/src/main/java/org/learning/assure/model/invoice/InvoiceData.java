@@ -1,9 +1,14 @@
 package org.learning.assure.model.invoice;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
+@Getter
+@Setter
 @XmlRootElement(name = "invoice-record")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class InvoiceData {
@@ -22,43 +27,4 @@ public class InvoiceData {
     @XmlElementWrapper(name = "line-item-records")
     private List<InvoiceItemData> invoiceItemData;
 
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public Long getInvoiceNumber() {
-        return invoiceNumber;
-    }
-
-    public void setInvoiceNumber(Long invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
-
-    public String getInvoiceDate() {
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(String invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
-
-    public Double getInvoiceTotal() {
-        return invoiceTotal;
-    }
-
-    public void setInvoiceTotal(Double invoiceTotal) {
-        this.invoiceTotal = invoiceTotal;
-    }
-
-    public List<InvoiceItemData> getInvoiceItemData() {
-        return invoiceItemData;
-    }
-
-    public void setInvoiceItemData(List<InvoiceItemData> invoiceItemData) {
-        this.invoiceItemData = invoiceItemData;
-    }
 }

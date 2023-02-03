@@ -4,7 +4,7 @@ package org.learning.assure.controller;
 import org.junit.Assert;
 import org.junit.Test;
 import org.learning.assure.config.AbstractUnitTest;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.enums.UserType;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;

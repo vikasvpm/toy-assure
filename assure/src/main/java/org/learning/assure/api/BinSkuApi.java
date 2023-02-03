@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,16 +19,18 @@ public class BinSkuApi {
     private BinSkuDao binSkuDao;
 
     public List<BinSkuPojo> addBinSkus(List<BinSkuPojo> binSkuPojoList) {
+        List<BinSkuPojo> created = new ArrayList<>();
         for(BinSkuPojo binSkuPojo : binSkuPojoList) {
             BinSkuPojo exists = getByBinIdAndBinSkuId(binSkuPojo.getBinId(), binSkuPojo.getGlobalSkuId());
             if(Objects.isNull(exists)) {
-                binSkuDao.addBinSku(binSkuPojo);
+                created.add(binSkuDao.addBinSku(binSkuPojo));
             }
             else {
                 exists.setQuantity(exists.getQuantity() + binSkuPojo.getQuantity());
+                created.add(exists);
             }
         }
-        return binSkuPojoList;
+        return created;
     }
 
     @Transactional(readOnly = true)

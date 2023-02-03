@@ -4,10 +4,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.learning.assure.api.*;
 import org.learning.assure.api.flow.AllocateOrderFlowApi;
 import org.learning.assure.api.flow.InvoiceFlowApi;
-import org.learning.assure.api.flow.OrderAndOrderItemsFlowApi;
 import org.learning.assure.dto.helper.OrderHelper;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.enums.OrderStatus;
 import org.learning.commons.model.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
@@ -16,7 +15,6 @@ import org.learning.assure.pojo.*;
 import org.learning.assure.util.csvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,8 +41,6 @@ public class OrderDto {
     private BinSkuApi binSkuApi;
     @Autowired
     private ChannelListingApi channelListingApi;
-    @Autowired
-    private OrderAndOrderItemsFlowApi orderAndOrderItemsFlowApi;
     @Autowired
     private AllocateOrderFlowApi allocateOrderFlowApi;
     @Autowired

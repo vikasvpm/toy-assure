@@ -1,7 +1,7 @@
 package org.learning.assure.dto;
 
 import org.learning.assure.api.BinApi;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.BinPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

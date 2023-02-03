@@ -1,6 +1,6 @@
 package org.learning.assure.controller.handler;
 
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

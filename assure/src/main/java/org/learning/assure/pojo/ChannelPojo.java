@@ -13,7 +13,8 @@ import javax.persistence.*;
 public class ChannelPojo extends AbstractPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "channel_generator")
+    @TableGenerator(name = "channel_generator", initialValue = 100, allocationSize = 1)
     private Long channelId;
     private String name;
     @Enumerated(EnumType.STRING)

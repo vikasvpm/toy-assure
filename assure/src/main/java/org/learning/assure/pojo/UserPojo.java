@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Setter
 public class UserPojo extends AbstractPojo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_generator")
+    @TableGenerator(name = "user_generator", initialValue = 100, allocationSize = 1)
     private Long userId;
     private String name;
     @Enumerated(EnumType.STRING)

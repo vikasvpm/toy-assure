@@ -6,7 +6,7 @@ import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.ProductHelper;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.learning.assure.util.csvParser;

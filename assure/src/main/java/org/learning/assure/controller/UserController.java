@@ -4,7 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.UserDto;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.UserForm;
 
 import org.learning.assure.pojo.UserPojo;

@@ -7,7 +7,7 @@ import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.ChannelListingHelper;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.BinSkuForm;
 import org.learning.assure.model.form.ChannelListingForm;
 import org.learning.assure.pojo.ChannelListingPojo;

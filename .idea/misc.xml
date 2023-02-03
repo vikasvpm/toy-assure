@@ -9,6 +9,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/channel-app/pom.xml" />
         <option value="$PROJECT_DIR$/channel/pom.xml" />
       </set>
     </option>

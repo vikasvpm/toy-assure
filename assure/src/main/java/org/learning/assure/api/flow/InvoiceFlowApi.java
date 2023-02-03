@@ -4,7 +4,7 @@ import org.apache.fop.apps.*;
 import org.learning.assure.api.InventoryApi;
 import org.learning.assure.api.OrderApi;
 import org.learning.assure.api.ProductApi;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.model.invoice.InvoiceData;
 import org.learning.assure.model.invoice.InvoiceItemData;

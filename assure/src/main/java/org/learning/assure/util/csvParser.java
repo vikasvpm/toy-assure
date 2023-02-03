@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
 import org.apache.commons.collections.CollectionUtils;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;

@@ -9,7 +9,7 @@ import org.learning.assure.api.InventoryApi;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.config.AbstractUnitTest;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.BinPojo;
 import org.learning.assure.pojo.BinSkuPojo;
 import org.learning.assure.pojo.UserPojo;

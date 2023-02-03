@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.config.AbstractUnitTest;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.ProductPojo;
 import org.learning.assure.pojo.UserPojo;
 import org.learning.assure.util.FileUtil;

@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Entity
 public class OrderPojo extends AbstractPojo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "order_generator")
+    @TableGenerator(name = "order_generator", initialValue = 10000, allocationSize = 1)
     private Long orderId;
     private Long clientId;
     private Long customerId;

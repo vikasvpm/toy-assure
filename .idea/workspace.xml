@@ -4,19 +4,58 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="Adding get tests for products">
+    <list default="true" id="4c472dc0-72f7-4936-9a5c-05ff7d8239b1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/assure/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/ChannelListingApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/BinSkuApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/BinSkuApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InventoryApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/InventoryApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/UserApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/InvoiceFlowApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/InvoiceFlowApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/api/flow/OrderAndOrderItemsFlowApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/BinSkuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelListingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ChannelListingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/controller/handler/ApiExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinSkuDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinSkuDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/BinSkuDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ChannelListingDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/OrderHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/OrderHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/form/ChannelOrderForm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/ThrowExceptionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/ThrowExceptionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/UserHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dto/helper/UserHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/exception/ApiException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/data/ProductData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/data/UserData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/invoice/InvoiceData.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/invoice/InvoiceData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/invoice/InvoiceItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/model/invoice/InvoiceItemData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinSkuPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/BinSkuPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelListingPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelListingPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ChannelPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/InventoryPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/InventoryPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderItemPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderItemPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/OrderPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ProductPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/ProductPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/UserPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/pojo/UserPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/util/csvParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/main/java/org/learning/assure/util/csvParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/BinControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/BinControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/BinSkuControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/BinSkuControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelListingControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ChannelListingControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/OrderControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/OrderControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/util/TestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/util/TestUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ProductControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/ProductControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assure/src/test/java/org/learning/assure/controller/UserControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/channel-app/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/channel-app/src/main/java/org/learning/channelapp/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/channel-app/src/test/java/org/learning/channelapp/AppTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,35 +144,41 @@
       <recent name="org.learning.assure.dto" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OrderControllerTest.createChannelOrderWithMissingFieldsTest">
-    <configuration name="OrderControllerTest.createChannelOrderWithInvalidChannelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Maven.Assure Jetty Run">
+    <configuration name="All in assure" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="PATTERN" value="org.hibernate.hql.internal.antlr.HqlTokenTypes" />
           <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
-      <option name="METHOD_NAME" value="createChannelOrderWithInvalidChannelTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderControllerTest.createChannelOrderWithInvalidClientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in assure" type="JUnit" factoryName="JUnit" temporary="true">
       <module name="assure" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.learning.assure.controller.*" />
+          <option name="PATTERN" value="org.hibernate.hql.internal.antlr.HqlTokenTypes" />
+          <option name="ENABLED" value="true" />
+          <option name="INCLUDE" value="false" />
+        </pattern>
+        <pattern>
+          <option name="PATTERN" value="org.learning.assure.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.learning.assure.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.learning.assure.controller.OrderControllerTest" />
-      <option name="METHOD_NAME" value="createChannelOrderWithInvalidClientTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -186,6 +231,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="asr cvrage" type="JUnit" factoryName="JUnit" temporary="true">
+      <module name="assure" />
+      <extension name="coverage" runner="jacoco" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Toy Assure" />
       <method v="2">
@@ -226,11 +282,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.asr cvrage" />
+        <item itemvalue="JUnit.All in assure" />
+        <item itemvalue="JUnit.All in assure" />
         <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithMissingFieldsTest" />
         <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithValidationFailsTest" />
-        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithInvalidChannelTest" />
-        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithInvalidCustomerTest" />
-        <item itemvalue="JUnit.OrderControllerTest.createChannelOrderWithInvalidClientTest" />
       </list>
     </recent_temporary>
   </component>
@@ -488,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675077282966</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Refactored Channel Orders &amp; related tests to accept JSON instead of CSV">
+      <created>1675245926744</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1675245926744</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -520,7 +583,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Channel Listing flow added" />
     <MESSAGE value="Internal Order creation added" />
     <MESSAGE value="Channel Order creation added" />
     <MESSAGE value="Added more order validations" />
@@ -545,7 +607,8 @@
     <MESSAGE value="Refactored exceptions to generate list of errors" />
     <MESSAGE value="Adding validations and refactoring" />
     <MESSAGE value="Adding get tests for products" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding get tests for products" />
+    <MESSAGE value="Refactored Channel Orders &amp; related tests to accept JSON instead of CSV" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored Channel Orders &amp; related tests to accept JSON instead of CSV" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -562,6 +625,12 @@
           <properties class="java.lang.ExceptionInInitializerError" package="java.lang" />
           <option name="timeStamp" value="133" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/assure/src/main/java/org/learning/assure/dao/BinDao.java</url>
+          <line>20</line>
+          <properties field="SELECT_BY_BINID" class="org.learning.assure.dao.BinDao" />
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -582,7 +651,7 @@
     <SUITE FILE_PATH="coverage/Toy_Assure$UserControllerTest_getUserTest.ic" NAME="UserControllerTest.getUserTest Coverage Results" MODIFIED="1674037813714" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.learning.assure.controller.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Toy_Assure$All_in_assure__1_.ic" NAME="All in assure (1) Coverage Results" MODIFIED="1674570213337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Toy_Assure$All_in_assure__1_.ic" NAME="All in assure (1) Coverage Results" MODIFIED="1675340197087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Toy_Assure$CoverageReportWithoutIntTokens.ic" NAME="CoverageReportWithoutIntTokens Coverage Results" MODIFIED="1674616795193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <EXCLUDED_FILTER>org.hibernate.hql.internal.antlr.HqlTokenTypes</EXCLUDED_FILTER>
     </SUITE>
@@ -600,6 +669,7 @@
     <SUITE FILE_PATH="coverage/Toy_Assure$ProductControllerTest_testGetAllProducts.ic" NAME="ProductControllerTest.testGetAllProducts Coverage Results" MODIFIED="1675077039390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.learning.assure.controller.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/Toy_Assure$asr_cvrage.exec" NAME="asr cvrage Coverage Results" MODIFIED="1675395097785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Toy_Assure$ProductControllerTest.ic" NAME="ProductControllerTest Coverage Results" MODIFIED="1675076687858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.learning.assure.controller.*</FILTER>
     </SUITE>
@@ -614,7 +684,9 @@
     <SUITE FILE_PATH="coverage/Toy_Assure$OrderControllerTest.ic" NAME="OrderControllerTest Coverage Results" MODIFIED="1675076673722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>org.learning.assure.controller.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Toy_Assure$All_in_assure.ic" NAME="All in assure Coverage Results" MODIFIED="1675010321041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Toy_Assure$util_in_assure.ic" NAME="util in assure Coverage Results" MODIFIED="1675062641961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Toy_Assure$All_in_assure.ic" NAME="All in assure Coverage Results" MODIFIED="1675394464034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <EXCLUDED_FILTER>org.hibernate.hql.internal.antlr.HqlTokenTypes</EXCLUDED_FILTER>
+    </SUITE>
   </component>
 </project>

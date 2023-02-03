@@ -13,7 +13,8 @@ import javax.persistence.*;
 public class InventoryPojo extends AbstractPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "inventory_generator")
+    @TableGenerator(name = "inventory_generator", initialValue = 100, allocationSize = 1)
     private Long inventoryId;
 
     private Long globalSkuId;

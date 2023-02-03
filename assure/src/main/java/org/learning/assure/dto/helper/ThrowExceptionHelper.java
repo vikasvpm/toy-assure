@@ -1,6 +1,6 @@
 package org.learning.assure.dto.helper;
 
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 
 import java.util.List;
 

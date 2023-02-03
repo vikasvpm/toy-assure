@@ -4,7 +4,7 @@ package org.learning.assure.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.learning.assure.dto.OrderDto;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 
 import org.learning.assure.pojo.OrderPojo;
 import org.learning.commons.model.OrderForm;

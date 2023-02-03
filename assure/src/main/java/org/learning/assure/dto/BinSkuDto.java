@@ -6,7 +6,7 @@ import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.dto.helper.BinSkuHelper;
 import org.learning.assure.dto.helper.InventoryHelper;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.BinSkuForm;
 import org.learning.assure.pojo.BinSkuPojo;
 import org.learning.assure.pojo.InventoryPojo;

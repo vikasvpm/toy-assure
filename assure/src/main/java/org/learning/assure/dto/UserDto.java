@@ -3,7 +3,7 @@ package org.learning.assure.dto;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.ThrowExceptionHelper;
 import org.learning.assure.dto.helper.UserHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,7 +7,7 @@ import org.learning.assure.api.*;
 import org.learning.assure.api.flow.AllocateOrderFlowApi;
 import org.learning.assure.api.flow.BinWiseInventoryFlowApi;
 import org.learning.assure.config.AbstractUnitTest;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.enums.OrderStatus;
 import org.learning.assure.pojo.*;
 import org.learning.assure.util.FileUtil;

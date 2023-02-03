@@ -21,8 +21,9 @@ public class BinSkuDao {
     public static final String SELECT_BY_GLOBALSKUID = "select b from BinSkuPojo b where globalSkuId=:globalSkuId";
 
     private static final String DELETE_BY_GLOBALSKUID = "delete from BinSkuPojo b where binSkuId=:binSkuId";
-    public void addBinSku(BinSkuPojo binSkuPojo) {
+    public BinSkuPojo addBinSku(BinSkuPojo binSkuPojo) {
         entityManager.persist(binSkuPojo);
+        return binSkuPojo;
     }
 
     @Transactional(readOnly = true)
