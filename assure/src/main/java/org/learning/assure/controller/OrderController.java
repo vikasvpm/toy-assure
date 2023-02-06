@@ -3,43 +3,53 @@ package org.learning.assure.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.nashorn.internal.ir.CallNode;
 import org.learning.assure.dto.OrderDto;
-import org.learning.assure.exception.ApiException;
-import org.learning.assure.model.form.ChannelOrderForm;
-import org.learning.assure.model.form.InternalOrderForm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.learning.commons.exception.ApiException;
 
-import javax.persistence.Version;
-import java.util.List;
+import org.learning.assure.pojo.OrderPojo;
+import org.learning.commons.model.OrderForm;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @Api
+@RequestMapping("/order")
 public class OrderController {
     @Autowired
     private OrderDto orderDto;
-    @PostMapping(path = "order/internal")
+    @PostMapping(path = "/internal")
     @ApiOperation(value = "Create Internal Order")
-    public void createInternalOrder(
-            @RequestBody List<InternalOrderForm> internalOrderFormList, @RequestParam Long clientId,
-            @RequestParam String channelOrderId, @RequestParam Long customerId) throws ApiException {
-        orderDto.createInternalOrder(internalOrderFormList, clientId, channelOrderId, customerId);
+    public OrderPojo createInternalOrder(
+            @RequestBody MultipartFile internalOrderCsv, @RequestParam Long clientId,
+            @RequestParam String channelOrderId, @RequestParam Long customerId) throws ApiException, IOException {
+        return orderDto.createInternalOrder(internalOrderCsv, clientId, channelOrderId, customerId);
 
     }
 
-    @PostMapping(path = "order/channel")
+    @PostMapping(path = "/channel")
     @ApiOperation(value = "Create Channel Order")
-    public void createChannelOrder(@RequestBody List<ChannelOrderForm> channelOrderFormList, @RequestParam Long clientId,
-                                   @RequestParam String channelOrderId, @RequestParam Long customerId,
-                                   @RequestParam String channelName) throws ApiException {
-        orderDto.createChannelOrder(channelOrderFormList, clientId, channelOrderId, customerId, channelName);
+    public OrderPojo createChannelOrder(@RequestBody OrderForm orderForm) throws ApiException, IOException {
+        return orderDto.createChannelOrder(orderForm);
+
     }
 
+    @PostMapping(path = "/allocate")
+    @ApiOperation(value ="Allocate any created order")
+    public OrderPojo allocateOrder(@RequestParam Long orderId) throws ApiException {
+        return orderDto.allocateOrder(orderId);
 
+    }
+
+    @PostMapping(path = "/fulfill")
+    @ApiOperation(value = "Fulfill any allocated order")
+    public OrderPojo fulfillOrder(@RequestParam Long orderId, HttpServletResponse response) throws ApiException {
+        return orderDto.fulfillOrder(orderId, response);
+    }
 
 
 }

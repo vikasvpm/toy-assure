@@ -1,7 +1,8 @@
 package org.learning.assure.dto.helper;
 
-import lombok.Data;
-import org.learning.assure.model.form.ChannelOrderForm;
+import lombok.Getter;
+import lombok.Setter;
+import org.learning.commons.model.ChannelOrderForm;
 import org.learning.assure.model.form.InternalOrderForm;
 import org.learning.assure.pojo.OrderItemPojo;
 import org.learning.assure.pojo.OrderPojo;
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 public class OrderHelper {
 
     public static OrderPojo convertToInternalOrder(String channelOrderId, Long clientId, Long customerId) {
@@ -24,11 +26,10 @@ public class OrderHelper {
         return orderPojo;
     }
 
-    public static List<OrderItemPojo> convertToInternalOrderItemList(Long orderId, List<InternalOrderForm> internalOrderFormList, Map<String, Long> map) {
+    public static List<OrderItemPojo> convertToInternalOrderItemList(List<InternalOrderForm> internalOrderFormList, Map<String, Long> map) {
         List<OrderItemPojo> orderItemPojoList = new ArrayList<>();
         for(InternalOrderForm internalOrderForm : internalOrderFormList) {
             OrderItemPojo orderItemPojo = new OrderItemPojo();
-            orderItemPojo.setOrderId(orderId);
             orderItemPojo.setOrderedQuantity(internalOrderForm.getOrderedQuantity());
             orderItemPojo.setSellingPricePerUnit(internalOrderForm.getSellingPricePerUnit());
             orderItemPojo.setGlobalSkuId(map.get(internalOrderForm.getClientSkuId()));
@@ -39,7 +40,7 @@ public class OrderHelper {
         return orderItemPojoList;
     }
 
-    public static OrderPojo createChannelOrder(Long channelId, Long clientId, Long customerId, String channelOrderId) {
+    public static OrderPojo convertToChannelOrder(Long channelId, Long clientId, Long customerId, String channelOrderId) {
         OrderPojo orderPojo = new OrderPojo();
         orderPojo.setClientId(clientId);
         orderPojo.setCustomerId(customerId);
@@ -49,11 +50,10 @@ public class OrderHelper {
         return orderPojo;
     }
 
-    public static List<OrderItemPojo> createChannelOrderItem(Long orderId, Map<String, Long> map, List<ChannelOrderForm> channelOrderFormList) {
+    public static List<OrderItemPojo> convertToChannelOrderItem(Map<String, Long> map, List<ChannelOrderForm> channelOrderFormList) {
         List<OrderItemPojo> orderItemPojoList = new ArrayList<>();
         for(ChannelOrderForm channelOrderForm : channelOrderFormList) {
             OrderItemPojo orderItemPojo = new OrderItemPojo();
-            orderItemPojo.setOrderId(orderId);
             orderItemPojo.setOrderedQuantity(channelOrderForm.getOrderedQuantity());
             orderItemPojo.setSellingPricePerUnit(channelOrderForm.getSellingPricePerUnit());
             orderItemPojo.setGlobalSkuId(map.get(channelOrderForm.getChannelSkuId()));

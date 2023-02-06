@@ -1,10 +1,17 @@
 package org.learning.assure.model.form;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.learning.assure.model.enums.InvoiceType;
 
-@Data
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Getter
+@Setter
 public class ChannelForm {
+
     private String name;
+
     private InvoiceType invoiceType;
 }

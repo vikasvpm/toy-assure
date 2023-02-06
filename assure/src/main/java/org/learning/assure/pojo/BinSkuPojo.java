@@ -1,20 +1,19 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class BinSkuPojo extends AbstractPojo{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "binsku_generator")
+    @TableGenerator(name = "binsku_generator", initialValue = 100, allocationSize = 1)
     private Long binSkuId;
     private Long binId;
     private Long globalSkuId;

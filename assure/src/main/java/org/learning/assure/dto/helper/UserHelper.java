@@ -3,6 +3,7 @@ package org.learning.assure.dto.helper;
 import org.learning.assure.model.form.UserForm;
 import org.learning.assure.pojo.UserPojo;
 
+
 public class UserHelper {
     public static UserPojo convert(UserForm userForm) {
         UserPojo userPojo = new UserPojo();
@@ -10,4 +11,5 @@ public class UserHelper {
         userPojo.setName(userForm.getName());
         return userPojo;
     }
+
 }

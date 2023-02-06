@@ -1,23 +1,22 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.learning.assure.model.enums.InvoiceType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
-@NoArgsConstructor
 public class ChannelPojo extends AbstractPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "channel_generator")
+    @TableGenerator(name = "channel_generator", initialValue = 100, allocationSize = 1)
     private Long channelId;
     private String name;
-
+    @Enumerated(EnumType.STRING)
     private InvoiceType invoiceType;
 }

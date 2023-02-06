@@ -4,16 +4,24 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.dto.ProductDto;
-import org.learning.assure.exception.ApiException;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.List;
 
 @Api
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
     @Autowired
@@ -22,19 +30,12 @@ public class ProductController {
     @Autowired
     private ProductDto productDto;
 
-    @PostMapping(path = "/product/{clientId}")
-    @ApiOperation(value = "Create a product")
-    public void addProducts(@RequestBody List<ProductForm> productFormList, @PathVariable Long clientId) throws ApiException {
-        productDto.addProducts(productFormList, clientId);
-    }
+    @PostMapping(path = "")
+    @ApiOperation(value = " Add products")
+    public List<ProductPojo> addProducts(@NotNull(message = "CSV file can not be null") @RequestBody MultipartFile productCsvFile,@RequestParam Long clientId) throws ApiException, IOException {
+        return productDto.addProducts(productCsvFile, clientId);
 
-    @PutMapping(path = "/product/{clientId}")
-    @ApiOperation(value = "Create products in batch")
-    public void updateProduct(@RequestBody ProductForm productForm, @PathVariable Long clientId) throws ApiException {
-        productDto.updateProduct(productForm, clientId);
     }
-    // TODO : Get Product data instead of pojo
-    // TODO : Add updation logic in the CSV upload only
 
     @GetMapping(path = "/product/{id}")
     @ApiOperation(value = "Get Product by Global SKU ID")
@@ -42,16 +43,10 @@ public class ProductController {
         return productApi.getProductByGlobalSkuId(id);
     }
 
-    @GetMapping(path = "/product")
+    @GetMapping(path = "")
     @ApiOperation(value = "Get all Products")
     public List<ProductPojo> getAllProducts() {
         return productDto.getAllProducts();
-    }
-
-    @DeleteMapping(path = "/product/{id}")
-    @ApiOperation(value = "Delete product by Global SKU ID")
-    public void deleteProductByGlobalSkuId(@PathVariable Long id) {
-        productDto.deleteProduct(id);
     }
 
 

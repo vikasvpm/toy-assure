@@ -1,17 +1,21 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-public class ProductPojo extends AbstractPojo {
+@Getter
+@Setter
+ public class ProductPojo extends AbstractPojo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "product_generator")
+    @TableGenerator(name = "product_generator", initialValue = 1000, allocationSize = 1)
     private Long globalSkuId;
     private String clientSkuId;
     private Long clientId;

@@ -1,12 +1,14 @@
 package org.learning.assure.api;
 
 import org.learning.assure.dao.InventoryDao;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.pojo.InventoryPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -18,7 +20,7 @@ public class InventoryApi {
     public void addInventory(List<InventoryPojo> inventoryPojoList) {
         for(InventoryPojo inventoryPojo : inventoryPojoList) {
             InventoryPojo exists = getByGlobalSkuId(inventoryPojo.getGlobalSkuId());
-            if(exists == null) {
+            if(Objects.isNull(exists)) {
                 inventoryDao.addInventory(inventoryPojo);
             }
             else {
@@ -27,7 +29,8 @@ public class InventoryApi {
         }
     }
 
-    private InventoryPojo getByGlobalSkuId(Long globalSkuId) {
+    @Transactional(readOnly = true)
+    public InventoryPojo getByGlobalSkuId(Long globalSkuId) {
         return inventoryDao.getByGlobalSkuId(globalSkuId);
     }
 }

@@ -1,25 +1,25 @@
 package org.learning.assure.pojo;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.learning.assure.model.enums.OrderStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
-@NoArgsConstructor
 public class OrderPojo extends AbstractPojo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "order_generator")
+    @TableGenerator(name = "order_generator", initialValue = 10000, allocationSize = 1)
     private Long orderId;
     private Long clientId;
     private Long customerId;
     private Long channelId;
     private String channelOrderId;
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
 

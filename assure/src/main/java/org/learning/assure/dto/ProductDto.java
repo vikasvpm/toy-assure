@@ -1,19 +1,22 @@
 package org.learning.assure.dto;
 
 
+import org.apache.commons.io.FilenameUtils;
 import org.learning.assure.api.ProductApi;
 import org.learning.assure.api.UserApi;
 import org.learning.assure.dto.helper.ProductHelper;
-import org.learning.assure.exception.ApiException;
+import org.learning.assure.dto.helper.ThrowExceptionHelper;
+import org.learning.commons.exception.ApiException;
 import org.learning.assure.model.form.ProductForm;
 import org.learning.assure.pojo.ProductPojo;
+import org.learning.assure.util.csvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 @Transactional
@@ -25,52 +28,42 @@ public class ProductDto {
     private UserApi userApi;
 
 
-    public void deleteProduct(Long id) {
-        productApi.deleteProduct(id); //Add validation to check if exists
-    }
-
     public List<ProductPojo> getAllProducts() {
         return productApi.getAllProducts();
     }
 
-    public void addProducts(List<ProductForm> productFormList, Long clientId) throws ApiException {
-
+    public List<ProductPojo> addProducts(MultipartFile productCsvFile, Long clientId) throws ApiException, IOException {
         validateForClientId(clientId);
-        validateForDuplicate(productFormList, clientId);
+        List<ProductForm> productFormList = parseCSV(productCsvFile);
+        List<String> errorList = new ArrayList<>();
+        validateForDuplicate(productFormList, clientId, errorList);
         List<ProductPojo> productPojoList = ProductHelper.convertListOfProductFormToListOfProductPojo(productFormList, clientId);
-        productApi.addProducts(productPojoList);
+        return productApi.addProducts(productPojoList);
     }
 
-    public void updateProduct(ProductForm productForm, Long clientId) throws ApiException {
-        validateForClientId(clientId);
-        productApi.updateProduct(productForm, clientId);
-
+    private List<ProductForm> parseCSV(MultipartFile csvFile) throws IOException, ApiException {
+        if (!FilenameUtils.isExtension(csvFile.getOriginalFilename(), "csv")) {
+            throw new ApiException("Input file is not a valid CSV file");
+        }
+        List<ProductForm> productFormList = null;
+        productFormList = csvParser.parseCSV(csvFile.getBytes(), ProductForm.class);
+        return productFormList;
     }
 
-    private void validateForDuplicate(List<ProductForm> productFormList, Long clientId) {
+    private void validateForDuplicate(List<ProductForm> productFormList, Long clientId,List<String> errorList) throws ApiException {
         Set<String> clientSkuIdSet = new HashSet<>();
-        productFormList.stream().map(ProductForm :: getClientSkuId)
-                .forEach(clientSkuId -> {
-                    if(clientSkuIdSet.contains(clientSkuId)) {
-                        try {
-                            throw new ApiException("Duplicate Client SKUs in the upload");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    clientSkuIdSet.add(clientSkuId);
-                    if(productApi.getProductByClientIdAndClientSkuId(clientId, clientSkuId) != null) {
-                        try {
-                            throw new ApiException("This record already exists in System");
-                        } catch (ApiException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-
+        for(ProductForm productForm : productFormList) {
+            if(clientSkuIdSet.contains(productForm.getClientSkuId())) {
+                errorList.add("Duplicate Client SKU " + productForm.getClientSkuId() + " in the upload");
+            }
+            clientSkuIdSet.add(productForm.getClientSkuId());
+        }
+        ThrowExceptionHelper.throwIfErrors(errorList);
     }
-
     private void validateForClientId(Long clientId) throws ApiException {
+        if(Objects.isNull(clientId)) {
+            throw new ApiException("Client ID can not be null");
+        }
         userApi.invalidClientCheck(clientId);
     }
 

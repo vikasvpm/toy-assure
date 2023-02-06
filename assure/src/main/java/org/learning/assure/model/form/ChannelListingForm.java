@@ -1,11 +1,16 @@
 package org.learning.assure.model.form;
 
-import lombok.Data;
+import com.opencsv.bean.CsvBindByPosition;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ChannelListingForm {
 
-    private Long globalSkuId;
-    // TODO : Take clientSkuId here and then fetch globalSkuId from that
+    @CsvBindByPosition(position = 0, required = true)
+    private String clientSkuId;
+
+    @CsvBindByPosition(position = 1, required = true)
     private String channelSkuId;
 }
